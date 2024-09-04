@@ -5,4 +5,4 @@ These are the slides from a seminar on administrative data. It's focused more on
 - Important things to be mindful of when using admin data
 - What is data linkage
 
-The video recording of the seminar is available on YouTube: 
+The video recording of the seminar is available on YouTube: [https://youtu.be/n3xavdkEta4](https://youtu.be/n3xavdkEta4)
