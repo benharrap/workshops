@@ -1,0 +1,363 @@
+---
+title: "Introduction to Administrative Data"
+author: "Ben Harrap"
+date: "2024-09-05"
+format:
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    chalkboard: true
+    auto-stretch: false
+    html-math-method: katex
+    self-contained: false
+---
+
+## What is administrative data?
+
+```{r}
+#| echo: false
+#| include: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(countdown)
+```
+
+Information collected as part of the operation or administration of a program or service.
+
+-   Collected by government departments, businesses, other organisations
+-   Typically used for reporting, monitoring, and evaluation
+-   Not collected with research as the primary focus
+
+For example:
+
+-   Visits to healthcare services (hospital, general practice)
+-   Government services (Centrelink, Medicare)
+-   Business records (sales, costs, number of employees)
+-   Schools (pupils, educational outcomes, demographics)
+
+::: notes
+Any organisation that collects data as part of its operations would have administrative data.
+:::
+
+## Hospital visits
+
+Each visit to a hospital typically generates a record with:
+
+-   Date of admission
+-   Date of discharge
+-   Diagnosis
+-   Hospital identifier
+-   Patient identifier
+
+## Hospital visits
+
+```{r}
+#| include: false
+#| echo: false
+
+tab1 <- tibble(
+  hosp_id = c("CF22","CF22","AN15","AN15","AN15"),
+  pat_id = c("U1518528","U1518528","U1216644","U1216644","U1216644"),
+  adm = c("2021-04-02","2022-05-21","2023-12-04","2023-11-16","2023-12-17"),
+  sep = c("2021-04-02","2022-05-24","2023-12-05","2023-11-17","2023-12-20"),
+  diag = c("S00.3","K70.3","B78.0","L20.8","L20.8")
+)
+```
+
+```{r}
+kable(tab1) |> 
+  row_spec(seq(1,nrow(tab1),2), background = "#f5edde")
+```
+
+::: notes
+In this example we have patient-level data for the variables on the previous slide. You can see that the hospital and patient IDs are not identifiable, which is common for administrative data provided for research purposes. The admission and separation dates could be used to identify periods of care.
+:::
+
+## Australia's visa program
+
+The Department of Home Affairs provide data on:
+
+-   Visa type granted
+-   Year visa granted
+-   Occupation of applicant
+-   Applicant country of citizenship
+-   Applicant gender
+-   Applicant age
+
+## Australia's visa program
+
+![](img/visa.PNG)
+
+## Where can you find administrative data?
+
+Several places to consider looking
+
+-   data.gov.au
+-   Government reports
+-   NGOs and peak bodies
+-   Australian Bureau of Statistics
+    -   Tablebuilder
+    -   Microdata
+    -   DataLab
+
+::: notes
+data.gov.au is the main place to look for open government data and contains anonymised public data. There's a huge number of datasets available across national, state/territory, and local government agencies.
+
+A good example of government reporting that comes with data is the Australian Institute of Health and Welfare, who typically provide data along with their reports.
+
+NGOs and peak bodies might have datasets they publish and their annual reports occasionally contain data that can be used as well. Annual report data can be a bit of a pain to extract sometimes.
+:::
+
+## data.gov.au
+
+![](img/datagov.PNG)
+
+[https://data.gov.au/home](https://data.gov.au/home){target="_blank"}
+
+## Australian Institute of Health and Welfare
+
+![](img/aihw.PNG)
+
+[https://www.aihw.gov.au/reports-data](https://www.aihw.gov.au/reports-data){target="_blank"}
+
+## Annual reports
+
+![An excerpt from the Australian Medical Council's 2023 annual report](img/amcreport.PNG)
+
+::: notes
+One other place you can look for data is in annual reports. Sometimes organisations will publish data tables in the appendices of their annual reports. These data often need more work to extract as the underlying tables might not be published as stand-alone spreadsheets.
+:::
+
+# Working with admin data
+
+## Questions to consider
+
+-   What do the variables represent?
+    -   i.e. do the measure what you think they measure.
+-   How were they collected?
+    -   Who does the data entry, how might this affect the data.
+-   Who is represented in the data?
+    -   Is it representative of your target population?
+-   What are the contexts affect the data?
+    -   Policy, legislation, other changes over time.
+
+::: notes
+It's important consider what the data you're working with actually represent, as there are often nuances to the data that mean certain variables don't represent exactly what you think they do. An example of this, drawing on my PhD research on the child protection system, is a variable that reports the type of maltreatment experienced by a child. The variable only reports one type of maltreatment when in reality there could be multiple, therefore it doesn't completely represent the type(s) of maltreatment being experienced, only the one that the staff member entering the details into the system considered to be the primary concern.
+
+Thinking about how data were collected is important too. It's well established that Indigenous people's propensity to self-report their Indigenous status varies across datasets. For example, in hospital settings, fear of racism and discrimination leading to poor healthcare means that Indigenous status in hospital records is not a very reliable way of identifying Indigenous people. Another example is the difference between hospital records and emergency department records - the people who do the data entry differs. For hospital records, it's clinical coders who are trained to translate medical record notes into ICD diagnoses, meanwhile the emergency department records are entered by clinicians.
+
+Who is represented in the data is also important to consider. When analysing hospital data, for example, it's important to check the scope of who is included. For example, in my work examining the child protection system the data only represents children placed in care via the legislative structures that govern the child protection system. Some children are 'informally' placed in out-of-home care, where there is an informal agreement on care of a child is made with another individual, like a grandparent. These instances are not represented in the data because they are not the result of an administrative process, thus it's not possible to answer questions about all children in out-of-home care, only those in formal placements in out-of-home care.
+
+Hopefully you already have some idea about the context of the dataset, such as legislation, policy, etc. Especially for government data, understanding the legislative and policy contexts are extremely important for working with data as changes to policy and legislation can lead to drastic changes in what is recorded and trends in the data you work with.
+:::
+
+## Data context
+
+![](img/bilson2017fig2.png)
+
+::: {style="font-size: 50%"}
+Bilson, A., Cant, R.L., Harries, M. and Thorpe, D.H., 2017. Accounting for the increase of children in care in Western Australia: What can a client information system tell us?. Child Abuse & Neglect, 72, pp.291-300.
+:::
+
+## Data dictionary
+
+Describes the data contained within a dataset, such as:
+
+-   Variable names
+-   Descriptions
+-   Values they can take on
+-   Other things to note
+
+If a dataset does not have a data dictionary, consider reaching out to the custodian if something is not clear.
+
+[Example](https://www.datalinkageservices.health.wa.gov.au/data/dataset-information/){target="_blank"}
+
+::: notes
+The variable name should be both the name of the actual variable, such as `indigenous_status`, as well as a human-readable name. Sometimes these are the same, however in the case of large datasets you may be presented with variables with names like aach_2a, in which case the data dictionary will be needed to understand what it is.
+
+Data custodians are often best positioned to provide more information on the dataset you are working with. If you aren't able to contact the data custodian, consider asking other researchers who have worked with the dataset.
+:::
+
+## Analysing administrative data
+
+Consider using software that lets you write code:
+
+-   R
+-   Python
+-   Stata
+-   (Excel)
+
+Avoid using point-and-click software where possible.
+
+::: notes
+This is more of a recommendation but if you can take the time to learn a programming language it has several benefits. The biggest benefit is that your work will be reproducible. Working with administrative data can require a lot of data cleaning before you even get to your analysis. By writing code to do the data cleaning you are able to go back and audit your work to see where you might have made errors, plus it makes them easier to fix when you do find them.
+
+Using software that lets you write code will be especially important if you plan on working with linked data, as the analysis of linked data is made considerably easier if you can code.
+:::
+
+# Data linkage
+
+## What is it
+
+The linking of individuals or other units across administrative datasets.
+
+For individual-level data, typically handled by data linkage units:
+
+-   Using identifiable information to perform linkages
+-   Create de-identified datasets for users
+-   Manage relationships with data custodians
+
+In the case of person-level linkages, most data linkage units use probabilistic linkage methods which:
+
+-   Use identifying information (e.g. name, date of birth, address)
+-   Compare these bits of information across datasets
+-   Use an algorithm to determine the probability that two records belong to the same person
+
+::: notes
+Anyone can set up linkages between datasets if you have access to unit-record data. For example, if you had multiple years' worth of business records you could link the datasets together using ABN as an identifier.
+:::
+
+## How data linkage works
+
+```{r}
+#| include: false
+#| echo: false
+
+id1 <- tibble(
+  first_name = c("Tom","Richard","Samantha"),
+  last_name = c("Smith","Jones","Brown"),
+  dob = c("01-04-2002","24-09-1967","18-12-1993")
+)
+
+id2 <- tibble(
+  first_name = c("Thomas","Richard","Samantha"),
+  last_name = c("Smith","Jones","Williams"),
+  dob = c("01-04-2002","24-09-1967","14-04-1981")
+)
+```
+
+::: columns
+::: {.column width="50%"}
+Birth records
+
+```{r}
+kable(id1) |>
+  row_spec(seq(1, nrow(id1), 2), background = "#f5edde")
+```
+:::
+
+::: {.column width="50%"}
+Tax records
+
+```{r}
+kable(id2) |>
+  row_spec(seq(1, nrow(id2), 2), background = "#f5edde")
+```
+:::
+:::
+
+::: notes
+This linkage process typically involves human-review where the probability that two records belong to the same person is in a certain range (i.e. not high enough to make the link automatically, but high enough to warrant further consideration by a human).
+
+There are some important characteristics of data linkages to be mindful of:
+
+-   Because the linkages are probabilistic it means they may contain errors. The magnitude of these errors varies and may or may not be reported.
+:::
+
+## Who provide linked data
+
+States and territories:
+
+-   [Centre for Health Record Linkage (NSW)](https://www.cherel.org.au/)
+-   [Data Linkage Queensland](https://www.health.qld.gov.au/hsu/link/datalink)
+-   [SA-NT DataLink](https://www.santdatalink.org.au/)
+-   [Tasmanian Data Linkage Unit](https://www.menzies.utas.edu.au/research/research-centres/data-linkage-unit)
+-   [Centre for Victorian Data Linkage](https://vahi.vic.gov.au/ourwork/data-linkage)
+-   [Data Linkage Services WA](https://www.datalinkageservices.health.wa.gov.au/)
+-   [People WA](https://www.wa.gov.au/organisation/department-of-the-premier-and-cabinet/office-of-digital-government/applying-peoplewa-data)
+
+## Who provide linked data
+
+National:
+
+-   [Australian Institute of Health and Welfare](https://www.aihw.gov.au/our-services/data-linkage)
+-   [Australian Bureau of Statistics (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida)
+
+## Accessing linked data
+
+Requires an application process
+
+-   Takes a long time
+-   Typically requires several consultations
+-   Can be costly, depending on the provider
+
+# Working with linked data
+
+Same principles as working with individual datasets apply:
+
+-   What is being represented in the data
+-   Who is represented
+-   How are the variables measured
+-   What are the contexts that led to the data collection?
+
+Also need to consider:
+
+-   Jurisdictional limitations
+-   Linkage quality
+-   Data custodian review process
+-   Data availability/open access
+-   Joining datasets together
+
+::: notes
+When you are working with linked data, the custodians of the dataset (i.e. the organisations that provide them) usually require that you provide your proposed output for review before you can present your work to people outside of your research team
+:::
+
+## Joining datasets {.smaller}
+
+```{r}
+#| include: false
+#| echo: false
+
+tab2 <- tibble(
+  hosp_id = c("CF22","CF22","CF22","CF22","AN15"),
+  pat_id = c("U1518528","U1518528","U1518528","U1518528","U1216644"),
+  adm = c("2020-02-15","2021-09-12","2022-11-20","2023-01-01","2023-12-16"),
+  sep = c("2020-02-15","2021-09-12","2022-11-21","2023-01-01","2023-12-16"),
+  diag = c("H65.0","K02.1","E11.0","E71.0","L20.8")
+)
+```
+
+::: columns
+::: {.column width="50%"}
+Hospital admissions
+
+```{r}
+kable(tab1) |>
+  row_spec(seq(1, nrow(tab2), 2), background = "#f5edde")
+```
+:::
+
+::: {.column width="50%"}
+Emergency department admissions
+
+```{r}
+kable(tab2) |>
+  row_spec(seq(1, nrow(tab2), 2), background = "#f5edde")
+```
+:::
+:::
+
+## Wrap up
+
+If you have any queries send me an email: [benjamin.harrap\@anu.edu.au](mailto:benjamin.harrap@anu.edu.au)
+<br />
+<br />
+Further reading:
+
+-   [Challenges in administrative data linkage for research](https://journals.sagepub.com/doi/full/10.1177/2053951717745678) by Harron et al.
+-   [Hope, hype and harms of Big Data](https://onlinelibrary.wiley.com/doi/full/10.1111/imj.14172) by Scott.
+-   [Data Quality in Electronic Health Records Research: Quality Domains and Assessment Methods](https://pubmed.ncbi.nlm.nih.gov/28322657/) by Feder.
