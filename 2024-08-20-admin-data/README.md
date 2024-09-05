@@ -1,4 +1,4 @@
-These are the slides from a seminar on administrative data. It's focused more on the practicalities of working with administrative data, including:
+For the slides from the seminar on administrative data, see [https://benharrap.github.io/workshops/2024-08-20-admin-data/slides.html#/title-slide](https://benharrap.github.io/workshops/2024-08-20-admin-data/slides.html#/title-slide). It's focused more on the practicalities of working with administrative data, including:
 
 - What is administrative data
 - Where to find it (in the Australian context)
