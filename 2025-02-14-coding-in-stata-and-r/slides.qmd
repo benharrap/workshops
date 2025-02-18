@@ -1,0 +1,717 @@
+---
+title: "Coding"
+subtitle: "(in Stata and R)"
+author: "Ben Harrap"
+date: "2025-02-14"
+format: 
+  revealjs:
+    logo: img/logo.png
+    css: custom.css
+    width: 1920
+    height: 1080
+link-external-newwindow: true
+execute:
+  code-copy: true
+  echo: true
+  warning: false
+  message: false
+footer: 'Slides available from [https://benharrap.github.io/workshops/2025-02-14-coding-in-stata-and-r/slides.html](https://benharrap.github.io/workshops/2025-02-14-coding-in-stata-and-r/slides.html)'
+embed-resources: true
+---
+
+## Overview {.vine}
+
+In this session we'll cover:
+
+-   R fundamentals
+-   Common coding tasks
+    -   Concept
+    -   Data
+    -   Code (Stata and R)
+
+# R fundamentals
+
+## R and RStudio
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+R is the language that the code is written in.
+
+RStudio is the IDE many people use to write R code in.
+
+At a minimum you need to install R ([r-project.org](https://www.r-project.org/))
+
+IDE options include:
+
+-   RStudio ([posit.co/products/open-source/rstudio](https://posit.co/products/open-source/rstudio/))
+-   Positron ([positron.posit.co](https://positron.posit.co/))
+-   VS Code ([code.visualstudio.com](https://code.visualstudio.com/))
+
+:::
+
+::: {.column width="50%"}
+![A screenshot of the RStudio IDE. Source: Posit](https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg)
+:::
+
+::::
+
+## Packages
+
+One of the greatest strengths of R is that it is open-source and there are an enormous number of packages available.
+
+A package is a collection of functions usually written around a particular goal or task.
+
+Packages I recommend:
+
+-   `tidyverse` which includes:
+    -   `dplyr` for data manipulation
+    -   `ggplot2` for data visualisation
+    -   `stringr` for working with text data
+    -   `lubridate` for working with dates
+-   `janitor` which has many useful cleaning tools
+-   `haven` for reading Stata files
+
+## Packages
+
+First you need to install packages:
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+```
+
+Then you need to load them into your session using `library()`:
+
+```{r}
+library(tidyverse) # Imports lots of useful packages
+library(haven) # For reading Stata files (and SPSS and more)
+library(janitor) # Handy cleaning functions
+library(gt) # For nice tables
+```
+
+## Assignment
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+In Stata, you load one dataset and all commands are executed in relation to the currently loaded dataset.
+
+In R, the default is for commands to output their result in the console.
+
+This means you need to assign the output of your commands to something if you want to store it.
+
+:::
+
+::: {.column width="50%"}
+
+![A screenshot of the RStudio IDE. Source: Posit](https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg)
+
+:::
+
+::::
+
+## Assignment
+
+If we read in a dataset without assigning anything, it just gets displayed:
+
+```{r}
+#| output: true
+read_dta("data/auto.dta")
+```
+
+Instead we have to give it a name and assign to the environment:
+
+```{r}
+data <- read_dta("data/auto.dta")
+```
+
+## Multiple datasets
+
+Being able to have many things assigned in the environment at once opens up many possibilities:
+
+-   Working on multiple datasets simultaneously
+    -   Easier than working with Stata's `frame`
+-   Creating subsets of data
+    -   More powerful version of Stata's `preserve` and `restore`
+-   Outputs from multiple analyses are readily available
+    -   Model results, data visualisations
+
+## Pipes
+
+In Stata, you write lines of code that get executed one after the other, individually and sequentially.
+
+```{r}
+#| eval: false
+sysuse auto
+drop if foreign == 1
+gen wgt_len_ratio = weight/length
+gen brand = substr(make, 1, ustrpos(make, " ")-1)
+sort brand
+by brand: summarize wgt_len_ratio
+```
+
+In R, you can create pipelines using pipes (`|>`) to link functions together and avoid having to repeatedly refer to the data you want to work with.
+
+## Pipes
+
+:::: {.columns}
+
+::: {.column .full-length-code width="50%" .fragment}
+
+### Without pipes
+
+```{r}
+#| eval: false
+auto <- read_dta("/Applications/Stata/auto.dta")
+auto <- filter(auto, foreign == 0)
+auto <- mutate(auto,
+               wgt_len_ratio = weight / length,
+               brand = str_extract(make, "\\w+"))
+summarise(auto,
+          n = n(),
+          mean = mean(wgt_len_ratio),
+          sd = sd(wgt_len_ratio),
+          .by = brand)
+```
+
+:::
+
+::: {.column .full-length-code width="50%" .fragment}
+
+### With pipes
+
+```{r}
+#| eval: false
+auto <- read_dta("/Applications/Stata/auto.dta")
+auto |>
+  filter(foreign == 0) |>
+  mutate(wgt_len_ratio = weight / length,
+         brand = str_extract(make, "\\w+")) |>
+  summarise(
+    n = n(),
+    mean = mean(wgt_len_ratio),
+    sd = sd(wgt_len_ratio),
+    .by = brand)
+```
+
+:::
+
+::::
+
+# First step: Get the data
+
+## Reading in a data file
+
+The data you want to work with is contained in a file located somewhere.
+
+To start using the data you need to consider:
+
+-   The location of the file
+    -   Is the data on your computer? A shared drive? An online location?
+    -   Are you using the absolute or relative pathway?
+    -   How are others going to run your code?
+-   The format of the file (`.dta`,`.xlsx`,`.csv`,`.txt`,`.SAV`)
+
+## A note on folder structure
+
+Relative vs. absolute directories
+
+-   `Users/Ben/Documents/GitHub/workshops/2025-02-14-coding-in-stata-and-r/data/auto.dta`
+-   `./data/auto.dta`
+
+Network locations, root location different according to machine type.
+
+Generally speaking, avoid using absolute pathways when possible.
+
+Navigate to other directories from the current working directory using `..` to go 'up' a folder:
+
+-   `../2024-08-20-admin-data/img/aihw.PNG`
+
+## A note on directories
+
+In Stata you would set your working directory using `cd`, such as
+
+```{r}
+#| eval: false
+cd "/Users/ben/Documents/GitHub/workshops/2025-02-14-coding-in-stata-and-r"
+```
+
+In R you can use `setwd()` to set your working directory
+
+```{r}
+#| eval: false
+setwd("/Users/ben/Documents/GitHub/workshops/2025-02-14-coding-in-stata-and-r")
+```
+
+Alternatively, use R projects (`.Rproj`)
+
+```
+- 2025-02-14-coding-in-stata-and-r
+  - _brand.yml
+  - 2025-02-14-coding-in-stata-and-r.Rproj
+  - slides.html
+  - slides.qmd
+  - data
+  - img
+```
+
+## Reading in a data file
+
+::: {.panel-tabset}
+
+### Stata
+
+For a file in the same location as the current working directory:
+
+```{r}
+#| eval: false
+use auto
+```
+
+For a file that is in another folder:
+
+```{r}
+#| eval: false
+use "data/auto.dta"
+```
+
+For a file that is online:
+
+```{r}
+#| eval: false
+import delimited "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/refs/heads/main/inst/extdata/penguins_raw.csv"
+```
+
+### R
+
+For a file in the same location as the current working directory:
+
+```{r}
+#| eval: false
+data <- read_dta("auto.dta")
+```
+
+For a file that is in another folder:
+
+```{r}
+#| eval: false
+data <- read_dta("data/auto.dta")
+```
+
+For a file that is online:
+
+```{r}
+#| output: false
+data <- read_csv("https://raw.githubusercontent.com/allisonhorst/palmerpenguins/refs/heads/main/inst/extdata/penguins_raw.csv")
+```
+
+:::
+
+## Overview of the data
+
+Raw data containing observations of three different types of penguins, made available through [https://allisonhorst.github.io/palmerpenguins/](https://allisonhorst.github.io/palmerpenguins/)
+
+```{r}
+gt(data |> slice_sample(n = 10))
+```
+
+# Second step: Prepare the data
+
+## Renaming variables
+
+Variables might be imported with difficult to work with names, so we want to rename them
+
+```{r}
+head(data)
+```
+
+Stata automatically renames variables that contain spaces and other invalid characters, R does not.
+
+## Renaming variables
+
+::: {.panel-tabset}
+
+### Stata
+
+In Stata, the old name comes first, the new name comes second
+
+```{r}
+#| eval: false
+rename studyName study_name
+rename Species species
+```
+
+Like saying "this old name becomes this new name"
+
+### R
+
+In `dplyr`, the new name comes first, the old name comes second
+
+```{r}
+#| eval: false
+data |> 
+  rename(
+    study_name = studyName,
+    species = Species
+  )
+```
+
+Like saying "this new name is the same as this old name"
+
+:::
+
+## Renaming variables
+
+The `janitor` package contains a handy function called `clean_names()`:
+
+:::: {.columns}
+
+::: {.column .full-length-code width="50%"}
+
+```{r}
+names(data)
+```
+
+:::
+
+::: {.column .full-length-code width="50%"}
+
+```{r}
+data <- data |> clean_names()
+names(data)
+```
+
+:::
+
+::::
+
+## Dropping/keeping variables
+
+::: {.panel-tabset}
+
+### Stata
+
+To keep only the specified variables, we use `keep`.
+
+```{r}
+#| eval: false
+keep individual_id date_egg
+```
+
+To drop the specified variables, we use `drop`.
+
+```{r}
+#| eval: false
+drop study_name
+```
+
+### R
+
+To keep only the specified variables, we use `select()`.
+
+```{r}
+#| eval: false
+data |> select(individual_id, date_egg)
+```
+
+To drop the specified variables, we add a minus (`-`) before the name of the variable.
+
+```{r}
+#| eval: false
+data |> select(-study_name)
+```
+
+`select()` comes from the `dplyr` package.
+
+:::
+
+## Dropping/keeping variables
+
+`select()` has a lot of other useful features!
+
+Ordering:
+
+```{r}
+#| eval: false
+data |> select(study_name, individual_id, everything())
+```
+
+Matching patterns:
+
+```{r}
+#| eval: false
+data |> select(ends_with("mm"))
+```
+
+Selecting rantes:
+
+```{r}
+#| eval: false
+data |> select(region:date_egg)
+```
+
+## Dropping/keeping observations
+
+::: {.panel-tabset}
+
+### Stata
+
+Observations (rows) are also dropped using `drop`.
+
+```{r}
+#| eval: false
+drop if region == "Anvers"
+
+keep if island == "Biscoe"
+
+drop if samplenumber == .
+```
+
+### R
+
+Rows are are dropped using `filter()`.
+
+```{r}
+#| eval: false
+data |> filter(region != "Anvers")
+
+data |> filter(island == "Biscoe")
+
+data |> filter(!is.na(samplenumber))
+```
+
+Only rows that meet the condition are kept, use the 'not' operator (`!`) instead of `drop` and `keep`.
+
+`filter()` also comes from the `dplyr` package.
+
+:::
+
+## Dropping/keeping observations
+
+Multiple conditions are specified with commas, where all must be true:
+
+```{r}
+#| eval: false
+data |> 
+  filter(
+    region != "Anvers",
+    island == "Biscoe",
+    !is.na(samplenumber)
+  )
+```
+
+You can also make use of `%in%` with lists to make cleaner criteria:
+
+```{r}
+#| eval: false
+primes <- c(2,3,5,7,11,13,17,19)
+
+data |> filter(sample_number %in% primes)
+```
+
+## Creating or modifying variables
+
+::: {.panel-tabset}
+
+### Stata
+
+Several options in Stata:
+
+-   `gen` for making new variables
+-   `egen` for new variables based on a specific function
+-   `replace` for modifying existing variables
+
+```{r}
+#| eval: false
+gen culmen_flipper_ratio = culmen_length_mm / flipper_length_mm
+egen weight_third = cut(body_mass_g), group(3)
+replace weight_third = -9 if weight_third == .
+```
+
+### R
+
+In R, `mutate()` does everything
+
+```{r}
+#| eval: false
+data |> mutate(
+  culmen_flipper_ratio = culmen_length_mm / flipper_length_mm,
+  weight_third = cut(body_mass_g, 3),
+  weight_third = ifelse(is.na(weight_third), -9, weight_third)
+)
+```
+
+:::
+
+## Conditions
+
+::: {.panel-tabset}
+
+### Stata
+
+The `if` argument is where conditions are typically specified in Stata.
+
+```{r}
+#| eval: false
+egen weight_third = cut(body_mass_g), group(3)
+replace weight_third = -9 if weight_third == .
+```
+
+### R
+
+Two common ways of specifying conditions in R:
+
+-   `ifelse()`, in base R
+-   `case_when()` from `dplyr`
+
+```{r}
+#| eval: false
+data |> mutate(
+  # Using ifelse()
+  weight_third = ifelse(is.na(body_mass_g), -9, cut(body_mass_g, 3)),
+  # Using case_when()
+  weight_third = case_when(
+    is.na(body_mass_g) ~ -9,
+    .default = as.numeric(cut(body_mass_g, 3))
+  )
+)
+```
+
+:::
+
+## Missing
+
+### Display
+
+Stata displays missing values in strings as blank `""`, and uses `.` in all other cases.
+
+R displays all missing values as `NA`, meaning the empty string `""` is not considered missing.
+
+### Interpretation
+
+Stata interprets `.` as a large positive number, which can cause issues in conditional statements.
+
+```{r}
+#| eval: false
+gen variable = 1 if number > 10 & number != .
+```
+
+R does not do this, missing is a separate category.
+
+## Variable types
+
+::: {.panel-tabset}
+
+### Stata
+
+Generally speaking, everything is either a number or a string.
+
+```{r}
+#| eval: false
+destring sample_number, replace
+tostring sample_number, replace
+```
+
+Numbers can be bytes, integers, decimals, floats, doubles.
+
+Categorical data can be represented as a string or as a label on a numeric variable.
+
+Logical variables (TRUE or FALSE) do not exist.
+
+### R
+
+R has more data types than Stata, including logical variables
+
+```{r}
+#| eval: false
+data |> 
+  mutate(
+    sample_number = as.numeric(sample_number),
+    sample_number = as.logical(sample_number),
+    sample_number = as.character(sample_number)
+  )
+```
+
+Categorical data can be stored as factors:
+
+```{r}
+data <- data |> mutate(island_factor = factor(island, levels = c("Biscoe","Dream","Torgersen")))
+class(data$island)
+class(data$island_factor)
+```
+
+:::
+
+## Reshaping wider
+
+
+
+## Reshaping longer
+
+## Grouped operations
+
+::: {.panel-tabset}
+
+### Stata
+
+In Stata, the `by` command is used as a prefix for certain functions
+
+```{r}
+#| eval: false
+sort species
+by species: summarize body_mass_g
+```
+
+The data must be sorted before the by operation can be used.
+
+### R
+
+Grouping can be done in two locations.
+
+As part of a pipe:
+
+```{r}
+#| eval: false
+data |> 
+  group_by(species) |> 
+  summarise(
+    mean = mean(body_mass_g, na.rm = T),
+    sd = sd(body_mass_g, na.rm = T))
+```
+
+Or as part of a function, if it permits:
+
+```{r}
+#| eval: false
+data |> 
+  summarise(
+    mean = mean(body_mass_g, na.rm = T),
+    sd = sd(body_mass_g, na.rm = T),
+    .by = species)
+```
+
+:::
+
+# Miscellaneous operations
+
+## Seeds
+
+# Automating tables
+
+## A note on Quarto (or RMarkdown)
+
+## Tabulation options
+
+There are a few good options for making and formatting tables in R:
+
+-   `gt`
+-   `gtsummary`
+-   `kable` (with `kableExtra`)
+-   `tinytable`
+
+# Data visualisation
+
+# Analysing data
