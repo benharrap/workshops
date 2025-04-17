@@ -16,7 +16,6 @@ execute:
   warning: false
   message: false
 footer: 'Slides available from [https://benharrap.github.io/workshops/2025-02-14-coding-in-stata-and-r/slides.html](https://benharrap.github.io/workshops/2025-02-14-coding-in-stata-and-r/slides.html)'
-embed-resources: true
 ---
 
 ## Overview {.vine}
