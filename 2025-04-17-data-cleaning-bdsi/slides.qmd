@@ -1,0 +1,613 @@
+---
+title: "Can you over-engineer data cleaning? Let’s find out!"
+title-slide-attributes:
+  data-background-image: img/star.png
+  data-background-opacity: "0.02"
+author: "Ben Harrap"
+date: "2025-04-17"
+brand: _yardhura_walani.yml
+format: 
+  revealjs:
+    logo: img/logo.png
+    css: custom.css
+    width: 1920
+    height: 1080
+    code-overflow: wrap
+    code-block-height: 800px
+    mermaid:
+      theme: neutral
+link-external-newwindow: true
+execute:
+  code-copy: true
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(haven)
+library(gt)
+```
+
+# Intro {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+## About me {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Doing data things since 2017:
+
+-   Randomised trials
+-   Observational studies
+-   Longitudinal surveys
+-   Administrative data
+-   Data linkage
+-   REDCap (and similar)
+
+Currently work at Yardhura Walani on the Mayi Kuwayu Study
+
+## About the Mayi Kuwayu Study {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+The largest national study of Aboriginal and Torres Strait Islander culture, health, and wellbeing.
+
+-   ~12,000 responses to Wave 1
+-   Currently at the tail-end of Wave 2
+-   Questionnaire provided in paper and online formats
+-   Indigenous Data Sovereignty and Governance
+-   Won the NHMRC David Cooper Clinical Trials and Cohort Studies Award
+
+## About the data cleaning rework {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Guiding principles:
+
+::: {.incremental}
+-   Write code that I would like to inherit
+-   Talk to people interacting with data
+    -   Data entry, data analysis, participant admin, survey design
+-   Bring people along
+    -   Exposure to new ways of doing stuff
+    -   Professional development/upskilling
+-   Be open to being wrong
+:::
+
+## About the data cleaning rework {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Packages & stuff:
+
+::: {.columns}
+
+:::: {.column width="50%"}
+
+-   `tidyverse`
+-   `targets`
+-   `testthat`
+-   `pointblank`
+-   `REDCapR`
+-   `janitor`
+-   `conflicted`
+-   `renv`
+
+::::
+
+:::: {.column width="5%"}
+
+::::
+
+:::: {.column width="45%"}
+
+-   OCR tools
+-   REDCap
+-   Quarto
+    -   `_brand.yml`
+-   git/GitHub
+
+::::
+
+:::
+
+## Data setup {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+```{mermaid}
+%%| echo: false
+flowchart TD
+    paper[Paper response] -->|digitsed| scan[Compiled in csv]
+    scan -->|uploaded| redcap[REDCap]
+    online[Online response] -->|direct| redcap
+    dictionary[Dictionary] --> redcap
+    audit[Audits] --> redcap
+```
+
+# Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+## Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Exported from REDCap using the API
+
+```{r}
+#| eval: false
+dictionary_raw <- redcap_metadata_read(
+  redcap_uri = credential$redcap_uri, 
+  token = credential$token)$data
+```
+
+The 'raw' dictionary might look like:
+
+```{r}
+#| echo: false
+dictionary_raw <- tibble(
+  field_name = c("id","age","children","online_employment","paper_employment"),
+  field_type = c("text","text","text","radio","text"),
+  select_response_option_values = c("","","","1, Full-time | 2, Part-time | 3, Casual | 4, Retired","1, Full-time | 2, Part-time | 3, Casual | 4, Retired")
+)
+
+gt(dictionary_raw) |>
+  cols_align(align = "left")
+```
+
+Need to have `online` and `paper` data separately
+
+-   Minor differences between questionnaire formats
+-   Can't force field validation on paper format
+
+## Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Raw dictionary from REDCap needs cleaning:
+
+-   Dual purpose output
+    -   Reference for end-users
+    -   Used in data cleaning
+-   Lots of regex
+-   Coding it makes the dictionary reproducible
+
+```{r}
+#| echo: false
+dictionary_clean <- tibble(
+  variable = c("id","age","children","employment"),
+  type = c("character","numeric","numeric","factor"),
+  label = c("ID","Age in years","Number of children","Employment category"),
+  values = c("","","","1, Full-time | 2, Part-time | 3, Casual | 4, Retired")
+)
+
+gt(dictionary_clean) |>
+  cols_align(align = "left")
+```
+
+## Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+
+From the cleaned dictionary, also create a value-label correspondence
+
+```{r}
+#| echo: false
+dictionary_labels <- tibble(
+  variable = c("employment","employment","employment","employment"),
+  type = c("factor","factor","factor","factor"),
+  value = c("1","2","3","4"),
+  value_label = c("Full-time","Part-time","Casual","Retired")
+)
+
+gt(dictionary_labels) |>
+  cols_align(align = "left")
+```
+
+Use it to apply labels to data once it's been cleaned
+
+# Data cleaning {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+## Overview {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+```{mermaid}
+%%| echo: false
+flowchart TD
+    online[Raw online] -->|pre-cleaning| combined[Harmonised data]
+    paper[Raw paper] -->|pre-cleaning| combined
+    combined --> preclean[Ready for cleaning]
+    audit[Audit data] --> preclean
+    preclean -->|cleaning| int[Integer]
+    preclean -->|cleaning| num[Numeric]
+    preclean -->|cleaning| dte[Date]
+    preclean -->|cleaning| fct[Factor]
+    preclean -->|cleaning| str[String]
+    int -->|re-combine| clean[Clean data]
+    num -->|re-combine| clean
+    dte -->|re-combine| clean
+    fct -->|re-combine| clean
+    str -->|re-combine| clean
+    ext[External data] -->|integrate| clean
+```
+
+## Pre-cleaning {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Apply consistent coding
+
+```{r}
+#| eval: false
+data_prepared_paper <- data_raw_paper |>
+   mutate(
+    # The paper data is coded as 1/2 (yes/no) whereas the online is coded as 0/1 (no/yes)
+    consent = case_when(
+      consent == "2" ~ "0",
+      consent == "1" ~ "1",
+      .default = consent
+      )) 
+```
+
+Rename/remove variables
+
+```{r}
+#| eval: false
+data_prepared_online <- data_raw_online |>
+  # Remove `__1` from variable names which REDCap creates for checkbox questions
+  rename_with(~ str_replace(., "___1", ""), matches("___1")) |>
+  # remove the leading "online_" so we can combine with the paper data
+  rename_with(~ str_replace(., "online_", ""), starts_with("online_")) |> 
+  select(-starts_with("honeypot"))
+```
+
+Check with `compare_df_cols()`
+
+## Example data {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+For the purposes of illustration:
+
+```{r}
+#| echo: false
+data_raw <- tibble(
+  id = c("1","2","3"),
+  source = c("online","online","paper"),
+  age = c("25","55.2","^2"),
+  children = c("1",NA,"one"),
+  employment = c("1","1","4")
+)
+
+gt(data_raw) |> 
+  cols_align(align = "left")
+```
+
+## Validation {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+```{r}
+#| echo: false
+#| output: false
+data_prepared_audited <- tibble(
+  id = c("1","2","3"),
+  source = c("paper","paper","online"),
+  age = c("25","55.2","^2"),
+  children = c("1","one",NA)
+)
+```
+
+First step, reshape the data to run validation on one column:
+
+```{r}
+data_validate_integer <- data_raw |> 
+  select(id, source, matches(dictionary_clean$variable[dictionary_clean$type == "numeric"])) |>
+  pivot_longer(!c(id, source),
+               names_to = "variable",
+               values_to = "response")
+
+data_validate_integer
+```
+
+## Validation {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Cleaning & validation occurring at the same time, following the pattern of `rule_*` and `validate_*`:
+
+```{r}
+data_validate_integer <- data_validate_integer |> 
+  mutate(
+    rule_only_digits = if_else(str_detect(response,"[^-|\\d+|\\.]+"),FALSE,TRUE,FALSE),
+    validate_only_digits = case_when(
+      rule_only_digits == FALSE ~ str_remove(response,"\\D+"),
+      .default = response
+    ))
+
+data_validate_integer
+```
+
+## Auditing {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+```{mermaid}
+%%| echo: false
+flowchart LR
+    rawdata[Raw data] --> outcome{Validation}
+    outcome -->|pass| clean[Clean data]
+    outcome -->|fail| audit[Returned for audit]
+    audit -->|uploaded| redcap[REDCap form]
+    redcap -->|audited| correct[Correct values]
+    correct -->|updates| rawdata
+```
+
+Any observations that fail an audit rule and are from a paper response get audited
+
+-   Checked against original scan
+-   Updated values entered in REDCap
+-   Easy for data entry team
+
+## Auditing {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Feedback loop between the raw data and data validation output
+
+-   Data entry team check the audit list when new audits are required
+-   Fill in a REDCap form after checking the scanned original
+-   This gets incorporated back into cleaning
+
+For example:
+
+```{r}
+#| echo: false
+data_audit <- tibble(
+  id = c("3","3"),
+  variable = c("children","age"),
+  old_value = c("one","^2"),
+  new_value = c("1","72")
+)
+
+gt(data_audit) |> 
+  cols_align(align = "left")
+```
+
+## Auditing {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+::: {.columns}
+
+:::: {.column}
+
+First pivot dataset into the right format
+
+```{r}
+data_prepared <- data_raw |> 
+  pivot_longer(
+    all_of(data_audit$variable),
+    names_to = "variable",
+    values_to = "value"
+    )
+
+data_prepared
+```
+
+::::
+
+:::: {.column}
+
+Then update the rows
+
+```{r}
+data_prepared <- data_prepared |> 
+  rows_update(
+    data_audit |> 
+      rename(value = new_value) |> 
+      select(value, variable, id),
+    by = c("id","variable")
+  )
+data_prepared
+```
+
+::::
+
+:::
+
+Then `pivot_wider()` back to the original shape.
+
+## Labelling {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Automating the labels was fun - first generate a list of the value/label correspondence
+
+```{r}
+# Collapse the labels (which are currently in rows) into lists
+dictionary_label_lists <- dictionary_labels |> 
+  # For each unique variable
+  group_by(variable) |> 
+  # Generate the label/value correspondence as a list
+  summarise(label_values = list(setNames(value, value_label)))
+
+dictionary_label_lists
+unlist(dictionary_label_lists$label_values)
+```
+
+## Labelling {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Then apply the list using `across()` and `cur_column()`
+
+```{r}
+data_prepared |> mutate(across(any_of(dictionary_clean$variable[dictionary_clean$type == "factor"]), ~
+    {
+      # Get the labels for the current variable
+      labels <- dictionary_label_lists |>
+        filter(variable == cur_column()) |>
+        pull(label_values) |>
+        first()
+      # Apply the labels to the current variable
+      labelled(.x, labels)
+    }))
+```
+
+## Extra stuff {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Integrate new data, make new variables
+
+-   Create commonly computed variables
+    -   Age brackets
+    -   Employment and study categories
+-   Calculate survey weights
+-   Integrate external data
+    -   Address
+    -   Geographies
+
+# Not just data cleaning {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+## Overview {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+```{mermaid}
+%%| echo: false
+flowchart TD
+    code[Codebase] --> main[Maintainer manual]
+    data[Clean data] -->  dict[Data dictionary]
+    data --> qual[Data cleaning report]
+    qual --> rede[Survey redesign]
+    data --> main
+    qual --> user[User manual]
+    dict --> user
+```
+
+## Code maintainer manual {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+A technical document that covers:
+
+-   All of the technology involved
+    -   Why
+    -   How to set it up
+-   Explainers of the code
+    -   Conceptual goal
+    -   Snippets
+    -   Reasons for given implementation
+
+## Data cleaning reports {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+::: {.columns}
+
+:::: {.column width="45%"}
+
+As the cleaning code is run, it plucks out summaries along the way:
+
+```{r}
+#| eval: false
+report_data_quality <- tibble(
+  stage = "Import",
+  item = "Count of audit records",
+  value = as.character(nrow(data_audit))
+) |> 
+  add_row(
+    stage = "Import",
+    item = "Count of records from paper instrument",
+    value = as.character(nrow(data_raw_paper))
+  )
+```
+
+`pointblank` can also create validation reports
+
+::::
+
+:::: {.column width="10%"}
+
+::::
+
+:::: {.column width="45%"}
+
+Report on:
+
+-   Number of observations
+    -   At each step
+    -   Failing validation
+    -   Dropped, with reasons
+-   Missingness
+-   Distribution of responses
+    -   Tables/figures
+    -   Statistical tests
+
+::::
+
+:::
+
+## Data user manual {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+A relatively plain-language, accessible user manual
+
+::: {columns}
+
+:::: {.column width="30%"}
+-   Mayi Kuwayu details
+    -   Study design
+    -   Implementation
+    
+::::
+
+:::: {.column width="30%"}
+-   Cleaning details
+    -   Overview
+    -   External data sources
+    -   Calculated variables
+    -   Important decisions & idiosyncrasies
+    
+::::
+
+:::: {.column width="30%"}
+-   Data details
+    -   Context
+    -   Validation rules
+    -   Quality
+    -   Dictionary
+    
+::::
+
+:::
+
+Uses Quarto, incorporates output from the pipeline
+
+## Variable naming convention {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+See blog post: [https://benharrap.com/post/2025-03-03-variable-naming-convention/](https://benharrap.com/post/2025-03-03-variable-naming-convention/){target="_blank"}
+
+Landed on `{wave}_{theme}_{question wording}_{optional_identifier}`, where:
+
+-   `{wave}` = current wave, 3 characters
+-   `{theme}` = question theme, 7 characters
+-   `{wording}` = question wording, 7 characters
+-   `{optional identifier}` = optional suffix, maximum 6 characters
+
+For example:
+
+-   `w02_culture_activty`
+-   `w02_contact_phoneno_1`
+-   `w02_contact_phoneno_2`
+
+
+
+## Survey redesign {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Shiny dashboard with relevant information about each wave:
+
+-   Question performance
+    -   Missingness
+-   Response distributions
+    -   Limited variability
+    -   Floor/ceiling effects
+-   Missingness patterns
+-   Question sequence violations
+    -   Paper only
+
+## Code generalisability {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+Currently working on code for Wave 2, but intend for the code to:
+
+-   Generalise across waves
+    -   E.g. validation rules for variable types
+-   Generalise across studies
+-   Provide a framework for future studies
+
+# Pretty cool huh {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+## Problems (and solutions?) {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+::: {.incremental}
+
+-   Microsoft Excel
+    -   Don't use it
+-   I'm an academic
+    -   Square peg |> round hole
+-   I'm busy
+    -   ???
+-   Someone else needs to maintain it
+    -   Train people
+    -   Write good code
+
+:::
+    
+## Questions for you {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+
+What metrics do you use when checking data cleaning output?
+
+When you inherit code, what are the problems you face and how would you mitigate them?
+
+What makes for a good code maintainer manual?
+
+What makes for a good data user manual?
