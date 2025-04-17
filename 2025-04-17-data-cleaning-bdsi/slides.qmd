@@ -17,6 +17,7 @@ format:
     mermaid:
       theme: neutral
 link-external-newwindow: true
+footer: 'Slides available from [https://benharrap.github.io/workshops/2025-04-17-data-cleaning-bdsi/slides.html](https://benharrap.github.io/workshops/2025-04-17-data-cleaning-bdsi/slides.html)'
 execute:
   code-copy: true
   echo: true
