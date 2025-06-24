@@ -16,6 +16,8 @@ execute:
   warning: false
   message: false
 footer: 'Slides available from [https://benharrap.github.io/workshops/2025-02-14-coding-in-stata-and-r/slides.html](https://benharrap.github.io/workshops/2025-02-14-coding-in-stata-and-r/slides.html)'
+bibliography: "https://raw.githubusercontent.com/benharrap/thesis/refs/heads/main/references.bib"
+csl: "https://raw.githubusercontent.com/benharrap/thesis/refs/heads/main/vancouver-superscript.csl"
 ---
 
 ## Overview {.vine}
@@ -700,8 +702,6 @@ data |>
 
 # Automating tables
 
-## A note on Quarto (or RMarkdown)
-
 ## Tabulation options
 
 There are a few good options for making and formatting tables in R:
@@ -714,3 +714,269 @@ There are a few good options for making and formatting tables in R:
 # Data visualisation
 
 # Analysing data
+
+# Reproducible documents
+
+## The situation
+
+You are drafting a report or paper using Microsoft Word.
+
+You have:
+
+::: {.incremental}
+-   Four paragraphs with in-text reporting of results
+-   Three tables
+-   Two figures
+-   And a partridge in a pear tree
+:::
+
+## The problem
+
+Oh no! You now have to update **everything** because of:
+
+::: {.incremental}
+-   Changes in the data
+-   Changes in the analysis
+-   Changes due to reviewer comments
+-   Changes in the wind
+:::
+
+
+## The solution
+
+Use Quarto to write your report/paper and automatically generate the tables, figures, and in-text reporting!
+
+This has several benefits:
+
+::: {.incremental}
+-   Changes to data are automatically incorporated, everywhere
+-   Human error is limited to the initial setup, not every time data needs updating
+-   Updating takes as little as 5 seconds
+-   You learn a cool new skill
+:::
+
+## What is Quarto?
+
+Quarto is open-source scientific and technical publishing system. It lets you:
+
+::: {.incremental}
+-   Write documents, presentations, and more
+-   Output these documents in Word and PDF
+-   Format text explicitly using markup
+-   Run code within the same document (more on this later)
+-   Manage citations, styles, table and figure numbering
+-   Most importantly, it makes your work more reproducible!
+:::
+
+## What does Quarto look like?
+
+::: {.columns}
+
+:::: {.column width=40%}
+```
+
+Text written with Quarto uses markup to apply styling. In this sentence, the word **bold** is bolded and *italic* is italicised.
+
+![A lovely picture of Randy the greyhound](https://benharrap.com/img/randy.png){fig-align="left" width=20%}
+
+```
+```
+
+You can do all the normal stuff:
+
+1. Make lists
+2. Add citations
+3. etc.
+```
+::::
+
+:::: {.column width=5%}
+
+::::
+
+:::: {.column width=55%}
+Text written with Quarto uses markup to apply styling. In this sentence, the word **bold** is bolded and *italic* is italicised.
+
+![A lovely picture of Randy the greyhound](https://benharrap.com/img/randy.png){fig-align="left" width=20%}
+
+You can do all the normal stuff:
+
+1. Make lists
+2. Add citations
+3. etc.
+::::
+
+:::
+
+## What would a workflow look like?
+
+You can create workflow that suits you. I can imagine people:
+
+::: {.columns}
+
+:::: {.column width="30%" .incremental}
+1.  Doing their analysis in Stata
+2.  Creating figures using Stata
+3.  Exporting results into an Excel spreadsheet
+4.  Reading the spreadsheet into R
+5.  Using Quarto for write-up
+::::
+
+:::: {.column width="5%"}
+
+::::
+
+:::: {.column width="30%" .incremental}
+1.  Data cleaning with Stata
+2.  Saving analysis datasets
+3.  Importing these datasets into R/Quarto
+4.  Creating figures and tables with R
+5.  Writing up with Quarto
+::::
+
+:::: {.column width="5%"}
+
+::::
+
+:::: {.column width="30%" .incremental}
+1.   Doing everything with R/Quarto
+::::
+
+:::
+
+## A real example
+
+I recently had a paper published: [https://doi.org/10.1016/j.anzjph.2025.100249](https://doi.org/10.1016/j.anzjph.2025.100249)
+
+I did everything we've just covered when writing up this paper:
+
+-   Wrote the whole paper
+-   Automated in-text numbers
+-   Created tables
+-   Included figures created elsewhere
+-   Automated table/figure numbering
+-   Referencing
+
+My entire thesis is like this actually — the code and files are available: [https://github.com/benharrap/thesis](https://github.com/benharrap/thesis)
+
+## A real example
+
+Every Quarto document starts with the parameters:
+
+```{r}
+#| eval: false
+title: "Potentially preventable hospitalisations for Aboriginal children with experience of out-of-home care: a data linkage study"
+author:
+  - Benjamin Harrap
+  - Alison Gibberd
+  - Melissa O'Donnell
+  - Koen Simons
+  - Sandra Eades
+bibliography: "../references.bib"
+csl: "../vancouver-superscript.csl"
+```
+
+Then the files get read in
+
+```{r}
+#| eval: false
+library(tidyverse)
+in_text <- read_csv("data/single_stats.csv")
+table_1 <- read_csv("data/table_1.csv")
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+in_text <- read_csv("https://raw.githubusercontent.com/benharrap/thesis/refs/heads/main/5_pph/data/single_stats.csv")
+table_1 <- read_csv("https://raw.githubusercontent.com/benharrap/thesis/refs/heads/main/5_pph/data/table_1.csv") |> 
+  slice(1:23)
+
+get_number <- function(which){in_text$value[in_text$stat==which]}
+n_missing <- get_number("missing_match_vars")
+n_matching <- get_number("cohort_matched_from")
+n_ever <- table_1$ever_placed[table_1$stat == "N"] 
+n_never <- table_1$never_placed[table_1$stat == "N"] 
+```
+
+## A real example
+
+::: {.columns}
+
+:::: {.column}
+
+```{r}
+#| eval: false
+gt(table_1) |> 
+  tab_header("Demographic and other characteristics for the matched cohort of never- and ever-placed children") |> 
+  cols_label(
+    stat = "",
+    never_placed = "Never-placed",
+    ever_placed = "Ever-placed"
+  ) |> 
+  sub_missing(
+    everything(),
+    missing_text = " "
+    )
+```
+
+::::
+
+:::: {.column}
+
+```{r}
+#| echo: false
+gt(table_1) |> 
+  tab_header("Demographic and other characteristics for the matched cohort of never- and ever-placed children") |> 
+  cols_label(
+    stat = "",
+    never_placed = "Never-placed",
+    ever_placed = "Ever-placed"
+  ) |> 
+  sub_missing(
+    everything(),
+    missing_text = " "
+    )
+```
+
+::::
+
+:::
+
+## A real example
+
+::: {.columns}
+
+:::: {.column width=35%}
+```
+
+While government departments in Australia [@aihw2020b;@dohwa2017;@ahmac2017] and researchers [@li2009;@guthrie2012] report rates of PPHs...
+```
+```
+
+After excluding `ｒ n_missing` who had missing data on the matching variables, a total of `ｒ n_matching` children were included in the matching process. There were `ｒ n_ever` ever-placed children who were matched with `ｒ n_never` never-placed children.
+```
+```
+
+When considering the mechanisms for prevention suggested by Anderson et al. [@anderson2012], most conditions were preventable through early access to primary care.
+
+```
+::::
+
+:::: {.column width=5%}
+
+::::
+
+:::: {.column width=60%}
+While government departments in Australia [@aihw2020b;@dohwa2017;@ahmac2017] and researchers [@li2009;@guthrie2012] report rates of PPHs...
+
+After excluding `r n_missing` who had missing data on the matching variables, a total of `r n_matching` children were included in the matching process. There were `r n_ever` ever-placed children who were matched with `r n_never` never-placed children.
+
+When considering the mechanisms for prevention suggested by Anderson et al. [@anderson2012], most conditions were preventable through early access to primary care. 
+::::
+
+:::
+
+## References
