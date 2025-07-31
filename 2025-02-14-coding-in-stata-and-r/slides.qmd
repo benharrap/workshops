@@ -40,7 +40,7 @@ In this session we'll cover:
 
 R is the language that the code is written in.
 
-RStudio is the IDE many people use to write R code in.
+RStudio is the software many people use to write R code in.
 
 At a minimum you need to install R ([r-project.org](https://www.r-project.org/))
 
@@ -247,7 +247,7 @@ In R you can use `setwd()` to set your working directory
 setwd("/Users/ben/Documents/GitHub/workshops/2025-02-14-coding-in-stata-and-r")
 ```
 
-Alternatively, use R projects (`.Rproj`)
+I recommend using R Projects instead - note the `.Rproj` file below. Opening this file will set the directory automatically to the location of that file.
 
 ```
 - 2025-02-14-coding-in-stata-and-r
@@ -345,7 +345,7 @@ rename studyName study_name
 rename Species species
 ```
 
-Like saying "this old name becomes this new name"
+Like saying "replace old name with this new name"
 
 ### R
 
@@ -360,7 +360,7 @@ data |>
   )
 ```
 
-Like saying "this new name is the same as this old name"
+Like saying "use this new name to replace this old name"
 
 :::
 
@@ -411,7 +411,7 @@ drop study_name
 
 ### R
 
-To keep only the specified variables, we use `select()`.
+To keep only the specified variables, we use `select()` from the `dplyr` package.
 
 ```{r}
 #| eval: false
@@ -425,34 +425,35 @@ To drop the specified variables, we add a minus (`-`) before the name of the var
 data |> select(-study_name)
 ```
 
-`select()` comes from the `dplyr` package.
+We can also select ranges:
 
-:::
+```{r}
+#| eval: false
+data |> select(region:date_egg)
+```
 
-## Dropping/keeping variables
+### Bonus R
 
-`select()` has a lot of other useful features!
+`tidyselect` provides lots of helpful functions for use in `select()`!
 
-Ordering:
+`everything()` selects every variable, so the below puts `study_name` and `individual_id` first, followed by all other variables in their current order
 
 ```{r}
 #| eval: false
 data |> select(study_name, individual_id, everything())
 ```
 
-Matching patterns:
+You can select variables that have names matching a pattern. `starts_with()` and `ends_with()` will match the pattern to the start or end of the variable name
+
+`matches()` looks for it anywhere
 
 ```{r}
 #| eval: false
 data |> select(ends_with("mm"))
+data |> select(matches("bill"))
 ```
 
-Selecting rantes:
-
-```{r}
-#| eval: false
-data |> select(region:date_egg)
-```
+:::
 
 ## Dropping/keeping observations
 
@@ -485,6 +486,8 @@ data |> filter(!is.na(samplenumber))
 ```
 
 Only rows that meet the condition are kept, use the 'not' operator (`!`) instead of `drop` and `keep`.
+
+Note that to drop missing values you **must** use `is.na()`, you cannot say `samplenumber != NA`. `NA` is a special class in R.
 
 `filter()` also comes from the `dplyr` package.
 
@@ -524,12 +527,14 @@ Several options in Stata:
 -   `gen` for making new variables
 -   `egen` for new variables based on a specific function
 -   `replace` for modifying existing variables
+-   `clonevar` for copying existing variables
 
 ```{r}
 #| eval: false
 gen culmen_flipper_ratio = culmen_length_mm / flipper_length_mm
 egen weight_third = cut(body_mass_g), group(3)
 replace weight_third = -9 if weight_third == .
+clonevar weight_category = weight_third
 ```
 
 ### R
@@ -541,7 +546,8 @@ In R, `mutate()` does everything
 data |> mutate(
   culmen_flipper_ratio = culmen_length_mm / flipper_length_mm,
   weight_third = cut(body_mass_g, 3),
-  weight_third = ifelse(is.na(weight_third), -9, weight_third)
+  weight_third = ifelse(is.na(weight_third), -9, weight_third),
+  weight_category = weight_third
 )
 ```
 
@@ -563,10 +569,10 @@ replace weight_third = -9 if weight_third == .
 
 ### R
 
-Two common ways of specifying conditions in R:
+Common ways of specifying conditions in R:
 
 -   `ifelse()`, in base R
--   `case_when()` from `dplyr`
+-   `if_else()` and `case_when()` from `dplyr`
 
 ```{r}
 #| eval: false
@@ -597,6 +603,9 @@ Stata interprets `.` as a large positive number, which can cause issues in condi
 
 ```{r}
 #| eval: false
+# This captures missing values
+gen variable = 1 if number > 10
+# So missings have to be explicitly excluded
 gen variable = 1 if number > 10 & number != .
 ```
 

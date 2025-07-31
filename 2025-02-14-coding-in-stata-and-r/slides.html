@@ -250,7 +250,7 @@ Ben Harrap
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>R is the language that the code is written in.</p>
-<p>RStudio is the IDE many people use to write R code in.</p>
+<p>RStudio is the software many people use to write R code in.</p>
 <p>At a minimum you need to install R (<a href="https://www.r-project.org/">r-project.org</a>)</p>
 <p>IDE options include:</p>
 <ul>
@@ -449,7 +449,7 @@ Ben Harrap
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">setwd</span>(<span class="st">"/Users/ben/Documents/GitHub/workshops/2025-02-14-coding-in-stata-and-r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Alternatively, use R projects (<code>.Rproj</code>)</p>
+<p>I recommend using R Projects instead - note the <code>.Rproj</code> file below. Opening this file will set the directory automatically to the location of that file.</p>
 <pre><code>- 2025-02-14-coding-in-stata-and-r
   - _brand.yml
   - 2025-02-14-coding-in-stata-and-r.Rproj
@@ -500,23 +500,23 @@ Ben Harrap
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">gt</span>(data <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="sklzyenjuk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sklzyenjuk table {
+<div id="phsmwfdmnk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#phsmwfdmnk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sklzyenjuk thead, #sklzyenjuk tbody, #sklzyenjuk tfoot, #sklzyenjuk tr, #sklzyenjuk td, #sklzyenjuk th {
+#phsmwfdmnk thead, #phsmwfdmnk tbody, #phsmwfdmnk tfoot, #phsmwfdmnk tr, #phsmwfdmnk td, #phsmwfdmnk th {
   border-style: none;
 }
 
-#sklzyenjuk p {
+#phsmwfdmnk p {
   margin: 0;
   padding: 0;
 }
 
-#sklzyenjuk .gt_table {
+#phsmwfdmnk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -542,12 +542,12 @@ Ben Harrap
   border-left-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_caption {
+#phsmwfdmnk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sklzyenjuk .gt_title {
+#phsmwfdmnk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -559,7 +559,7 @@ Ben Harrap
   border-bottom-width: 0;
 }
 
-#sklzyenjuk .gt_subtitle {
+#phsmwfdmnk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -571,7 +571,7 @@ Ben Harrap
   border-top-width: 0;
 }
 
-#sklzyenjuk .gt_heading {
+#phsmwfdmnk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -583,13 +583,13 @@ Ben Harrap
   border-right-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_bottom_border {
+#phsmwfdmnk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_col_headings {
+#phsmwfdmnk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -604,7 +604,7 @@ Ben Harrap
   border-right-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_col_heading {
+#phsmwfdmnk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -624,7 +624,7 @@ Ben Harrap
   overflow-x: hidden;
 }
 
-#sklzyenjuk .gt_column_spanner_outer {
+#phsmwfdmnk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -636,15 +636,15 @@ Ben Harrap
   padding-right: 4px;
 }
 
-#sklzyenjuk .gt_column_spanner_outer:first-child {
+#phsmwfdmnk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sklzyenjuk .gt_column_spanner_outer:last-child {
+#phsmwfdmnk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sklzyenjuk .gt_column_spanner {
+#phsmwfdmnk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -656,11 +656,11 @@ Ben Harrap
   width: 100%;
 }
 
-#sklzyenjuk .gt_spanner_row {
+#phsmwfdmnk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sklzyenjuk .gt_group_heading {
+#phsmwfdmnk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -686,7 +686,7 @@ Ben Harrap
   text-align: left;
 }
 
-#sklzyenjuk .gt_empty_group_heading {
+#phsmwfdmnk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -701,15 +701,15 @@ Ben Harrap
   vertical-align: middle;
 }
 
-#sklzyenjuk .gt_from_md > :first-child {
+#phsmwfdmnk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sklzyenjuk .gt_from_md > :last-child {
+#phsmwfdmnk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sklzyenjuk .gt_row {
+#phsmwfdmnk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -728,7 +728,7 @@ Ben Harrap
   overflow-x: hidden;
 }
 
-#sklzyenjuk .gt_stub {
+#phsmwfdmnk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -741,7 +741,7 @@ Ben Harrap
   padding-right: 5px;
 }
 
-#sklzyenjuk .gt_stub_row_group {
+#phsmwfdmnk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -755,15 +755,15 @@ Ben Harrap
   vertical-align: top;
 }
 
-#sklzyenjuk .gt_row_group_first td {
+#phsmwfdmnk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sklzyenjuk .gt_row_group_first th {
+#phsmwfdmnk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sklzyenjuk .gt_summary_row {
+#phsmwfdmnk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -773,16 +773,16 @@ Ben Harrap
   padding-right: 5px;
 }
 
-#sklzyenjuk .gt_first_summary_row {
+#phsmwfdmnk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_first_summary_row.thick {
+#phsmwfdmnk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sklzyenjuk .gt_last_summary_row {
+#phsmwfdmnk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -792,7 +792,7 @@ Ben Harrap
   border-bottom-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_grand_summary_row {
+#phsmwfdmnk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -802,7 +802,7 @@ Ben Harrap
   padding-right: 5px;
 }
 
-#sklzyenjuk .gt_first_grand_summary_row {
+#phsmwfdmnk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -812,7 +812,7 @@ Ben Harrap
   border-top-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_last_grand_summary_row_top {
+#phsmwfdmnk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -822,11 +822,11 @@ Ben Harrap
   border-bottom-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_striped {
+#phsmwfdmnk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sklzyenjuk .gt_table_body {
+#phsmwfdmnk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -835,7 +835,7 @@ Ben Harrap
   border-bottom-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_footnotes {
+#phsmwfdmnk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -849,7 +849,7 @@ Ben Harrap
   border-right-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_footnote {
+#phsmwfdmnk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -858,7 +858,7 @@ Ben Harrap
   padding-right: 5px;
 }
 
-#sklzyenjuk .gt_sourcenotes {
+#phsmwfdmnk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -872,7 +872,7 @@ Ben Harrap
   border-right-color: #D3D3D3;
 }
 
-#sklzyenjuk .gt_sourcenote {
+#phsmwfdmnk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -880,72 +880,72 @@ Ben Harrap
   padding-right: 5px;
 }
 
-#sklzyenjuk .gt_left {
+#phsmwfdmnk .gt_left {
   text-align: left;
 }
 
-#sklzyenjuk .gt_center {
+#phsmwfdmnk .gt_center {
   text-align: center;
 }
 
-#sklzyenjuk .gt_right {
+#phsmwfdmnk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sklzyenjuk .gt_font_normal {
+#phsmwfdmnk .gt_font_normal {
   font-weight: normal;
 }
 
-#sklzyenjuk .gt_font_bold {
+#phsmwfdmnk .gt_font_bold {
   font-weight: bold;
 }
 
-#sklzyenjuk .gt_font_italic {
+#phsmwfdmnk .gt_font_italic {
   font-style: italic;
 }
 
-#sklzyenjuk .gt_super {
+#phsmwfdmnk .gt_super {
   font-size: 65%;
 }
 
-#sklzyenjuk .gt_footnote_marks {
+#phsmwfdmnk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sklzyenjuk .gt_asterisk {
+#phsmwfdmnk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sklzyenjuk .gt_indent_1 {
+#phsmwfdmnk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sklzyenjuk .gt_indent_2 {
+#phsmwfdmnk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sklzyenjuk .gt_indent_3 {
+#phsmwfdmnk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sklzyenjuk .gt_indent_4 {
+#phsmwfdmnk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sklzyenjuk .gt_indent_5 {
+#phsmwfdmnk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sklzyenjuk .katex-display {
+#phsmwfdmnk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sklzyenjuk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#phsmwfdmnk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -975,100 +975,81 @@ Ben Harrap
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="studyName">PAL0910</td>
-<td class="gt_row gt_right" headers="Sample Number">141</td>
-<td class="gt_row gt_left" headers="Species">Adelie Penguin (Pygoscelis adeliae)</td>
-<td class="gt_row gt_left" headers="Region">Anvers</td>
-<td class="gt_row gt_left" headers="Island">Dream</td>
-<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N80A1</td>
-<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2009-11-14</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">40.2</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">17.1</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">193</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">3400</td>
-<td class="gt_row gt_left" headers="Sex">FEMALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">9.28810</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-25.54976</td>
-<td class="gt_row gt_left" headers="Comments">NA</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="studyName">PAL0910</td>
-<td class="gt_row gt_right" headers="Sample Number">47</td>
-<td class="gt_row gt_left" headers="Species">Chinstrap penguin (Pygoscelis antarctica)</td>
-<td class="gt_row gt_left" headers="Region">Anvers</td>
-<td class="gt_row gt_left" headers="Island">Dream</td>
-<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N87A1</td>
-<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2009-11-27</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">50.1</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">17.9</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">190</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">3400</td>
-<td class="gt_row gt_left" headers="Sex">FEMALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">9.46819</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-24.45721</td>
-<td class="gt_row gt_left" headers="Comments">NA</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="studyName">PAL0809</td>
-<td class="gt_row gt_right" headers="Sample Number">54</td>
+<td class="gt_row gt_right" headers="Sample Number">123</td>
 <td class="gt_row gt_left" headers="Species">Gentoo penguin (Pygoscelis papua)</td>
 <td class="gt_row gt_left" headers="Region">Anvers</td>
 <td class="gt_row gt_left" headers="Island">Biscoe</td>
 <td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N14A2</td>
+<td class="gt_row gt_left" headers="Individual ID">N43A1</td>
 <td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2008-11-04</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">50.1</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">15.0</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">225</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">5000</td>
-<td class="gt_row gt_left" headers="Sex">MALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.50153</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.61414</td>
+<td class="gt_row gt_right" headers="Date Egg">2009-11-22</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">45.2</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">14.8</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">212</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">5200</td>
+<td class="gt_row gt_left" headers="Sex">FEMALE</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.24246</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.11969</td>
 <td class="gt_row gt_left" headers="Comments">NA</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="studyName">PAL0910</td>
-<td class="gt_row gt_right" headers="Sample Number">65</td>
+<td class="gt_row gt_left" headers="studyName">PAL0809</td>
+<td class="gt_row gt_right" headers="Sample Number">27</td>
 <td class="gt_row gt_left" headers="Species">Chinstrap penguin (Pygoscelis antarctica)</td>
 <td class="gt_row gt_left" headers="Region">Anvers</td>
 <td class="gt_row gt_left" headers="Island">Dream</td>
 <td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N99A1</td>
+<td class="gt_row gt_left" headers="Individual ID">N61A1</td>
 <td class="gt_row gt_left" headers="Clutch Completion">No</td>
-<td class="gt_row gt_right" headers="Date Egg">2009-11-21</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">43.5</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">18.1</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">202</td>
+<td class="gt_row gt_right" headers="Date Egg">2008-11-25</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">50.5</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">18.4</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">200</td>
 <td class="gt_row gt_right" headers="Body Mass (g)">3400</td>
 <td class="gt_row gt_left" headers="Sex">FEMALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">9.37608</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-24.40753</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.93990</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-23.89017</td>
 <td class="gt_row gt_left" headers="Comments">Nest never observed with full clutch.</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="studyName">PAL0910</td>
-<td class="gt_row gt_right" headers="Sample Number">97</td>
-<td class="gt_row gt_left" headers="Species">Gentoo penguin (Pygoscelis papua)</td>
+<td class="gt_row gt_right" headers="Sample Number">136</td>
+<td class="gt_row gt_left" headers="Species">Adelie Penguin (Pygoscelis adeliae)</td>
 <td class="gt_row gt_left" headers="Region">Anvers</td>
-<td class="gt_row gt_left" headers="Island">Biscoe</td>
+<td class="gt_row gt_left" headers="Island">Dream</td>
 <td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N20A1</td>
+<td class="gt_row gt_left" headers="Individual ID">N77A2</td>
 <td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2009-11-18</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">49.4</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">15.8</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">216</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">4925</td>
+<td class="gt_row gt_right" headers="Date Egg">2009-11-13</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">41.1</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">17.5</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">190</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">3900</td>
 <td class="gt_row gt_left" headers="Sex">MALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.03624</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.06594</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.94365</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.06943</td>
 <td class="gt_row gt_left" headers="Comments">NA</td>
 </tr>
 <tr class="even">
+<td class="gt_row gt_left" headers="studyName">PAL0910</td>
+<td class="gt_row gt_right" headers="Sample Number">143</td>
+<td class="gt_row gt_left" headers="Species">Adelie Penguin (Pygoscelis adeliae)</td>
+<td class="gt_row gt_left" headers="Region">Anvers</td>
+<td class="gt_row gt_left" headers="Island">Dream</td>
+<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
+<td class="gt_row gt_left" headers="Individual ID">N81A1</td>
+<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
+<td class="gt_row gt_right" headers="Date Egg">2009-11-16</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">32.1</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">15.5</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">188</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">3050</td>
+<td class="gt_row gt_left" headers="Sex">FEMALE</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.79787</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.61075</td>
+<td class="gt_row gt_left" headers="Comments">NA</td>
+</tr>
+<tr class="odd">
 <td class="gt_row gt_left" headers="studyName">PAL0809</td>
 <td class="gt_row gt_right" headers="Sample Number">49</td>
 <td class="gt_row gt_left" headers="Species">Gentoo penguin (Pygoscelis papua)</td>
@@ -1087,80 +1068,99 @@ Ben Harrap
 <td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.89644</td>
 <td class="gt_row gt_left" headers="Comments">NA</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="studyName">PAL0809</td>
-<td class="gt_row gt_right" headers="Sample Number">64</td>
-<td class="gt_row gt_left" headers="Species">Adelie Penguin (Pygoscelis adeliae)</td>
-<td class="gt_row gt_left" headers="Region">Anvers</td>
-<td class="gt_row gt_left" headers="Island">Biscoe</td>
-<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N28A2</td>
-<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2008-11-13</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">41.1</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">18.2</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">192</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">4050</td>
-<td class="gt_row gt_left" headers="Sex">MALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.62264</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.60023</td>
-<td class="gt_row gt_left" headers="Comments">NA</td>
-</tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="studyName">PAL0809</td>
-<td class="gt_row gt_right" headers="Sample Number">54</td>
-<td class="gt_row gt_left" headers="Species">Adelie Penguin (Pygoscelis adeliae)</td>
-<td class="gt_row gt_left" headers="Region">Anvers</td>
-<td class="gt_row gt_left" headers="Island">Biscoe</td>
-<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N22A2</td>
-<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2008-11-09</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">42.0</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">19.5</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">200</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">4050</td>
-<td class="gt_row gt_left" headers="Sex">MALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.48095</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.31460</td>
-<td class="gt_row gt_left" headers="Comments">NA</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="studyName">PAL0708</td>
-<td class="gt_row gt_right" headers="Sample Number">13</td>
+<td class="gt_row gt_right" headers="Sample Number">50</td>
 <td class="gt_row gt_left" headers="Species">Gentoo penguin (Pygoscelis papua)</td>
 <td class="gt_row gt_left" headers="Region">Anvers</td>
 <td class="gt_row gt_left" headers="Island">Biscoe</td>
 <td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N37A1</td>
+<td class="gt_row gt_left" headers="Individual ID">N12A2</td>
 <td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2007-11-29</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">45.5</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">13.7</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">214</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">4650</td>
+<td class="gt_row gt_right" headers="Date Egg">2008-11-02</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">45.2</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">15.8</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">215</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">5300</td>
+<td class="gt_row gt_left" headers="Sex">MALE</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.55868</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.67799</td>
+<td class="gt_row gt_left" headers="Comments">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="studyName">PAL0809</td>
+<td class="gt_row gt_right" headers="Sample Number">53</td>
+<td class="gt_row gt_left" headers="Species">Gentoo penguin (Pygoscelis papua)</td>
+<td class="gt_row gt_left" headers="Region">Anvers</td>
+<td class="gt_row gt_left" headers="Island">Biscoe</td>
+<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
+<td class="gt_row gt_left" headers="Individual ID">N14A1</td>
+<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
+<td class="gt_row gt_right" headers="Date Egg">2008-11-04</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">45.1</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">14.4</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">210</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">4400</td>
 <td class="gt_row gt_left" headers="Sex">FEMALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">7.77672</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-25.41680</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.51951</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-27.01854</td>
 <td class="gt_row gt_left" headers="Comments">NA</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="studyName">PAL0708</td>
-<td class="gt_row gt_right" headers="Sample Number">4</td>
+<td class="gt_row gt_left" headers="studyName">PAL0910</td>
+<td class="gt_row gt_right" headers="Sample Number">114</td>
+<td class="gt_row gt_left" headers="Species">Adelie Penguin (Pygoscelis adeliae)</td>
+<td class="gt_row gt_left" headers="Region">Anvers</td>
+<td class="gt_row gt_left" headers="Island">Biscoe</td>
+<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
+<td class="gt_row gt_left" headers="Individual ID">N60A2</td>
+<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
+<td class="gt_row gt_right" headers="Date Egg">2009-11-15</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">42.2</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">19.5</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">197</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">4275</td>
+<td class="gt_row gt_left" headers="Sex">MALE</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.80186</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.41218</td>
+<td class="gt_row gt_left" headers="Comments">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="studyName">PAL0910</td>
+<td class="gt_row gt_right" headers="Sample Number">113</td>
+<td class="gt_row gt_left" headers="Species">Adelie Penguin (Pygoscelis adeliae)</td>
+<td class="gt_row gt_left" headers="Region">Anvers</td>
+<td class="gt_row gt_left" headers="Island">Biscoe</td>
+<td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
+<td class="gt_row gt_left" headers="Individual ID">N60A1</td>
+<td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
+<td class="gt_row gt_right" headers="Date Egg">2009-11-15</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">39.7</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">17.7</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">193</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">3200</td>
+<td class="gt_row gt_left" headers="Sex">FEMALE</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">9.02657</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-26.06203</td>
+<td class="gt_row gt_left" headers="Comments">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="studyName">PAL0809</td>
+<td class="gt_row gt_right" headers="Sample Number">35</td>
 <td class="gt_row gt_left" headers="Species">Chinstrap penguin (Pygoscelis antarctica)</td>
 <td class="gt_row gt_left" headers="Region">Anvers</td>
 <td class="gt_row gt_left" headers="Island">Dream</td>
 <td class="gt_row gt_left" headers="Stage">Adult, 1 Egg Stage</td>
-<td class="gt_row gt_left" headers="Individual ID">N62A2</td>
+<td class="gt_row gt_left" headers="Individual ID">N67A1</td>
 <td class="gt_row gt_left" headers="Clutch Completion">Yes</td>
-<td class="gt_row gt_right" headers="Date Egg">2007-11-26</td>
-<td class="gt_row gt_right" headers="Culmen Length (mm)">45.4</td>
-<td class="gt_row gt_right" headers="Culmen Depth (mm)">18.7</td>
-<td class="gt_row gt_right" headers="Flipper Length (mm)">188</td>
-<td class="gt_row gt_right" headers="Body Mass (g)">3525</td>
-<td class="gt_row gt_left" headers="Sex">FEMALE</td>
-<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">8.64701</td>
-<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-24.62717</td>
+<td class="gt_row gt_right" headers="Date Egg">2008-11-25</td>
+<td class="gt_row gt_right" headers="Culmen Length (mm)">49.7</td>
+<td class="gt_row gt_right" headers="Culmen Depth (mm)">18.6</td>
+<td class="gt_row gt_right" headers="Flipper Length (mm)">195</td>
+<td class="gt_row gt_right" headers="Body Mass (g)">3600</td>
+<td class="gt_row gt_left" headers="Sex">MALE</td>
+<td class="gt_row gt_right" headers="Delta 15 N (o/oo)">9.75486</td>
+<td class="gt_row gt_right" headers="Delta 13 C (o/oo)">-24.31198</td>
 <td class="gt_row gt_left" headers="Comments">NA</td>
 </tr>
 </tbody>
@@ -1209,7 +1209,7 @@ Ben Harrap
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>rename studyName study_name</span>
 <span id="cb21-2"><a href=""></a>rename Species species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Like saying “this old name becomes this new name”</p>
+<p>Like saying “replace old name with this new name”</p>
 </div>
 <div id="tabset-2-2">
 <p>In <code>dplyr</code>, the new name comes first, the old name comes second</p>
@@ -1220,7 +1220,7 @@ Ben Harrap
 <span id="cb22-4"><a href=""></a>    <span class="at">species =</span> Species</span>
 <span id="cb22-5"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Like saying “this new name is the same as this old name”</p>
+<p>Like saying “use this new name to replace this old name”</p>
 </div>
 </div>
 </div>
@@ -1259,7 +1259,7 @@ Ben Harrap
 <section id="droppingkeeping-variables" class="slide level2">
 <h2>Dropping/keeping variables</h2>
 <div class="panel-tabset">
-<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Stata</a></li><li><a href="#tabset-3-2">R</a></li></ul>
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Stata</a></li><li><a href="#tabset-3-2">R</a></li><li><a href="#tabset-3-3">Bonus R</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1">
 <p>To keep only the specified variables, we use <code>keep</code>.</p>
@@ -1272,7 +1272,7 @@ Ben Harrap
 </div>
 </div>
 <div id="tabset-3-2">
-<p>To keep only the specified variables, we use <code>select()</code>.</p>
+<p>To keep only the specified variables, we use <code>select()</code> from the <code>dplyr</code> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(individual_id, date_egg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1280,25 +1280,25 @@ Ben Harrap
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>study_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>select()</code> comes from the <code>dplyr</code> package.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="droppingkeeping-variables-1" class="slide level2">
-<h2>Dropping/keeping variables</h2>
-<p><code>select()</code> has a lot of other useful features!</p>
-<p>Ordering:</p>
+<p>We can also select ranges:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(study_name, individual_id, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(region<span class="sc">:</span>date_egg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Matching patterns:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"mm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Selecting rantes:</p>
+<div id="tabset-3-3">
+<p><code>tidyselect</code> provides lots of helpful functions for use in <code>select()</code>!</p>
+<p><code>everything()</code> selects every variable, so the below puts <code>study_name</code> and <code>individual_id</code> first, followed by all other variables in their current order</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(region<span class="sc">:</span>date_egg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(study_name, individual_id, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can select variables that have names matching a pattern. <code>starts_with()</code> and <code>ends_with()</code> will match the pattern to the start or end of the variable name</p>
+<p><code>matches()</code> looks for it anywhere</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"mm"</span>))</span>
+<span id="cb33-2"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"bill"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="droppingkeeping-observations" class="slide level2">
@@ -1326,6 +1326,7 @@ Ben Harrap
 <span id="cb35-5"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(samplenumber))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Only rows that meet the condition are kept, use the ‘not’ operator (<code>!</code>) instead of <code>drop</code> and <code>keep</code>.</p>
+<p>Note that to drop missing values you <strong>must</strong> use <code>is.na()</code>, you cannot say <code>samplenumber != NA</code>. <code>NA</code> is a special class in R.</p>
 <p><code>filter()</code> also comes from the <code>dplyr</code> package.</p>
 </div>
 </div>
@@ -1360,11 +1361,13 @@ Ben Harrap
 <li><code>gen</code> for making new variables</li>
 <li><code>egen</code> for new variables based on a specific function</li>
 <li><code>replace</code> for modifying existing variables</li>
+<li><code>clonevar</code> for copying existing variables</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>gen culmen_flipper_ratio <span class="ot">=</span> culmen_length_mm <span class="sc">/</span> flipper_length_mm</span>
 <span id="cb38-2"><a href=""></a>egen weight_third <span class="ot">=</span> <span class="fu">cut</span>(body_mass_g), <span class="fu">group</span>(<span class="dv">3</span>)</span>
-<span id="cb38-3"><a href=""></a>replace weight_third <span class="ot">=</span> <span class="sc">-</span><span class="dv">9</span> <span class="cf">if</span> weight_third <span class="sc">==</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-3"><a href=""></a>replace weight_third <span class="ot">=</span> <span class="sc">-</span><span class="dv">9</span> <span class="cf">if</span> weight_third <span class="sc">==</span> .</span>
+<span id="cb38-4"><a href=""></a>clonevar weight_category <span class="ot">=</span> weight_third</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-5-2">
@@ -1373,8 +1376,9 @@ Ben Harrap
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
 <span id="cb39-2"><a href=""></a>  <span class="at">culmen_flipper_ratio =</span> culmen_length_mm <span class="sc">/</span> flipper_length_mm,</span>
 <span id="cb39-3"><a href=""></a>  <span class="at">weight_third =</span> <span class="fu">cut</span>(body_mass_g, <span class="dv">3</span>),</span>
-<span id="cb39-4"><a href=""></a>  <span class="at">weight_third =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(weight_third), <span class="sc">-</span><span class="dv">9</span>, weight_third)</span>
-<span id="cb39-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-4"><a href=""></a>  <span class="at">weight_third =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(weight_third), <span class="sc">-</span><span class="dv">9</span>, weight_third),</span>
+<span id="cb39-5"><a href=""></a>  <span class="at">weight_category =</span> weight_third</span>
+<span id="cb39-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1393,10 +1397,10 @@ Ben Harrap
 </div>
 </div>
 <div id="tabset-6-2">
-<p>Two common ways of specifying conditions in R:</p>
+<p>Common ways of specifying conditions in R:</p>
 <ul>
 <li><code>ifelse()</code>, in base R</li>
-<li><code>case_when()</code> from <code>dplyr</code></li>
+<li><code>if_else()</code> and <code>case_when()</code> from <code>dplyr</code></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
@@ -1421,7 +1425,10 @@ Ben Harrap
 <h3 id="interpretation">Interpretation</h3>
 <p>Stata interprets <code>.</code> as a large positive number, which can cause issues in conditional statements.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>gen variable <span class="ot">=</span> <span class="dv">1</span> <span class="cf">if</span> number <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> number <span class="sc">!=</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a><span class="co"># This captures missing values</span></span>
+<span id="cb42-2"><a href=""></a>gen variable <span class="ot">=</span> <span class="dv">1</span> <span class="cf">if</span> number <span class="sc">&gt;</span> <span class="dv">10</span></span>
+<span id="cb42-3"><a href=""></a><span class="co"># So missings have to be explicitly excluded</span></span>
+<span id="cb42-4"><a href=""></a>gen variable <span class="ot">=</span> <span class="dv">1</span> <span class="cf">if</span> number <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">&amp;</span> number <span class="sc">!=</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>R does not do this, missing is a separate category.</p>
 </section>
@@ -1707,23 +1714,23 @@ You can do all the normal stuff:
 </div><div class="column">
 <div class="cell">
 <div class="cell-output-display">
-<div id="hbdimpbbcp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hbdimpbbcp table {
+<div id="lppmgukabb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lppmgukabb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hbdimpbbcp thead, #hbdimpbbcp tbody, #hbdimpbbcp tfoot, #hbdimpbbcp tr, #hbdimpbbcp td, #hbdimpbbcp th {
+#lppmgukabb thead, #lppmgukabb tbody, #lppmgukabb tfoot, #lppmgukabb tr, #lppmgukabb td, #lppmgukabb th {
   border-style: none;
 }
 
-#hbdimpbbcp p {
+#lppmgukabb p {
   margin: 0;
   padding: 0;
 }
 
-#hbdimpbbcp .gt_table {
+#lppmgukabb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1749,12 +1756,12 @@ You can do all the normal stuff:
   border-left-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_caption {
+#lppmgukabb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hbdimpbbcp .gt_title {
+#lppmgukabb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1766,7 +1773,7 @@ You can do all the normal stuff:
   border-bottom-width: 0;
 }
 
-#hbdimpbbcp .gt_subtitle {
+#lppmgukabb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1778,7 +1785,7 @@ You can do all the normal stuff:
   border-top-width: 0;
 }
 
-#hbdimpbbcp .gt_heading {
+#lppmgukabb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1790,13 +1797,13 @@ You can do all the normal stuff:
   border-right-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_bottom_border {
+#lppmgukabb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_col_headings {
+#lppmgukabb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1811,7 +1818,7 @@ You can do all the normal stuff:
   border-right-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_col_heading {
+#lppmgukabb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1831,7 +1838,7 @@ You can do all the normal stuff:
   overflow-x: hidden;
 }
 
-#hbdimpbbcp .gt_column_spanner_outer {
+#lppmgukabb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1843,15 +1850,15 @@ You can do all the normal stuff:
   padding-right: 4px;
 }
 
-#hbdimpbbcp .gt_column_spanner_outer:first-child {
+#lppmgukabb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hbdimpbbcp .gt_column_spanner_outer:last-child {
+#lppmgukabb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hbdimpbbcp .gt_column_spanner {
+#lppmgukabb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1863,11 +1870,11 @@ You can do all the normal stuff:
   width: 100%;
 }
 
-#hbdimpbbcp .gt_spanner_row {
+#lppmgukabb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hbdimpbbcp .gt_group_heading {
+#lppmgukabb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1893,7 +1900,7 @@ You can do all the normal stuff:
   text-align: left;
 }
 
-#hbdimpbbcp .gt_empty_group_heading {
+#lppmgukabb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1908,15 +1915,15 @@ You can do all the normal stuff:
   vertical-align: middle;
 }
 
-#hbdimpbbcp .gt_from_md > :first-child {
+#lppmgukabb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hbdimpbbcp .gt_from_md > :last-child {
+#lppmgukabb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hbdimpbbcp .gt_row {
+#lppmgukabb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1935,7 +1942,7 @@ You can do all the normal stuff:
   overflow-x: hidden;
 }
 
-#hbdimpbbcp .gt_stub {
+#lppmgukabb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1948,7 +1955,7 @@ You can do all the normal stuff:
   padding-right: 5px;
 }
 
-#hbdimpbbcp .gt_stub_row_group {
+#lppmgukabb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1962,15 +1969,15 @@ You can do all the normal stuff:
   vertical-align: top;
 }
 
-#hbdimpbbcp .gt_row_group_first td {
+#lppmgukabb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hbdimpbbcp .gt_row_group_first th {
+#lppmgukabb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hbdimpbbcp .gt_summary_row {
+#lppmgukabb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1980,16 +1987,16 @@ You can do all the normal stuff:
   padding-right: 5px;
 }
 
-#hbdimpbbcp .gt_first_summary_row {
+#lppmgukabb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_first_summary_row.thick {
+#lppmgukabb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hbdimpbbcp .gt_last_summary_row {
+#lppmgukabb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1999,7 +2006,7 @@ You can do all the normal stuff:
   border-bottom-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_grand_summary_row {
+#lppmgukabb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2009,7 +2016,7 @@ You can do all the normal stuff:
   padding-right: 5px;
 }
 
-#hbdimpbbcp .gt_first_grand_summary_row {
+#lppmgukabb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2019,7 +2026,7 @@ You can do all the normal stuff:
   border-top-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_last_grand_summary_row_top {
+#lppmgukabb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2029,11 +2036,11 @@ You can do all the normal stuff:
   border-bottom-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_striped {
+#lppmgukabb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hbdimpbbcp .gt_table_body {
+#lppmgukabb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2042,7 +2049,7 @@ You can do all the normal stuff:
   border-bottom-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_footnotes {
+#lppmgukabb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2056,7 +2063,7 @@ You can do all the normal stuff:
   border-right-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_footnote {
+#lppmgukabb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2065,7 +2072,7 @@ You can do all the normal stuff:
   padding-right: 5px;
 }
 
-#hbdimpbbcp .gt_sourcenotes {
+#lppmgukabb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2079,7 +2086,7 @@ You can do all the normal stuff:
   border-right-color: #D3D3D3;
 }
 
-#hbdimpbbcp .gt_sourcenote {
+#lppmgukabb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2087,72 +2094,72 @@ You can do all the normal stuff:
   padding-right: 5px;
 }
 
-#hbdimpbbcp .gt_left {
+#lppmgukabb .gt_left {
   text-align: left;
 }
 
-#hbdimpbbcp .gt_center {
+#lppmgukabb .gt_center {
   text-align: center;
 }
 
-#hbdimpbbcp .gt_right {
+#lppmgukabb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hbdimpbbcp .gt_font_normal {
+#lppmgukabb .gt_font_normal {
   font-weight: normal;
 }
 
-#hbdimpbbcp .gt_font_bold {
+#lppmgukabb .gt_font_bold {
   font-weight: bold;
 }
 
-#hbdimpbbcp .gt_font_italic {
+#lppmgukabb .gt_font_italic {
   font-style: italic;
 }
 
-#hbdimpbbcp .gt_super {
+#lppmgukabb .gt_super {
   font-size: 65%;
 }
 
-#hbdimpbbcp .gt_footnote_marks {
+#lppmgukabb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hbdimpbbcp .gt_asterisk {
+#lppmgukabb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hbdimpbbcp .gt_indent_1 {
+#lppmgukabb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hbdimpbbcp .gt_indent_2 {
+#lppmgukabb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hbdimpbbcp .gt_indent_3 {
+#lppmgukabb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hbdimpbbcp .gt_indent_4 {
+#lppmgukabb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hbdimpbbcp .gt_indent_5 {
+#lppmgukabb .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hbdimpbbcp .katex-display {
+#lppmgukabb .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hbdimpbbcp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lppmgukabb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
