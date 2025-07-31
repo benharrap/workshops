@@ -617,7 +617,7 @@ R does not do this, missing is a separate category.
 
 ### Stata
 
-Generally speaking, everything is either a number or a string.
+Generally speaking, in Stata everything is either a number or a string.
 
 ```{r}
 #| eval: false
@@ -631,35 +631,146 @@ Categorical data can be represented as a string or as a label on a numeric varia
 
 Logical variables (TRUE or FALSE) do not exist.
 
-### R
+R has more data types than Stata, including logical variables - click on the other tabs to learn more.
 
-R has more data types than Stata, including logical variables
+### Integer
+
+In the example below, `values` is a vector that's a mix of numbers and strings (characters). The strings are in quotes, the numbers are not.
 
 ```{r}
-#| eval: false
+values <- c(-4, "0","1", 1,"2.5","05", "11.7", "T", "FALSE")
+values
+as.integer(values)
+```
+
+Notice that using `as.integer()` truncates 2.5 and 11.7, it does not round them.
+
+### Numeric
+
+```{r}
+
+values
+as.numeric(values)
+round(as.numeric(values))
+```
+
+Notice that `round()` rounds decimals of `.5` toward the nearest even number .
+
+Use `round_half_up()` from the `janitor` package to round up.
+
+### Logical
+
+```{r}
+values
+as.logical(values)
+```
+
+Strings with T/TRUE/F/FALSE are converted to `TRUE` and `FALSE`
+
+If we convert them to numbers first, any numbers that are not `0` are now `TRUE` and `0` is `FALSE`.
+
+```{r}
+as.logical(as.numeric(values))
+```
+
+The converse is true as well - you can sum logicals as they are treated like `1` and `0`
+
+```{r}
+FALSE + TRUE + TRUE + FALSE
+```
+
+### Factor
+
+Jumping back to the penguins data, categorical data can be stored as factors:
+
+```{r}
+data <- data |> mutate(island_factor = factor(island, levels = c("Dream","Biscoe","Torgersen")))
+```
+
+If we tabulate the character version `island`, it's sorted alphabetically
+
+```{r}
+tabyl(data$island)
+```
+
+When we use the factor version, the result is ordered by the levels we specified.
+
+```{r}
+tabyl(data$island_factor)
+```
+
+:::
+
+## Reshaping longer
+
+The `tidyverse` package makes this very easy with `pivot_longer()`.
+
+::: {.columns}
+
+:::: {.column width="45%"}
+
+```{r}
 data |> 
-  mutate(
-    sample_number = as.numeric(sample_number),
-    sample_number = as.logical(sample_number),
-    sample_number = as.character(sample_number)
+  select(individual_id, region, stage) |> 
+  pivot_longer(
+    cols = c(region, stage),
+    names_to = "variable",
+    values_to = "number"
   )
 ```
 
-Categorical data can be stored as factors:
+::::
 
-```{r}
-data <- data |> mutate(island_factor = factor(island, levels = c("Biscoe","Dream","Torgersen")))
-class(data$island)
-class(data$island_factor)
-```
+:::: {.column width="5%"}
+
+::::
+
+:::: {.column width="50%"}
+
+`cols =` specifies which columns you want reshape
+
+`names_to =` names the column that the variable names will be put in
+
+`values_to =` names the column that the values of those variables will be put in
+
+::::
 
 :::
 
 ## Reshaping wider
 
+As you might've guessed, `pivot_wider()` does the opposite
 
+::: {.columns}
 
-## Reshaping longer
+:::: {.column width="45%"}
+
+```{r}
+data |> 
+  pivot_wider(
+    names_from = "island",
+    values_from = "sample_number"
+  ) |> 
+  select(Torgersen, Dream, Biscoe)
+```
+
+::::
+
+:::: {.column width="5%"}
+
+::::
+
+:::: {.column width="50%"}
+
+This time we don't specify `cols`
+
+`names_from =` says which column use for the new column names (Torgersen, Dream, Biscoe)
+
+`values_from =` says which column to pull the values for those new columns from
+
+::::
+
+:::
 
 ## Grouped operations
 
@@ -719,6 +830,9 @@ There are a few good options for making and formatting tables in R:
 -   `gtsummary`
 -   `kable` (with `kableExtra`)
 -   `tinytable`
+-   `flextable`
+
+Depending on your output, some packages work better than others. For things like HTML and PDF, they all work fairly well. For Word output (`docx`), `gt` doesn't do so well.
 
 # Data visualisation
 
