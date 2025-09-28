@@ -1,0 +1,51 @@
+del {
+  text-decoration-thickness: 5px;
+}
+
+.reveal .slide-logo {
+  max-height: 6rem !important;
+}
+
+.leaves {
+  height: 50rem;
+  align-self: center;
+  float: right;
+}
+
+.mermaid-js { 
+  max-width: 1500px !important;
+  font-size: 10px !important;
+  font-family: Outfit !important;
+}
+
+.gt_table {
+  font-size: 0.9em !important;
+  width: 100% !important;
+}
+
+/* tweaks to code appearance */
+
+pre {
+  border-radius: 10px;
+}
+
+pre code {
+  background-color: #FFFFFF !important;
+}
+
+code {
+  border-radius: 10px !important;
+  padding-right: 5px;
+  padding-left: 10px !important;
+}
+
+.cell-output-stdout {
+  margin-top: 5px;
+  border-radius: 10px !important;
+}
+
+.cell-code {
+  margin-top: 5px;
+  border-radius: 10px !important;
+  border-color: #FFFFFF !important;
+}

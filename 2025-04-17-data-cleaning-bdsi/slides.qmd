@@ -1,14 +1,14 @@
 ---
 title: "Can you over-engineer data cleaning? Let’s find out!"
 title-slide-attributes:
-  data-background-image: img/star.png
+  data-background-image: ../resources/yardhura_walani/star.png
   data-background-opacity: "0.02"
 author: "Ben Harrap"
 date: "2025-04-17"
 brand: _yardhura_walani.yml
 format: 
   revealjs:
-    logo: img/logo.png
+    logo: ../resources/yardhura_walani/logo.png
     css: custom.css
     width: 1920
     height: 1080
@@ -32,9 +32,9 @@ library(haven)
 library(gt)
 ```
 
-# Intro {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+# Intro {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
-## About me {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## About me {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Doing data things since 2017:
 
@@ -47,7 +47,7 @@ Doing data things since 2017:
 
 Currently work at Yardhura Walani on the Mayi Kuwayu Study
 
-## About the Mayi Kuwayu Study {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## About the Mayi Kuwayu Study {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 The largest national study of Aboriginal and Torres Strait Islander culture, health, and wellbeing.
 
@@ -57,7 +57,7 @@ The largest national study of Aboriginal and Torres Strait Islander culture, hea
 -   Indigenous Data Sovereignty and Governance
 -   Won the NHMRC David Cooper Clinical Trials and Cohort Studies Award
 
-## About the data cleaning rework {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## About the data cleaning rework {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Guiding principles:
 
@@ -71,7 +71,7 @@ Guiding principles:
 -   Be open to being wrong
 :::
 
-## About the data cleaning rework {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## About the data cleaning rework {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Packages & stuff:
 
@@ -106,7 +106,7 @@ Packages & stuff:
 
 :::
 
-## Data setup {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## Data setup {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ```{mermaid}
 %%| echo: false
@@ -118,9 +118,9 @@ flowchart TD
     audit[Audits] --> redcap
 ```
 
-# Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+# Data dictionary {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
-## Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## Data dictionary {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Exported from REDCap using the API
 
@@ -150,7 +150,7 @@ Need to have `online` and `paper` data separately
 -   Minor differences between questionnaire formats
 -   Can't force field validation on paper format
 
-## Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## Data dictionary {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Raw dictionary from REDCap needs cleaning:
 
@@ -173,7 +173,7 @@ gt(dictionary_clean) |>
   cols_align(align = "left")
 ```
 
-## Data dictionary {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.02}
+## Data dictionary {background-image="../resources/yardhura_walani/star.png" background-repeat="no-repeat" background-opacity=0.02}
 
 From the cleaned dictionary, also create a value-label correspondence
 
@@ -192,9 +192,9 @@ gt(dictionary_labels) |>
 
 Use it to apply labels to data once it's been cleaned
 
-# Data cleaning {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+# Data cleaning {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
-## Overview {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Overview {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ```{mermaid}
 %%| echo: false
@@ -216,7 +216,7 @@ flowchart TD
     ext[External data] -->|integrate| clean
 ```
 
-## Pre-cleaning {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Pre-cleaning {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Apply consistent coding
 
@@ -246,7 +246,7 @@ data_prepared_online <- data_raw_online |>
 
 Check with `compare_df_cols()`
 
-## Example data {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Example data {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 For the purposes of illustration:
 
@@ -264,7 +264,7 @@ gt(data_raw) |>
   cols_align(align = "left")
 ```
 
-## Validation {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Validation {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ```{r}
 #| echo: false
@@ -289,7 +289,7 @@ data_validate_integer <- data_raw |>
 data_validate_integer
 ```
 
-## Validation {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Validation {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Cleaning & validation occurring at the same time, following the pattern of `rule_*` and `validate_*`:
 
@@ -305,7 +305,7 @@ data_validate_integer <- data_validate_integer |>
 data_validate_integer
 ```
 
-## Auditing {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Auditing {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ```{mermaid}
 %%| echo: false
@@ -324,7 +324,7 @@ Any observations that fail an audit rule and are from a paper response get audit
 -   Updated values entered in REDCap
 -   Easy for data entry team
 
-## Auditing {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Auditing {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Feedback loop between the raw data and data validation output
 
@@ -347,7 +347,7 @@ gt(data_audit) |>
   cols_align(align = "left")
 ```
 
-## Auditing {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Auditing {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ::: {.columns}
 
@@ -389,7 +389,7 @@ data_prepared
 
 Then `pivot_wider()` back to the original shape.
 
-## Labelling {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Labelling {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Automating the labels was fun - first generate a list of the value/label correspondence
 
@@ -405,7 +405,7 @@ dictionary_label_lists
 unlist(dictionary_label_lists$label_values)
 ```
 
-## Labelling {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Labelling {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Then apply the list using `across()` and `cur_column()`
 
@@ -422,7 +422,7 @@ data_prepared |> mutate(across(any_of(dictionary_clean$variable[dictionary_clean
     }))
 ```
 
-## Extra stuff {background-image="img/moon.png" background-repeat="no-repeat" background-opacity=0.02}
+## Extra stuff {background-image="../resources/yardhura_walani/moon.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Integrate new data, make new variables
 
@@ -434,9 +434,9 @@ Integrate new data, make new variables
     -   Address
     -   Geographies
 
-# Not just data cleaning {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+# Not just data cleaning {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
-## Overview {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Overview {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ```{mermaid}
 %%| echo: false
@@ -450,7 +450,7 @@ flowchart TD
     dict --> user
 ```
 
-## Code maintainer manual {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Code maintainer manual {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 A technical document that covers:
 
@@ -462,7 +462,7 @@ A technical document that covers:
     -   Snippets
     -   Reasons for given implementation
 
-## Data cleaning reports {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Data cleaning reports {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ::: {.columns}
 
@@ -509,7 +509,7 @@ Report on:
 
 :::
 
-## Data user manual {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Data user manual {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 A relatively plain-language, accessible user manual
 
@@ -544,7 +544,7 @@ A relatively plain-language, accessible user manual
 
 Uses Quarto, incorporates output from the pipeline
 
-## Variable naming convention {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Variable naming convention {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 See blog post: [https://benharrap.com/post/2025-03-03-variable-naming-convention/](https://benharrap.com/post/2025-03-03-variable-naming-convention/){target="_blank"}
 
@@ -563,7 +563,7 @@ For example:
 
 
 
-## Survey redesign {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Survey redesign {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Shiny dashboard with relevant information about each wave:
 
@@ -576,7 +576,7 @@ Shiny dashboard with relevant information about each wave:
 -   Question sequence violations
     -   Paper only
 
-## Code generalisability {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Code generalisability {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 Currently working on code for Wave 2, but intend for the code to:
 
@@ -585,9 +585,9 @@ Currently working on code for Wave 2, but intend for the code to:
 -   Generalise across studies
 -   Provide a framework for future studies
 
-# Pretty cool huh {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+# Pretty cool huh {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
-## Problems (and solutions?) {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Problems (and solutions?) {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 ::: {.incremental}
 
@@ -603,7 +603,7 @@ Currently working on code for Wave 2, but intend for the code to:
 
 :::
     
-## Questions for you {background-image="img/sun.png" background-repeat="no-repeat" background-opacity=0.02}
+## Questions for you {background-image="../resources/yardhura_walani/sun.png" background-repeat="no-repeat" background-opacity=0.02}
 
 What metrics do you use when checking data cleaning output?
 

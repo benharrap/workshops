@@ -1,0 +1,29 @@
+---
+title: "Where to data come from?"
+subtitle: "And other difficult questions your children might ask"
+author: Ben Harrap
+format: revealjs
+---
+
+## Acknowledgement
+
+# Intro
+
+
+# Collecting data
+
+
+
+# Digitising data
+
+
+
+# Cleaning data
+
+
+
+# Metadata
+
+
+
+# Using data
