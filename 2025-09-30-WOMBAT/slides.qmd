@@ -23,9 +23,9 @@ execute:
   message: false
 ---
 
-## Acknowledgement {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## Acknowledgement {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
-## Mayi Kuwayu Study {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## Mayi Kuwayu Study {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.columns}
 
@@ -50,7 +50,7 @@ execute:
 
 :::
 
-## Data cleaning as perpetual stew {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## Data cleaning as perpetual stew {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.columns}
 
@@ -75,7 +75,7 @@ A **very common** method of data cleaning:
 
 :::
 
-## Making a new meal {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## Making a new meal {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.columns}
 
@@ -110,7 +110,7 @@ There's more work to do than people realistically have time for, so a lot of the
 I'm also mindful to not railroad people into doing what I want, so I did also spend time with everyone involved at different steps of the data lifecycle to find out what they did and what gripes there were, to see what I could help make easier.
 :::
 
-## Making a new meal {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## Making a new meal {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.columns}
 
@@ -149,7 +149,7 @@ Trust was built on a mix of being being open, personable, and aggressively trans
     -   Also, repeated exposure to something makes you more likely to like it, right?
 :::
 
-## What was I going to cook? {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## What was I going to cook? {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.columns}
 
@@ -181,7 +181,7 @@ From being in a community of practice (runapp, bluesky), I was familiar with wha
 For those of you in the room, this might not seem like anything out of the ordinary, but for the team this was a significant departure from the current practice and what they were familiar with.
 :::
 
-## Testing out the recipe {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## Testing out the recipe {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.columns}
 
@@ -225,7 +225,7 @@ We have a fortnightly data team meeting which I've been using to review one scri
 
 
 
-## What was I going to cook? {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## What was I going to cook? {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.columns}
 
@@ -255,7 +255,7 @@ I proposed a rework of the cleaning process to use:
 Switching from Stata to R/tidyverse is a significant transition in itself. My goal was to build something that others could maintain — didn't seem like a great idea to introduce too many packages and ways of working that **I** was having to learn as I was implementing.
 
 As capacity in the team increases we'll hopefully be able to incorporate these missing parts.
-:::## Now we're cooking! {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+:::## Now we're cooking! {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ::: {.incremental}
 Closing thoughts:
@@ -266,7 +266,7 @@ Closing thoughts:
 -   Transparency and openness to changing my own plans
 :::
 
-## {background-image="img/star.png" background-repeat="no-repeat" background-opacity=0.015}
+## {background-image=img/star.png background-repeat="no-repeat" background-opacity=0.015}
 
 ![](img/flowchart2.svg)
 
