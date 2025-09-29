@@ -195,8 +195,8 @@ Ben Harrap
 <div class="column" style="width:48%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://cdn.stocksnap.io/img-thumbs/960w/pasta-ingredients_WDQKXVP2S5.jpg"></p>
-<figcaption>Source: StockSnap</figcaption>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Recovering_wasted_food.JPG"></p>
+<figcaption>Source: Wikimedia</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:4%;">
@@ -237,8 +237,8 @@ Ben Harrap
 <div class="column" style="width:48%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://cdn.stocksnap.io/img-thumbs/960w/pasta-ingredients_WDQKXVP2S5.jpg"></p>
-<figcaption>Source: StockSnap</figcaption>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Recovering_wasted_food.JPG"></p>
+<figcaption>Source: Wikimedia</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:4%;">
@@ -256,7 +256,10 @@ Ben Harrap
 <li class="fragment">Spreadsheets for certain processes</li>
 <li class="fragment">Usable data</li>
 </ul></li>
-<li class="fragment">Only one of me</li>
+<li class="fragment">Only one of me
+<ul>
+<li class="fragment">Academia &gt;:(</li>
+</ul></li>
 </ul>
 </div></div>
 <aside class="notes">
@@ -295,7 +298,6 @@ Ben Harrap
 </div><div class="column" style="width:4%;">
 
 </div><div class="column" style="width:48%;">
-<p>I proposed a rework of the cleaning process to use:</p>
 <ul>
 <li class="fragment">REDCap/APIs instead of spreadsheets</li>
 <li class="fragment"><code>renv</code> to manage package versions/dependencies</li>
@@ -303,6 +305,7 @@ Ben Harrap
 <li class="fragment"><code>tidyverse</code> because… <code>tidyverse</code></li>
 <li class="fragment"><code>testthat</code> and <code>pointblank</code> for testing and validation</li>
 <li class="fragment"><code>git</code> for version control</li>
+<li class="fragment">Quarto documentation</li>
 </ul>
 </div></div>
 <aside class="notes">
@@ -333,7 +336,7 @@ Ben Harrap
 </div><div class="column" style="width:4%;">
 
 </div><div class="column" style="width:48%;">
-<p>Multi-purpose code reviews:</p>
+<p>The next step was to show people the code</p>
 <ul>
 <li class="fragment">Expert review
 <ul>
@@ -342,8 +345,8 @@ Ben Harrap
 </ul></li>
 <li class="fragment">Novice review
 <ul>
-<li class="fragment">Readability</li>
 <li class="fragment">Teaching opportunity</li>
+<li class="fragment">Readability</li>
 </ul></li>
 <li class="fragment">Team review
 <ul>
@@ -374,8 +377,8 @@ Ben Harrap
           display:block!important;
       }</style></aside>
 </section>
-<section id="what-was-i-going-to-cook-1" class="slide level2" data-background-image="img/star.png" data-background-repeat="no-repeat" data-background-opacity="0.015">
-<h2>What was I going to cook?</h2>
+<section id="what-did-i-cook" class="slide level2" data-background-image="img/star.png" data-background-repeat="no-repeat" data-background-opacity="0.015">
+<h2>What did I cook?</h2>
 <div class="columns">
 <div class="column" style="width:48%;">
 <div class="quarto-figure quarto-figure-center">
@@ -387,19 +390,33 @@ Ben Harrap
 </div><div class="column" style="width:4%;">
 
 </div><div class="column" style="width:48%;">
-<p>I proposed a rework of the cleaning process to use:</p>
 <ul>
-<li>REDCap/APIs instead of spreadsheets</li>
-<li><code>renv</code> to manage package versions/dependencies</li>
-<li><del><code>targets</code> to track the whole pipeline</del></li>
-<li><code>tidyverse</code> because… <code>tidyverse</code></li>
-<li><del><code>testthat</code> and <code>pointblank</code> for testing and validation</del></li>
-<li><code>git</code> for version control</li>
+<li class="fragment">REDCap/APIs instead of spreadsheets</li>
+<li class="fragment"><code>renv</code> to manage package versions/dependencies</li>
+<li class="fragment"><del><code>targets</code> to track the whole pipeline</del></li>
+<li class="fragment"><code>tidyverse</code> because… <code>tidyverse</code></li>
+<li class="fragment"><del><code>testthat</code> and <code>pointblank</code> for testing and validation</del></li>
+<li class="fragment"><code>git</code> for version control</li>
+<li class="fragment">Quarto documentation</li>
 </ul>
 </div></div>
 <aside class="notes">
 <p>Switching from Stata to R/tidyverse is a significant transition in itself. My goal was to build something that others could maintain — didn’t seem like a great idea to introduce too many packages and ways of working that <strong>I</strong> was having to learn as I was implementing.</p>
-<p>As capacity in the team increases we’ll hopefully be able to incorporate these missing parts. :::## Now we’re cooking! {background-image=img/star.png background-repeat=“no-repeat” background-opacity=0.015}</p>
+<p>As capacity in the team increases we’ll hopefully be able to incorporate these missing parts.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="now-were-cooking" class="slide level2" data-background-image="img/star.png" data-background-repeat="no-repeat" data-background-opacity="0.015">
+<h2>Now we’re cooking!</h2>
 <p>Closing thoughts:</p>
 <ul>
 <li class="fragment"><code>install.packages("trust")</code></li>
@@ -407,6 +424,7 @@ Ben Harrap
 <li class="fragment">Changing minds takes time and enthusiasm</li>
 <li class="fragment">Transparency and openness to changing my own plans</li>
 </ul>
+</section>
 <section id="section" class="slide level2" data-background-image="img/star.png" data-background-repeat="no-repeat" data-background-opacity="0.015">
 <h2></h2>
 
@@ -419,20 +437,9 @@ Ben Harrap
 <li>Converging to a pseudo-<code>targets</code> setup</li>
 <li>The naming convention I proposed</li>
 <li>Missing data</li>
+<li>Including scripts in Quarto docs</li>
 </ul>
 
-</section>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
