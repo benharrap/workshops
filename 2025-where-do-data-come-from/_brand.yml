@@ -1,0 +1,55 @@
+meta:
+  name: Ben Harrap
+  link: https://benharrap.com
+
+logo:
+  images:
+    primary:
+      path: https://benharrap.com/img/randy.png
+      alt: "Randy the Greyhound"
+
+color:
+  palette:
+    eggshell: "#f6e5e3"
+    green: "#78c1a3"
+    greyblue: "#6a94a1"
+    lightblue: "#00aaa1"
+    clay: "#ecbdc0"
+    salmon: "#f98e91"
+    hotpink: "#f134a5"
+    darkred: "#88192b"
+    gold: "#f8d8a0"
+    khaki: "#af956f"
+    black: "#03302e"
+  foreground: black
+  background: eggshell
+  primary: salmon
+  secondary: lightblue
+  tertiary: teal
+  info: greyblue
+  success: green
+  danger: hotpink
+  warning: darkred
+  light: eggshell
+  dark: black
+
+typography:
+  fonts:
+    - family: Nunito
+      source: google
+    - family: Noto Sans Mono
+      source: google
+    - family: sans-serif
+  base: 
+    family: Nunito
+    line-height: 2
+  headings: Nunito
+  link:
+    color: salmon
+  monospace: 
+    family: Noto Sans Mono
+    background-color: clay
+    color: black
+  monospace-block:
+    line-height: 2
+    background-color: clay

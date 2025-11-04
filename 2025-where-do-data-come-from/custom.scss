@@ -1,0 +1,47 @@
+/*-- scss:defaults --*/
+
+$eggshell: #f6e5e3;
+$green: #78c1a3;
+$greyblue: #6a94a1;
+$lightblue: #00aaa1;
+$clay: #ecbdc0;
+$salmon: #f98e91;
+$hotpink: #f134a5;
+$darkred: #88192b;
+$gold: #f8d8a0;
+$khaki: #af956f;
+$black: #03302e;
+
+/*-- scss:rules --*/
+
+.footer p {
+  color: $salmon;
+}
+
+.reveal div.sourceCode {
+  border: 1px solid $lightblue;
+}
+
+pre {
+  border-radius: 10px;
+}
+
+pre code {
+  background-color: $clay !important;
+}
+
+code {
+  border-radius: 10px !important;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
+
+.cell-output-stdout {
+  margin-top: 5px;
+  border-radius: 10px !important;
+}
+
+.cell-code {
+  margin-top: 5px;
+  border-radius: 10px !important;
+}
