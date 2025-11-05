@@ -12,7 +12,18 @@ $gold: #f8d8a0;
 $khaki: #af956f;
 $black: #03302e;
 
+
 /*-- scss:rules --*/
+
+*::selection {
+  background: $black !important;
+}
+*::-moz-selection {
+  background: $black !important;
+}
+*::-webkit-selection {
+  background: $black !important;
+}
 
 .footer p {
   color: $salmon;

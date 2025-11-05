@@ -24,7 +24,7 @@ color:
   foreground: black
   background: eggshell
   primary: salmon
-  secondary: lightblue
+  secondary: green
   tertiary: teal
   info: greyblue
   success: green

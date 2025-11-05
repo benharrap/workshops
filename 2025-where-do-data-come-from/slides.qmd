@@ -6,15 +6,13 @@ brand: _brand.yml
 format: 
   revealjs:
     logo: https://benharrap.com/img/randy.png
-    theme: [default, custom.scss]
+    theme: [custom.scss]
     width: 1920
     height: 1080
     code-overflow: wrap
     code-block-height: 800px
-    mermaid:
-      theme: neutral
 link-external-newwindow: true
-footer: 'Slides available from [https://benharrap.github.io/workshops/2025-11-05-ARDC/slides.html](https://benharrap.github.io/workshops/2025-11-05-ARDC/slides.html)'
+footer: 'Slides available from [https://benharrap.github.io/workshops/2025-where-do-data-come-from/slides.html](https://benharrap.github.io/workshops/2025-where-do-data-come-from/slides.html)'
 execute:
   code-copy: true
   echo: true
@@ -112,7 +110,7 @@ Pilot phase
 ::::
 :::
 
-## Physical mail
+## Paper responses
 
 ::: {.columns}
 :::: {.column}
@@ -240,11 +238,11 @@ Ping of 51ms
 
 ![](img/overview.svg){width=1000px}
 
-## Data dictionary
+## Start reading early
 
 ::: {.columns}
 :::: {.column width=30%}
-These are essential for cleaning and documentation:
+The data dictionary is essential for cleaning and documentation:
 
 ::::: {.incremental}
 -   Splitting by type
@@ -274,7 +272,7 @@ dictionary <- tibble(
 gt(dictionary) |>
   cols_align(align = "left") |> 
   opt_table_font(
-    size = "30px"
+    size = "20px"
   ) |> 
   fmt_markdown()
 ```
@@ -282,25 +280,29 @@ gt(dictionary) |>
 ```{r}
 #| eval: false
 #| code-fold: true
-data_clean <- data_raw |>
-  select(
-    id,
-    any_of(
-      dictionary |>
-        filter(type == "numeric") |>
-        pull(variable)
+#| code-summary: "Example"
+#| code-overflow: scroll
+across(
+  .cols = any_of(dictionary |> filter(type %in% c("numeric", "integer")) |> pull(variable)),
+  .fns = \(x) {
+    min <- dictionary |> filter(variable == cur_column()) |> pull(minimum) |> as.numeric()
+    max <- dictionary |> filter(variable == cur_column()) |> pull(maximum) |> as.numeric()
+    if_else(
+      condition = between(as.numeric(x), min, max),
+      true = x,
+      false = "-777777",
+      missing = NA
     )
-  )
+  }
 ```
-
 ::::
 :::
 
-## Cleaning process
+## 
 
 ![](img/cleaning.png)
 
-## Preprocessing
+## 5 minutes until bath time!
 
 ::: {.columns}
 :::: {.column .incremental}
@@ -311,35 +313,13 @@ data_clean <- data_raw |>
 3.  Apply exclusions
     -   Repeat entries
     -   Empty responses
-3.  Incorporate audits
+4.  Incorporate audits
+5.  Get cleaning
 
 ::::
 :::: {.column}
-::::
-:::
-
-## Data cleaning is an art
-
-::: {.columns}
-:::: {.column}
-Everything is a string at this stage
-
-::::: {.fragment .incremental}
-Separate variables type then:
-
--   Check values against a series of rules
--   If a value fails a rule, do something
--   Ordering matters!
-
-:::::
-
-::::
-:::: {.column}
-::::: {.r-stack}
-![](img/types.svg){.fragment .fade-in-then-out height=800}
-
-![](img/typestring.svg){.fragment .fade-in height=800}
-
+::::: {.fragment}
+![](img/rules.svg){height=800}
 :::::
 ::::
 :::
@@ -578,11 +558,12 @@ variable == "phone" & !(nchar(response) %in% c(8, 10, 11))
 ```
 :::::
 
-## Deriving and integrating data
+## Playing with friends
 
 ::: {.columns}
 :::: {.column .incremental}
-Standardising existing data
+::::: {.fragment}
+Deriving from existing data
 
 -   Back page text
     -   Transcription and coding
@@ -591,8 +572,10 @@ Standardising existing data
     -   Commonly used demographics
     -   Validated measures
 
+:::::
 ::::
 :::: {.column .incremental}
+::::: {.fragment}
 Incorporating external data
 
 -   Address/geography
@@ -603,19 +586,24 @@ Incorporating external data
     -   Within- and across- wave responders
     -   Across studies
     -   Unique identifier
-    
+
+:::::
 ::::
 :::
 
-## Finishing up
+## Nearly time for bed
 
+::: {.incremental}
 -   Encode missingness
     -   See [blog post](https://benharrap.com/post/2025-07-14-to-col-or-not-to-col/)
 -   Convert to appropriate data type
 -   Final validation
 -   Variable naming
+    -   See [blog post](https://benharrap.com/post/2025-03-03-variable-naming-convention/)
 -   Labelling
 -   Deidentification
+
+:::
 
 # Data about data
 
@@ -687,11 +675,12 @@ miss |>
   tab_style(
     style = cell_fill(color = "#f134a5"),
     locations = cells_body(
-      columns = c(x1,x3),
+      columns = c(x1,x3,y2,y3),
       rows = id == 1
       )
   )
 ```
+
 ::::
 :::: {.fragment .fade-in-and-out}
 ```{r}
@@ -705,6 +694,7 @@ miss |>
       )
   )
 ```
+
 ::::
 :::: {.fragment .fade-in-and-out}
 ```{r}
@@ -718,28 +708,63 @@ miss |>
       )
   )
 ```
+
 ::::
 :::
 
-## Data quality rules
+## Who what where why when
 
+::: {.columns}
+:::: {.column .incremental}
+::::: {.fragment}
+Check invalid responses
 
+-   Wording
+-   Response options
+-   Context
+-   Layout
+-   Scanner
 
-## Response distributions
+:::::
+::::
+:::: {.column .incremental}
+::::: {.fragment}
+Check valid responses
 
-Variation in responses according to:
-
--   Format
+-   Missingness
+-   Response options
 -   Question topic
 -   Question number
 
+:::::
+::::
+:::
+
 # Time for bed
 
-## Closing thoughts
+## Time for bed
+
+::: {.columns}
+:::: {.column}
 
 -   Big job
 -   Get the data dictionary sorted first
--   Write generalisable code
+    -   Write generalisable code
 -   Look at the data
     -   Write tests
--   Cleaning can be multi-purpose
+    
+::::
+:::: {.column}
+Slide setup
+
+[github.com/benharrap/workshops](github.com/benharrap/workshops)
+
+Say hi
+
+[benjamin.harrap@anu.edu.au](mailto:benjamin.harrap@anu.edu.au)
+
+[bsky.app/profile/bharrap.bsky.social](bsky.app/profile/bharrap.bsky.social)
+
+[benharrap.com](benharrap.com)
+::::
+:::
