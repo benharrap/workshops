@@ -1,0 +1,34 @@
+:root {
+  --r-main-font-size: 50px;
+  --r-block-margin: 30px;
+}
+
+.callout-tip {
+   position:fixed;
+   bottom: 1rem;
+   width: 99%;
+}
+
+.cell {
+  font-size: 4rem;
+}
+
+code {
+  background-color: #f6e5e3 !important;
+}
+
+.reveal pre code {
+  border-radius: 5px;
+}
+
+.reveal pre.sourceCode {
+  background-color: #fff !important;
+}
+
+div.callout {
+  font-size: 0.5em !important;
+}
+
+.panel-tabset [role="tab"][aria-selected="true"] {
+  background-color: lightgrey !important;
+}

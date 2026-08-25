@@ -1,0 +1,52 @@
+meta:
+  name: Yardhura Walani
+  link: https://yardhurawalani.com.au/
+
+logo:
+  images:
+    primary:
+      path: img/logo.png
+      alt: "Yarhura Walani logo"
+
+color:
+  palette:
+    green: "#34665C"
+    blue: "#325d74"
+    teal: "#69a3a3"
+    cream: "#ede8d1"
+    red: "#c4624c"
+    orange: "#e9a148"
+    sand: "#C7a170"
+    black: "#1d1d1b"
+    white: "#FFFFFF"
+  foreground: black
+  background: white
+  primary: blue
+  secondary: green
+  tertiary: teal
+  info: blue
+  success: green
+  danger: red
+  warning: orange
+  light: white
+  dark: black
+
+typography:
+  fonts:
+    - family: Outfit
+      source: google
+    - family: Noto Sans Mono
+      source: google
+  base: 
+    family: Outfit
+    line-height: 1.2
+  headings: Outfit
+  link:
+    color: red
+  monospace: 
+    family: Noto Sans Mono
+    color: blue
+    background-color: cream
+  monospace-block:
+    line-height: 1.2
+    background-color: cream
