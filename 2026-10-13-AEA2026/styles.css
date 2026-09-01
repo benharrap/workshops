@@ -1,6 +1,5 @@
 :root {
   --r-main-font-size: 50px;
-  --r-block-margin: 30px;
 }
 
 .callout-tip {
@@ -10,11 +9,11 @@
 }
 
 .cell {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
-code {
-  background-color: #f6e5e3 !important;
+.cell-code {
+  font-size: 4rem;
 }
 
 .reveal pre code {

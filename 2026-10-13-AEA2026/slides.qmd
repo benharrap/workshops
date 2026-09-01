@@ -10,6 +10,7 @@ format:
     width: 1920
     height: 1080
 link-external-newwindow: true
+# callout-appearance: minimal
 execute:
   code-copy: true
   echo: true
@@ -36,7 +37,7 @@ countdown_style(
 
 # Hello
 
-## About me
+## Hello
 
 :::: {.columns}
 ::: {.column width=45%}
@@ -53,10 +54,8 @@ countdown_style(
 :::
 ::: {.column width=45%}
 
--   Coffee consumer
--   Cooking
--   Parent
--   Drumming
+insert picture of me
+
 :::
 ::::
 
@@ -64,19 +63,30 @@ countdown_style(
 
 :::: {.columns}
 ::: {.column width=45%}
--   Important contextual knowledge (XXmin)
-    -   Brief overview of R
-    -   RStudio
+-   Getting setup (XXmin)
+    -   RStudio interface
     -   Packages
-    -   R basics
+    -   Projects and folders
 
+-   Coding in R
+    -   Key concepts
+    -   Data types
+    -   Good practices
+    -   Error messages
+    
 :::
 ::: {.column width=45%}
--   Let's get coding (XXmin)
-    -   Data wrangling
-    -   Descriptive statistics
-    -   Modelling basics
-    -   Data visualisation
+-   Data wrangling
+    -   Common transformations
+    -   
+
+-   Data visualisation
+    -   `ggplot2`
+
+-   Modelling (XXmin)
+    -   Important notes
+    -   Fitting a model
+    -   Getting results
 
 :::
 ::::
@@ -139,7 +149,7 @@ The source is where you:
 :::
 ::: {.column width="65%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg)
+![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-source.jpeg)
 
 :::
 ::::
@@ -161,23 +171,23 @@ This can include:
 :::
 ::: {.column width="65%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg)
+![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-env.jpeg)
 :::
 ::::
 
 ## Console
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="35%"}
 The console is where:
 
 - Output from functions are returned
 - Code can be run directly
 
 :::
-::: {.column width="50%"}
+::: {.column width="65%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg)
+![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-console.jpeg)
 
 :::
 ::::
@@ -185,7 +195,7 @@ The console is where:
 ## Output
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="35%"}
 The output pane is where:
 
 - R displays your file directory
@@ -193,14 +203,14 @@ The output pane is where:
 - Installed packages and help files are shown
 
 :::
-::: {.column width="50%"}
+::: {.column width="65%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](https://docs.posit.co/ide/user/ide/get-started/images/rstudio-panes-labeled.jpeg)
+![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-output.jpeg)
 
 :::
 ::::
 
-## There's an R package for that
+## Packages
 
 <!-- One of the greatest strengths of R is that it is open-source and there are an enormous number of packages available. -->
 
@@ -231,6 +241,9 @@ For a list of available packages see <https://cran.r-project.org/web/packages/av
 
 A set of user-friendly tools for data manipulation and analysis
 
+:::: {.columns}
+::: {.column width="60%"}
+
 - Reading in data (`readr`)
 - Data cleaning and manipulation (`dplyr`, `tidyr`)
 - Data visualisation (`ggplot2`)
@@ -238,6 +251,12 @@ A set of user-friendly tools for data manipulation and analysis
   - Strings (`stringr`)
   - Dates (`lubridate`)
   - Factors (`forcats`)
+
+:::
+::: {.column width="40%"}
+![](img/tidyverse.png)
+:::
+::::
 
 :::{.callout-tip}
 See <https://tidyverse.org/packages/> for details on what's included in the `tidyverse`
@@ -282,28 +301,140 @@ conflict_prefer("select", "dplyr")
 
 ::::
 
-## Folders and the working directory
+## Projects and folders
 
-Relative path
+:::: {.columns}
+::: {.column}
+Reproducible workflows start with good file management:
 
-Absolute path
+- Folders to organise your files
+- Descriptive names for files and folders
 
-Use R Projects
+:::
+::: {.column}
+```
+/2026-08-27-data-quality
+  - 2026-08-27-data-quality.RProj
+  - data_quality_report.docx
+  /code
+    - cleaning.R
+    - descriptives.R
+    - modelling.R
+    - visualisation.R
+  /data
+    - wave_1.csv
+    - wave_2.csv
+```
+```
+  /documentation
+    - data_analysis_plan.docx
+    - data_dictionary.csv
+  /output
+    - model_summary.csv
+    - forest_plot.png
+```
+:::
+::::
+
+## `.RProj` files
+
+:::: {.columns}
+::: {.column width="50%"}
+Handy files that:
+
+- Set the working directory
+- Let you quickly switch between projects
+
+:::
+::: {.column width="50%"}
+
+![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-rproj.jpeg)
+
+:::
+::::
+
+## File paths and the working directory
+
+The RProj file sets out working directory (current location) to 
+
+``//Volumes/shared drive/research/mayi kuwayu/wave 2/projects/2026-08-27-data-quality/`
+
+::: {.fragment}
+Absolute file path for the `cleaning.R` script:
+
+`//Volumes/shared drive/research/mayi kuwayu/wave 2/projects/2026-08-27-data-quality/code/cleaning.R`
+:::
+
+::: {.fragment}
+Relative file is relative to the current working directory:
+
+`code/cleaning.R`
+:::
+
+## Folder navigation
+Current working directory set by the `RProj` file, but data is elsewhere
+
+- `mayi kuwayu/wave 2/projects/2026-08-27-data-quality/data-quality.RProj`
+- `mayi kuwayu/wave 2/datasets/w2_v1.csv`
+
+::: {.fragment}
+Have to provide directions to find the data:
+
+- `..` means up one folder up
+  - `../` is the same as `mayi kuwayu/wave 2/projects/`
+:::
+
+::: {.fragment}
+- `../../` means two folders up
+  - `../../` is the same as `mayi kuwayu/wave 2`
+  - `../../datasets/w2_v1.csv`
+:::
 
 # Question time
 
 ## Let's practice!
 
-:::: {.columns}
-::: {.column}
-Complete the following:
+::::: {.columns}
+:::: {.column width="65%"}
 
-1.  Create a new R Project
-2.  Install the `tidyverse` package
-3.  Load the `tidyverse` package
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Install the `tidyverse` package"
+install.packages("tidyverse")
+```
 
-:::
-::: {.column}
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Load the `tidyverse` package"
+library(tidyverse)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Install the `conflicted` and `MASS` packages"
+install.packages(c("conflicted", "MASS"))
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Load the `MASS` library to see the conflict warning"
+library(MASS)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Load the `conflicted` library and set the preferred package for `select`"
+library(conflicted)
+conflicts_prefer(dplyr::select)
+```
+
+::::
+:::: {.column width="35%"}
 ```{r}
 #| echo: false
 countdown(
@@ -314,13 +445,16 @@ countdown(
   )
 ```
 
-:::
 ::::
+:::::
 
 # Coding in R
 
 ## Comments
 
+::::: {.columns}
+:::: {.column}
+::: {.fragment}
 ```{r}
 #| eval: false
 
@@ -329,14 +463,28 @@ countdown(
 data |>
   select(make, price)
 ```
-
-Comments are just annotations you can add to code to help explain context, intention, functionality etc.
-
-Bookmarks are denoted using 4, 5, or 6 hashes on either side of the bookmark title, and appear in the outline
-
-::: {.callout-tip}
-Get in the habit of writing comments, for your future self, and for anyone else!
+Use comments explain context, intention, functionality etc.
 :::
+::: {.fragment}
+
+Use bookmarks to navigate sections of code
+
+```
+#### Level 1 ####
+
+##### Level 2 ######
+
+###### Level 3 ######
+```
+
+:::
+::::
+:::: {.column}
+::: {.fragment}
+![Source: Posit](img/section-pane.png){style="padding-left:10px;"}
+:::
+::::
+:::::
 
 ## Elements of code
 
@@ -352,14 +500,19 @@ data |>
   )
 ```
 
+:::: {.fragment}
 In the above code:
 
+::: {.incremental}
 - `data` is an object
 - `select` is a function
-- `make` and `price` are arguments of the function
+- `make` and `price` are arguments of the `select` function
+:::
+::::
 
-## Assignment
+## Assignment (`<-`)
 
+::: {.fragment}
 If we read in a dataset without assigning anything, it just gets displayed:
 
 ```{r}
@@ -367,22 +520,21 @@ If we read in a dataset without assigning anything, it just gets displayed:
 library(haven)
 read_dta("auto.dta")
 ```
+:::
 
-Instead we have to give it a name and assign `<-` to the environment:
+::: {.fragment}
+Instead we have to assign (`<-`) it a name:
 
 ```{r}
 data <- read_dta("auto.dta")
 ```
+:::
 
+## Pipes (`|>`)
 
-
-## Pipes
-
-Pipes (`|>`) are used to chain functions together
+Chain sequences of functions together using pipes
 
 ::: {.fragment}
-
-Without pipes
 
 ```{r}
 #| eval: false
@@ -428,15 +580,54 @@ class(100)
 
 ::: {.fragment}
 ```{r}
-a_number <- 11251
+a_number <- 100
 class(a_number)
 ```
 :::
 
-## Characters
+::: {.fragment}
+```{r}
+100 + 1
+```
+:::
+
+::: {.fragment}
+```{r}
+a_number + 1
+```
+:::
+
+## Characters AKA strings
+
+Displayed using single (`''`) or double quotes (`""`)
+
+::: {.fragment}
+```{r}
+class("100")
+```
+::: 
+
+::: {.fragment}
+```{r}
+a_character <- "100"
+class(a_character)
+```
+:::
+
+::: {.fragment}
+```{r}
+#| error: true
+a_character + 1
+```
+:::
+
+::: {.fragment}
+```{r}
+as.numeric(a_character) + 1
+```
+:::
 
 ## Logicals
-
 
 ::::: {.cols}
 :::: {.column width="45%"}
@@ -505,10 +696,11 @@ animals <- c("bilby", "possum", "echidna")
 class(animals)
 ```
 
+:::: {.fragment}
 We can convert it to a factor using `factor()`
 
 ::: {.panel-tabset}
-### Unspecified levels
+### Without specifying levels
 
 ```{r}
 animals_unspecified <- factor(animals)
@@ -516,7 +708,7 @@ class(animals_unspecified)
 animals_unspecified
 ```
 
-### Specified levels
+### With specifying levels
 
 ```{r}
 animals_specified <- factor(animals, levels = c("bilby", "possum", "echidna"))
@@ -524,33 +716,7 @@ class(animals_specified)
 animals_specified
 ```
 :::
-
-## Factors (beware!)
-
-'Under the hood', each factor level is a numeric value
-
-This was our original character vector:
-
-```{r}
-animals
-```
-
-The numeric values depend on the level specification (which defaults to alphabetic)
-
-::: {.panel-tabset}
-### Unspecified levels
-
-```{r}
-levels(animals_unspecified)
-as.integer(animals_unspecified)
-```
-
-### Specified levels
-```{r}
-levels(animals_specified)
-as.integer(animals_specified)
-```
-:::
+::::
 
 ## Dates/times
 
@@ -857,7 +1023,6 @@ Update an existing column or make a new one using `mutate()`
 
 ## Summaries
 
-
 # Break time!
 
 # Modelling basics
@@ -866,7 +1031,8 @@ Update an existing column or make a new one using `mutate()`
 
 Packages for common models:
 
-- 
+- `lme4`
+- `brms`
 
 ## Model syntax
 
