@@ -3,7 +3,7 @@ title: "Getting to know R and RStudio"
 subtitle: "AEA2026"
 author: "Ben Harrap"
 date: "2026-10-13"
-embed-resources: TRUE
+# embed-resources: TRUE
 format: 
   revealjs:
     css: styles.css
@@ -18,6 +18,8 @@ execute:
   message: false
 footer: 'Slides available from [https://benharrap.github.io/workshops/2026-10-13-AEA2026/slides.html](https://benharrap.github.io/workshops/2026-10-13-AEA2026/slides.html)'
 ---
+
+# Hello
 
 ```{r}
 #| echo: false
@@ -34,81 +36,68 @@ countdown_style(
 )
 ```
 
-
-# Hello
-
 ## Hello
 
 :::: {.columns}
-::: {.column width=45%}
--   I do stuff with data
-    - Developing measures, designing questionnaires
-    - Collection, storage, cleaning & validation, linkage
-    - User management, access, dataset release
-    - Statistical analysis, visualisation
--   Biostatistician, survey statistician, data scientist, data engineer
--   Started out using Stata, now use R
-
+::: {.column}
+![](img/bsky.png){.r-stretch}
 :::
-::: {.column width=10%}
-:::
-::: {.column width=45%}
+::: {.column}
 
-insert picture of me
+![](img/website.png){.r-stretch}
 
 :::
 ::::
 
-## What's the plan?
+## Outline
 
-:::: {.columns}
-::: {.column width=45%}
--   Getting setup (XXmin)
+::::: {.columns}
+:::: {.column width=45%}
+
+::: {.fragment}
+-   Getting setup (30min)
     -   RStudio interface
     -   Packages
     -   Projects and folders
 
--   Coding in R
+:::
+::: {.fragment}
+-   Coding in R (30min)
     -   Key concepts
     -   Data types
     -   Good practices
     -   Error messages
-    
-:::
-::: {.column width=45%}
--   Data wrangling
-    -   Common transformations
-    -   
-
--   Data visualisation
-    -   `ggplot2`
-
--   Modelling (XXmin)
-    -   Important notes
-    -   Fitting a model
-    -   Getting results
 
 :::
 ::::
+:::: {.column width=45%}
+::: {.fragment}
+-   Data wrangling (60min)
+    -   Common transformations
+    -   Summaries
 
+:::
+::: {.fragment}
+-   Data visualisation (15min)
+    -   `ggplot2`
+
+-   Modelling (15min)
+    -   Important notes
+    -   Fitting a model
+    -   Getting results
+    
+:::
+::::
+::::
 ## What you'll come away with
 
-:::: {.columns}
-::: {.column width=70%}
+::: {.incremental}
 -   A better understanding of the R ecosystem
 -   Code examples
 -   More questions
 -   The knowledge to figure out how to answer them
 
 :::
-::: {.column width=30%}
-*Give an epidemiologist pretty graphs, you make them happy for a day.*
-
-*Teach them how to make pretty graphs using `ggplot2` and you make them happy for life.*
-
-\- Sun Tzu, probably
-:::
-::::
 
 ## Housekeeping
 
@@ -119,15 +108,15 @@ insert picture of me
 
 General format will be
 
-- I'll explain how to do something and provide examples
-- Make your own notes as we go along
-- There'll be sections to recap and practice what was just covered
+- Concept
+- Explanation
+- Practice
 
 ::: {.callout-tip}
 These boxes will have links to more information
 :::
 
-# Getting to know R
+# Getting started
 
 ## R vs. RStudio
 
@@ -138,7 +127,7 @@ RStudio is the interface (GUI) many people use to write R code in.
 ## Source
 
 :::: {.columns}
-::: {.column width="35%"}
+::: {.column width="50%"}
 
 The source is where you:
 
@@ -147,9 +136,9 @@ The source is where you:
 - Run scripts from
 
 :::
-::: {.column width="65%"}
+::: {.column width="50%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-source.jpeg)
+![Source: Posit](img/rstudio-source.jpeg)
 
 :::
 ::::
@@ -157,7 +146,7 @@ The source is where you:
 ## Environment
 
 :::: {.columns}
-::: {.column width="35%"}
+::: {.column width="50%"}
 
 The environment refers to the current state of your R session
 
@@ -169,25 +158,25 @@ This can include:
 - values
 
 :::
-::: {.column width="65%"}
+::: {.column width="50%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-env.jpeg)
+![Source: Posit](img/rstudio-env.jpeg)
 :::
 ::::
 
 ## Console
 
 :::: {.columns}
-::: {.column width="35%"}
+::: {.column width="50%"}
 The console is where:
 
 - Output from functions are returned
 - Code can be run directly
 
 :::
-::: {.column width="65%"}
+::: {.column width="50%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-console.jpeg)
+![Source: Posit](img/rstudio-console.jpeg)
 
 :::
 ::::
@@ -195,7 +184,7 @@ The console is where:
 ## Output
 
 :::: {.columns}
-::: {.column width="35%"}
+::: {.column width="50%"}
 The output pane is where:
 
 - R displays your file directory
@@ -203,12 +192,152 @@ The output pane is where:
 - Installed packages and help files are shown
 
 :::
-::: {.column width="65%"}
+::: {.column width="50%"}
 
-![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-output.jpeg)
+![Source: Posit](img/rstudio-output.jpeg)
 
 :::
 ::::
+
+
+## `.RProj` files
+
+:::: {.columns}
+::: {.column width="50%"}
+Handy files that:
+
+- Set the working directory
+- Let you quickly switch between projects
+
+:::
+::: {.column width="50%"}
+
+![Source: Posit](img/rstudio-rproj.jpeg)
+
+:::
+::::
+
+## Working directory
+
+:::: {.columns}
+::: {.column}
+Reproducible workflows start with good file management:
+
+- Folders to organise your files
+- Descriptive names for files and folders
+- RProj files set the working directory
+
+:::
+::: {.column }
+```
+/2026-08-27-data-quality
+  2026-08-27-data-quality.RProj
+  data_quality_report.docx
+  /code
+    cleaning.R
+    descriptives.R
+    modelling.R
+    visualisation.R
+```
+```
+  /data
+    wave_1.csv
+    wave_2.csv
+  /documentation
+    data_analysis_plan.docx
+    data_dictionary.csv
+  /output
+    model_summary.csv
+    forest_plot.png
+```
+:::
+::::
+
+## Absolute vs. relative locations
+
+::::: {.columns}
+:::: {.column}
+::: {.fragment}
+Absolute file path for the `cleaning.R` script:
+
+`//Volumes/shared drive/research/mayi kuwayu/wave 2/projects/2026-08-27-data-quality/code/cleaning.R`
+:::
+::: {.fragment}
+
+Relative file is relative to the current working directory:
+
+`code/cleaning.R`
+:::
+::::
+:::: {.column}
+```
+/2026-08-27-data-quality
+  2026-08-27-data-quality.RProj
+  data_quality_report.docx
+  /code
+    cleaning.R
+    descriptives.R
+    modelling.R
+    visualisation.R
+```
+```
+  /data
+    wave_1.csv
+    wave_2.csv
+  /documentation
+    data_analysis_plan.docx
+    data_dictionary.csv
+  /output
+    model_summary.csv
+    forest_plot.png
+```
+::::
+:::::
+
+## Specifying relative locations
+
+::::: {.columns}
+:::: {.column}
+::: {.fragment}
+Have to provide directions to find the data:
+
+- `..` means up one folder up
+  - `../` is the same as `mayi kuwayu/projects/`
+
+:::
+
+::: {.fragment}
+- `../../` means two folders up
+  - `../../` is the same as `mayi kuwayu/wave 2`
+  - `../../data/w2_v1.csv`
+  
+:::
+::::
+:::: {.column}
+```
+/mayi kuwayu
+  /data
+    w2_v1.csv
+  /projects
+    /2026-08-27-data-quality
+      2026-08-27-data-quality.RProj
+      data_quality_report.docx
+      /code
+        cleaning.R
+        descriptives.R
+```
+```
+        modelling.R
+        visualisation.R
+      /documentation
+        data_analysis_plan.docx
+        data_dictionary.csv
+      /output
+        model_summary.csv
+        forest_plot.png
+```
+::::
+:::::
 
 ## Packages
 
@@ -294,101 +423,14 @@ The other option is to use the `conflicted` package and declare preferences upfr
 
 ```{r}
 library(conflicted)
-conflict_prefer("select", "dplyr")
+conflicts_prefer(
+  dplyr::select,
+  dplyr::filter
+  )
 ```
-
-:::
-
-::::
-
-## Projects and folders
-
-:::: {.columns}
-::: {.column}
-Reproducible workflows start with good file management:
-
-- Folders to organise your files
-- Descriptive names for files and folders
-
-:::
-::: {.column}
-```
-/2026-08-27-data-quality
-  - 2026-08-27-data-quality.RProj
-  - data_quality_report.docx
-  /code
-    - cleaning.R
-    - descriptives.R
-    - modelling.R
-    - visualisation.R
-  /data
-    - wave_1.csv
-    - wave_2.csv
-```
-```
-  /documentation
-    - data_analysis_plan.docx
-    - data_dictionary.csv
-  /output
-    - model_summary.csv
-    - forest_plot.png
-```
-:::
-::::
-
-## `.RProj` files
-
-:::: {.columns}
-::: {.column width="50%"}
-Handy files that:
-
-- Set the working directory
-- Let you quickly switch between projects
-
-:::
-::: {.column width="50%"}
-
-![A screenshot of the RStudio IDE. Source: Posit](img/rstudio-rproj.jpeg)
 
 :::
 ::::
-
-## File paths and the working directory
-
-The RProj file sets out working directory (current location) to 
-
-``//Volumes/shared drive/research/mayi kuwayu/wave 2/projects/2026-08-27-data-quality/`
-
-::: {.fragment}
-Absolute file path for the `cleaning.R` script:
-
-`//Volumes/shared drive/research/mayi kuwayu/wave 2/projects/2026-08-27-data-quality/code/cleaning.R`
-:::
-
-::: {.fragment}
-Relative file is relative to the current working directory:
-
-`code/cleaning.R`
-:::
-
-## Folder navigation
-Current working directory set by the `RProj` file, but data is elsewhere
-
-- `mayi kuwayu/wave 2/projects/2026-08-27-data-quality/data-quality.RProj`
-- `mayi kuwayu/wave 2/datasets/w2_v1.csv`
-
-::: {.fragment}
-Have to provide directions to find the data:
-
-- `..` means up one folder up
-  - `../` is the same as `mayi kuwayu/wave 2/projects/`
-:::
-
-::: {.fragment}
-- `../../` means two folders up
-  - `../../` is the same as `mayi kuwayu/wave 2`
-  - `../../datasets/w2_v1.csv`
-:::
 
 # Question time
 
@@ -461,7 +503,7 @@ countdown(
 #### This is a bookmark ####
 # This is a comment, below is code
 data |>
-  select(make, price)
+  select(species, island)
 ```
 Use comments explain context, intention, functionality etc.
 :::
@@ -492,11 +534,10 @@ There are different terms for different elements of code
 
 ```{r}
 #| eval: false
-
 data |>
   select(
-    make,
-    price
+    species,
+    island
   )
 ```
 
@@ -506,27 +547,27 @@ In the above code:
 ::: {.incremental}
 - `data` is an object
 - `select` is a function
-- `make` and `price` are arguments of the `select` function
+- `species` and `island` are arguments of the `select` function
 :::
 ::::
 
 ## Assignment (`<-`)
 
-::: {.fragment}
-If we read in a dataset without assigning anything, it just gets displayed:
+R prints results in the console by default
 
+::: {.fragment}
 ```{r}
 #| output: true
 library(haven)
-read_dta("auto.dta")
+read_dta("data/auto.dta")
 ```
 :::
 
 ::: {.fragment}
-Instead we have to assign (`<-`) it a name:
+Assign results using `<-` to store in an object
 
 ```{r}
-data <- read_dta("auto.dta")
+data <- read_dta("data/auto.dta")
 ```
 :::
 
@@ -720,7 +761,31 @@ animals_specified
 
 ## Dates/times
 
+ISO 8601 format `YYYY-MM-DD` is the most straightforward
 
+```{r}
+as.Date("2024-01-01")
+```
+
+Other formats need to be specified
+
+```{r}
+as.Date("01-01-2024")
+```
+
+```{r}
+as.Date("01-01-2024", tryFormats = "%d-%m-%Y")
+```
+
+Be wary of timezones — the default is your system settings
+
+```{r}
+as.POSIXct("2024-01-01")
+```
+
+```{r}
+as.POSIXct("2024-01-01") == as.POSIXct("2024-01-01", tz = "UTC")
+```
 
 ## Missing
 
@@ -895,7 +960,7 @@ They try to tell you what the problem was, but it's not always easy
 
 1. Read the error message
 1. Look at your code
-2. Read the help file
+2. Read help files
 3. Check for cheatsheets
 4. Web search
 5. Ask an LLM
@@ -906,7 +971,17 @@ Try to figure out the solution yourself before consulting an LLM, you'll learn m
 You'll get lots of error messages as you learn how to code, this is normal
 :::
 
-## Error messages
+## Help files
+
+Documentation explaining how a function works:
+
+- Description
+- Arguments
+- Examples
+
+Run `?filter` from the console, or search the 'Help' pane
+
+## Let's practice!
 
 What might these error messages mean?
 
@@ -950,93 +1025,892 @@ animals <- c("bilby","echidna","possum", dingo)
 
 # Question time
 
-::: {.timer #breaktimer seconds=1200 starton=slide}
-:::
+```{r}
+#| echo: false
+countdown(
+  minutes = 5,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```
 
-## Today's data
+# Break time!
 
-Provide overview of the dataset
+```{r}
+#| echo: false
+countdown(
+  minutes = 15,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```
 
-## R Project
-
-
-
-## Folder structure
-
-
+# Data wrangling
 
 ## Reading in data
 
+Which package to use?
+
+::: {.incremental}
+- `readr` for reading `.csv` files
+- `googlesheets4` for reading directly from Google Sheets
+- `readxl` for Excel files (`.xls` and `.xlsx`)
+- `haven` for Stata, SPSS, and SAS files
+
+:::
 
 ::: {.callout-tip}
-The `readr` package works for CSV and other delimiter-based formats: <https://readr.tidyverse.org/>
-
-For MS Excel files (.xlsx, .xls), use `readxl`: <https://readxl.tidyverse.org/>
+`readr` has [a cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf)
 :::
 
 ## Reading in data
 
-::: {.callout-tip}
-The `haven` package is used for Stata, SPSS, and SAS files: <https://haven.tidyverse.org/>
+If the data are clean, it's not complicated
+
+:::: {.columns}
+::: {.column}
+```{r}
+library(haven)
+data <- read_dta("data/auto.dta")
+```
+:::
+::: {.column}
+```{r}
+#| eval: false
+# Function arguments
+read_dta(
+  file,
+  encoding = NULL,
+  col_select = NULL,
+  skip = 0,
+  n_max = Inf,
+  .name_repair = "unique"
+)
+```
+:::
+::::
+
+## Reading in messy data
+
+Data aren't always machine-readable, especially from the ABS
+
+::: {.panel-tabset}
+### First sheet
+![](img/abs-data.png)
+
+### Actual data
+![](img/abs-data-t1.png)
+
 :::
 
+## Reading in messy data
 
+:::::: {.columns}
+::::: {.column}
+:::: {.r-stack}
+```{r}
+#| eval: false
+library(readxl)
 
-## Describing data
+data <- read_excel(
+  "data/32380DO004_20112031.xlsx",
+  
+  
+)
+```
+::: {.fragment}
+```{r}
+#| eval: false
+library(readxl)
 
-`View()`
+data <- read_excel(
+  "data/32380DO004_20112031.xlsx",
+  sheet = "Table 1",
+  
+)
+```
+:::
+::: {.fragment}
+```{r}
+library(readxl)
 
-`glimpse()`
+data <- read_excel(
+  "data/32380DO004_20112031.xlsx",
+  sheet = "Table 1",
+  skip = 6
+)
+```
+:::
+::::
+:::::
+::::: {.column}
+```
+read_excel(
+  path,
+  sheet = NULL,
+  range = NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = readxl_progress(),
+  .name_repair = "unique"
+)
+```
+:::::
+::::::
 
+## Viewing data
+
+::::: {.columns}
+:::: {.column width="40%"}
+Look at your data!
+
+- `View()` or click on the object
+- type the name in the console (`data`)
+- use `head()` to see a snapshot
+- use `dplyr::glimpse()`
+
+::::
+:::: {.column width="60%"}
+::: {.panel-tabset}
+### View
+![](img/view.png)
+
+### print
+
+```{r}
+data
+```
+
+### `head`
+
+```{r}
+head(data)
+```
+
+### `glimpse`
+
+```{r}
+glimpse(data)
+```
+
+:::
+::::
+:::::
 
 ## Renaming
 
+`janitor::clean_names()` is a starting point
 
+`dplyr::rename()` and `dplyr::rename_with()` let you specify names
+
+::::: {.panel-tabset}
+
+### Current names
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+names(data)
+```
+:::
+::: {.column width="40%"}
+
+:::
+::::
+
+### `clean_names`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+library(janitor)
+data |> 
+  clean_names() |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+clean_names(
+  dat, 
+  ...
+  )
+```
+:::
+::::
+
+### `rename`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  rename(
+    age = `Age (single year)`
+  ) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+rename(
+  .data, 
+  ...
+)
+```
+:::
+::::
+
+### `rename_with`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  rename_with(
+    \(x)
+    paste0("y", x),
+    `2011`:`2031`
+  ) |> 
+  names()
+
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+rename_with(
+  .data,
+  .fn,
+  .cols = everything(),
+  ...
+)
+```
+:::
+::::
+
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  clean_names() |> 
+  rename(
+    age = age_single_year
+  )
+names(data)
+```
+:::
+::: {.column width="40%"}
+
+:::
+::::
+:::::
 
 ## Selecting
 
 Keep or remove columns using `select()`
 
+::::: {.panel-tabset}
+### Keep
 
-## Selecting
-
-
-
-::: {.callout-tip}
-These helpers come from the `tidyselect` package: <https://tidyselect.r-lib.org/>
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(age, x2011) |> 
+  names()
+```
 :::
+::: {.column width="40%"}
+Separate names using commas `,`
+:::
+::::
+
+### Drop
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(-age) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+Use a minus `-` to drop a variable
+:::
+::::
+
+### Ranges
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(age, x2011:x2016) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+Use a colon `:` connecting two variables to select them and everything in between
+:::
+::::
+
+### Selectors
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(
+    contains("202"),
+    starts_with("x"),
+    where(is.numeric)
+  ) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+- `contains` matches against a pattern
+- `starts_with` only looks at the start
+- `where` keeps columns that meet a criteria
+- See the `tidyselect` package
+:::
+::::
+
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  select(
+    age,
+    contains("202")
+  )
+
+data
+```
+:::
+::: {.column width="40%"}
+- We've kept the `age` variable and counts for the 2020s
+:::
+::::
+:::::
 
 ## Filtering
 
-Keep or remove rows using `filter()` and `filter_out()`*
+Keep or remove rows using `dplyr::filter()`
 
+::::: {.panel-tabset}
 
-::: {.callout-tip}
-`filter_out()` is only available from version `1.2.0` onward
+### One
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(age == "18") |> 
+  nrow()
+```
 :::
+::: {.column width="40%"}
+- `age` is a character
+- `==` is how to specify an equality
+
+:::
+::::
+### Two
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(
+    age == "18",
+    x2020 > 1000
+    ) |> 
+  nrow()
+
+data |> 
+  filter(
+    age == "18" &
+      x2020 > 1000
+    ) |> 
+  nrow()
+```
+:::
+::: {.column width="40%"}
+- `x2011` is a number
+- Separating conditions with a comma is the same as using `&`
+
+:::
+::::
+### OR
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(
+    age == "18" |
+      age == "19"
+    ) |> 
+  nrow()
+```
+:::
+::: {.column width="40%"}
+- The vertical bar `|` is how to specify OR
+- If either condition is true, the row is kept
+
+:::
+::::
+### `%in%`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(
+    age %in% c("18","19","20")
+    ) |> 
+  nrow()
+```
+:::
+::: {.column width="40%"}
+
+:::
+::::
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  filter(
+    between(as.numeric(age), 18, 40) | 
+      age %in% c("Males", "Females")
+    ) 
+
+data
+```
+:::
+::: {.column width="40%"}
+- We've kept only ages 18 to 40, or where age is `Males` or `Females`
+:::
+::::
+:::::
 
 ## Modifying
 
 Update an existing column or make a new one using `mutate()`
 
+::::: {.panel-tabset}
 
+### One variable
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    var_1 = "1"
+  )
+```
+:::
+::: {.column width="40%"}
+- Single equals `=` to specify what the variable (`var_1`) should be
+
+:::
+::::
+
+### Multiple variables
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    var_1 = "1",
+    var_2 = 2,
+    var_3 = as.numeric(var_1) + var_2
+  )
+```
+:::
+::: {.column width="40%"}
+- Separate variables using commas `,`
+- Creating a variable on an earlier line means you can refer to it within the same `mutate()`
+:::
+::::
+
+### `if_else`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    var_1 = if_else(
+      condition = age %in% c("18", "19", "20"),
+      true = 1,
+      false = 0,
+      missing = 0
+    )
+  )
+```
+:::
+::: {.column width="40%"}
+- `missing` specifies what to do if the value is `NA`
+:::
+::::
+
+### `case_when`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    age = as.numeric(age),
+    var_1 = case_when(
+      age %in% c(18, 19, 20) ~ "18 to 20",
+      between(age, 21, 30) ~ "21 to 30",
+      between(age, 30, 40) ~ "30 to 40",
+      .default = "Other"
+    )
+  )
+```
+:::
+::: {.column width="40%"}
+- `case_when` is from the `dplyr` package
+- the condition (left-side) must evaluate to TRUE or FALSE
+- the value to assign if this condition is true (right-side)
+- separated by a tilde `~`
+- the `.default` is `NA` if you don't specify anything
+- applies conditions from top to bottom
+:::
+::::
+
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  mutate(
+    sex = case_when(
+      age == "Males" ~ age,
+      age == "Females" ~ age,
+      .default = NA
+    ),
+    age = as.numeric(age),
+    age_group = case_when(
+      between(age, 18, 24) ~ "18 to 24",
+      between(age, 25, 40) ~ "25 to 40"
+    )
+  )
+```
+:::
+::: {.column width="40%"}
+- `sex` is extracted from the `age` variable
+- `age` is numeric now
+- `age_group` is based on age ranges
+:::
+::::
+
+:::::
+
+## Filling in missing data
+
+`dplyr::fill()` fills in missing data using the last non-missing values
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  fill(sex, .direction = "down")
+
+data
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+fill(
+  data, 
+  ..., 
+  .by = NULL, 
+  .direction = c("down", "up", "downup", "updown")
+)
+```
+
+:::
+::::
+
+## Reshaping data
+
+`dplyr::fill()` fills in missing data using the last non-missing values
+
+::::: {.panel-tabset}
+### Longer
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  filter(!is.na(age)) |> 
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "year",
+    values_to = "count",
+  )
+
+data
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+pivot_longer(
+  data,
+  cols,
+  ...,
+  cols_vary = "fastest",
+  names_to = "name",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL,
+  names_transform = NULL,
+  names_repair = "check_unique",
+  values_to = "value",
+  values_drop_na = FALSE,
+  values_ptypes = NULL,
+  values_transform = NULL
+)
+```
+
+:::
+::::
+### Wider
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  filter(!is.na(age)) |> 
+  pivot_wider(
+    names_from = sex,
+    values_from = count,
+  )
+
+data
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+pivot_wider(
+  data,
+  ...,
+  id_cols = NULL,
+  id_expand = FALSE,
+  names_from = name,
+  names_prefix = "",
+  names_sep = "_",
+  names_glue = NULL,
+  names_sort = FALSE,
+  names_vary = "fastest",
+  names_expand = FALSE,
+  names_repair = "check_unique",
+  values_from = value,
+  values_fill = NULL,
+  values_fn = NULL,
+  unused_fn = NULL
+)
+```
+
+:::
+::::
+:::::
 
 ## Summaries
 
+::: {.panel-tabset}
+### `summary`
+
+Part of base R
+
+```{r}
+summary(data)
+```
+
+### `tabyl`
+
+From the `janitor` package
+
+```{r}
+tabyl(data, age_group)
+```
+
+### `summarise`
+
+From `dplyr`
+
+```{r}
+data |> 
+  summarise(
+    n_males = sum(Males),
+    n_females = sum(Females)
+  )
+```
+
+:::
+
+## Grouping
+
+Use `group_by()` or the `.by = ` argument
+
+::::: {.panel-tabset}
+
+### `group_by()`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  group_by(age_group) |> 
+  summarise(
+    n_total = sum(Males) + sum(Females)
+  )
+```
+:::
+::: {.column width="40%"}
+- When you use `group_by()`, the output remains grouped.
+- Use `ungroup()` to remove the grouping
+:::
+::::
+
+### `.by = `
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  summarise(
+    n_total = sum(Males) + sum(Females),
+    .by = age_group
+  )
+```
+:::
+::: {.column width="40%"}
+- `.by` applies the grouping just for that operation, so grouping doesn't persist
+- Available for:
+  - `filter()` and `filter_out()`
+  - `mutate()`
+  - `summarise()`
+  - `slice()` functions
+:::
+::::
+:::::
+
+# Question time
+
+<!-- ## Let's practice! -->
+
+<!-- Using the dataset `mtcars` -->
+
+<!-- ::::: {.columns} -->
+<!-- :::: {.column width="65%"} -->
+
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| code-fold: true -->
+<!-- #| code-summary: "Install the `tidyverse` package" -->
+<!-- install.packages("tidyverse") -->
+<!-- ``` -->
+
 # Break time!
+
+# Data visualisation
+
+## Package options
+
+`plot()` — base R
+
+`ggplot2` — part of the `tidyverse`, highly customisable
+
+`tidyplots` — simpler interface to `ggplot2`
+
+## `ggplot2`
+
+
+
+## Bar chart
+
+## Line graph
+
+## Dot plot
 
 # Modelling basics
 
-## Not all models exist in base R
+## Model notation
+
+To regress `mpg` on `hp` and `disp` is expressed
+
+`mpg ~ hp + disp`
+
+The outcome is on the left of the tilde `~`
+
+The covariates are on the right and are separated with a plus `+`
+
+<!-- ## Interaction temrs -->
+
+<!-- Interaction terms can be specified  -->
+
+<!-- `mpg ~ hp + cyl*disp` -->
+
+<!-- or -->
+
+<!-- `mpg ~ hp + cyl:disp` -->
+
+## Model fit
+
+## Available models*
+
+Base R
+
+- Linear `lm()`
+- Generalised linear `glm()`
+  - Binomial
+  - Poisson
+  
 
 Packages for common models:
 
 - `lme4`
 - `brms`
 
-## Model syntax
 
-## Model fit
 
 # Questions!
 
@@ -1047,19 +1921,7 @@ Packages for common models:
 3. Look at the diagnostic plots
 4. Look at the results
 
-# Data visualisation
 
-`plot()`
-
-`ggplot2`  
-
-`tidyplots`
-
-## Bar chart
-
-## Line graph
-
-## Dot plot
 
 # Resources
 
