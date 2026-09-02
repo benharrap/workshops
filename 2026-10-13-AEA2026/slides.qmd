@@ -40,11 +40,11 @@ countdown_style(
 
 :::: {.columns}
 ::: {.column}
-![](img/bsky.png){.r-stretch}
+![](img/bsky.png)
 :::
 ::: {.column}
 
-![](img/website.png){.r-stretch}
+![](img/website.png)
 
 :::
 ::::
@@ -1865,23 +1865,76 @@ data |>
 
 
 
-## Bar chart
+<!-- ## Bar chart -->
 
-## Line graph
+<!-- ## Line graph -->
 
-## Dot plot
+<!-- ## Dot plot -->
 
 # Modelling basics
 
+## `penguins`
+
+A quick look at the `penguins` dataset
+
+:::: {.columns}
+::: {.column width="70%"}
+```{r}
+summary(penguins)
+
+head(penguins)
+```
+:::
+::: {.column width="30%"}
+![Artwork by @allison_horst](img/penguins.png)
+:::
+::::
+
 ## Model notation
 
-To regress `mpg` on `hp` and `disp` is expressed
+:::: {.columns}
+::: {.column width="60%"}
+To regress `body_mass` on `sex` and `species`, we write:
 
-`mpg ~ hp + disp`
+```{r}
+regression_results <- lm(
+  body_mass ~ sex + species,
+  data = penguins
+)
+```
 
-The outcome is on the left of the tilde `~`
+The outcome (`body_mass`) is on the left of the tilde `~`
 
 The covariates are on the right and are separated with a plus `+`
+:::
+::: {.column width="40%"}
+
+```{r}
+#| eval: false
+# Function arguments
+lm(
+  formula, 
+  data, 
+  subset, 
+  weights, 
+  na.action,
+  method = "qr",
+  model = TRUE, 
+  x = FALSE, 
+  y = FALSE, 
+  qr = TRUE,
+  singular.ok = TRUE,
+  contrasts = NULL,
+  offset, 
+  ...,
+  digits
+  )
+```
+
+:::
+::::
+
+
 
 <!-- ## Interaction temrs -->
 
@@ -1894,6 +1947,65 @@ The covariates are on the right and are separated with a plus `+`
 <!-- `mpg ~ hp + cyl:disp` -->
 
 ## Model fit
+
+```{r}
+plot(regression_results)
+```
+
+## Model summary
+
+::: {.fragment}
+```{r}
+regression_results
+```
+:::
+::: {.fragment}
+```{r}
+summary(regression_results)
+```
+:::
+
+## Accessing model results
+
+::::: {.columns}
+:::: {.column width="60%"}
+```{r}
+names(regression_results)
+```
+
+&nbsp;
+
+&nbsp;
+
+::: {.panel-tabset}
+### Coefficients
+
+```{r}
+regression_results$coefficients
+```
+
+### Residuals
+
+```{r}
+regression_results$residuals
+```
+
+### Terms
+
+```{r}
+regression_results$terms
+```
+
+:::
+::::
+:::: {.column width="40%"}
+![](img/model.png)
+::::
+:::::
+
+
+
+
 
 ## Available models*
 
@@ -1908,22 +2020,20 @@ Base R
 Packages for common models:
 
 - `lme4`
+- `gee`
+- `glmm`
 - `brms`
-
-
 
 # Questions!
 
-## Let's practice
+<!-- ## Let's practice -->
 
-1. Install the X package
-2. Fit a X model, regress Y onto X1 + X2 + X3
-3. Look at the diagnostic plots
-4. Look at the results
+<!-- 1. Install the X package -->
+<!-- 2. Fit a X model, regress Y onto X1 + X2 + X3 -->
+<!-- 3. Look at the diagnostic plots -->
+<!-- 4. Look at the results -->
 
-
-
-# Resources
+## Resources
 
 https://r4ds.hadley.nz/
 https://adv-r.hadley.nz/index.html
