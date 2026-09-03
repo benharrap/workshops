@@ -561,6 +561,7 @@ R prints results in the console by default
 library(haven)
 read_dta("data/auto.dta")
 ```
+
 :::
 
 ::: {.fragment}
@@ -864,7 +865,7 @@ data |>
 #| eval: false
 data |> 
   mutate(
-    length_width_ratio = length / weight
+    length_weight_ratio = length / weight
   )
 ```
 
@@ -874,7 +875,7 @@ data |>
 data |> 
   mutate(
     # Calculate ratio of length to weight
-    height_width_ratio = length / weight
+    length_weight_ratio = length / weight
   )
 ```
 
@@ -885,7 +886,7 @@ data |>
 data |> 
   mutate(
     # Calculate ratio of length to weight
-    length_width_ratio = length / weight
+    length_weight_ratio = length / weight
   )
 
 #### Plots ####
@@ -909,6 +910,16 @@ animals <- c(
   "bilby",
   "echidna",
   "possum",
+)
+```
+
+### Missing comma
+```{r}
+#| error: true
+animals <- c(
+  "bilby"
+  "echidna"
+  "possum"
 )
 ```
 
@@ -963,7 +974,8 @@ They try to tell you what the problem was, but it's not always easy
 2. Read help files
 3. Check for cheatsheets
 4. Web search
-5. Ask an LLM
+5. Join a community
+6. Ask an LLM
 
 Try to figure out the solution yourself before consulting an LLM, you'll learn more!
 
@@ -2035,6 +2047,6 @@ Packages for common models:
 
 ## Resources
 
-https://r4ds.hadley.nz/
-https://adv-r.hadley.nz/index.html
-https://epirhandbook.com/en/
+- https://r4ds.hadley.nz/
+- https://adv-r.hadley.nz/index.html
+- https://epirhandbook.com/en/
