@@ -1,0 +1,401 @@
+## `penguins`
+
+A quick look at the `penguins` dataset
+
+:::: {.columns}
+::: {.column width="70%"}
+```{r}
+summary(penguins)
+
+head(penguins)
+```
+:::
+::: {.column width="30%"}
+![Artwork by @allison_horst](img/penguins.png)
+:::
+::::
+
+## Comments
+
+::::: {.columns}
+:::: {.column}
+::: {.fragment}
+```{r}
+#| eval: false
+
+#### This is a bookmark ####
+# This is a comment, below is code
+data |>
+  select(species, island)
+```
+Use comments explain context, intention, functionality etc.
+:::
+::: {.fragment}
+
+Use bookmarks to navigate sections of code
+
+```
+#### Level 1 ####
+
+##### Level 2 ######
+
+###### Level 3 ######
+```
+
+:::
+::::
+:::: {.column}
+::: {.fragment}
+![Source: Posit](img/section-pane.png){style="padding-left:10px;"}
+:::
+::::
+:::::
+
+## Elements of code
+
+There are different terms for different elements of code
+
+```{r}
+#| eval: false
+data |>
+  select(
+    species,
+    island
+  )
+```
+
+:::: {.fragment}
+In the above code:
+
+::: {.incremental}
+- `data` is an object
+- `select` is a function
+- `species` and `island` are arguments of the `select` function
+:::
+::::
+
+## Assignment (`<-`)
+
+R prints results in the console by default
+
+::: {.fragment}
+```{r}
+#| output: true
+read_csv("data/penguins.csv")
+```
+
+:::
+
+::: {.fragment}
+Assign results using `<-` to store in an object
+
+```{r}
+data <- read_csv("data/penguins.csv")
+```
+:::
+
+::: {.callout-tip}
+The shortcut for the assignment operator is `Alt + -` or `Option + -`
+:::
+
+## Pipes (`|>`)
+
+Chain sequences of functions together using pipes
+
+::: {.fragment}
+
+```{r}
+#| eval: false
+data <- read_csv("data/penguins.csv")
+data <- filter(data, species == "Chinstrap")
+data <- mutate(data,
+               body_mass_kg = body_mass/1000)
+summarise(data, mean_body_mass = mean(body_mass_kg))
+```
+:::
+
+::: {.fragment}
+Pipes effectively fill in the first argument of a function:
+
+```{r}
+#| eval: false
+data <- read_csv("data/penguins.csv")
+data |>
+  filter(species == "Chinstrap") |>
+  mutate(body_mass_kg = body_mass/1000) |>
+  summarise(mean_body_mass = mean(body_mass_kg))
+```
+:::
+
+::: {.callout-tip}
+The shortcut for the pipe operator is `Ctrl + Shift + M`
+:::
+
+## Keyboard shortcuts
+
+To see all keyboard shortcuts, click on 'Keyboard Shortcuts Help' in the 'Help' menu 
+
+My most commonly used are:
+
+- Insert pipe (`Ctrl + Shift + M`)
+- Insert assignment operator (`Option/Alt + -`)
+- Move line up or down (`Option/Alt + Up/Down`)
+- Duplicate line or selection (`Cmd + Option + Up/Down`)
+- Delete line or selection (`Cmd + D`)
+- Comment or uncomment (`Cmd + Shift + C`)
+
+## Common types of things
+
+::: {.incremental}
+- Numbers and integers
+- Logicals
+- Factors (<https://forcats.tidyverse.org/>)
+- Dates/times (<https://lubridate.tidyverse.org/>)
+- Characters (<https://stringr.tidyverse.org/>)
+- Missing
+- Vectors and lists
+- Data frames and tibbles (<https://tibble.tidyverse.org/>)
+
+:::
+
+## Missing
+
+Missing has its own special identity in R — `NA`
+
+::: {.fragment}
+It also has its own special function to check if something is missing:
+
+```{r}
+penguin_species <- c("Adelie", "Gentoo", "Chinstrap", NA)
+penguin_species
+is.na(penguin_species)
+```
+:::
+
+::: {.fragment}
+Be sure to use `is.na()`, if you just use the equals operator it won't work:
+
+```{r}
+penguin_species == NA
+```
+:::
+
+## Human-readable code
+
+::: {.panel-tabset}
+### Example
+```{r}
+#| eval: false
+data |> mutate(ldr=bill_len/bill_dep)
+```
+
+### Space
+```{r}
+#| eval: false
+data |> mutate(ldr = bill_len / bill_dep)
+```
+
+### Lines
+```{r}
+#| eval: false
+data |> 
+  mutate(
+    ldr = bill_len / bill_dep
+  )
+```
+
+### Naming
+```{r}
+#| eval: false
+data |> 
+  mutate(
+    length_depth_ratio = bill_len / bill_dep
+  )
+```
+
+### Comments
+```{r}
+#| eval: false
+data |> 
+  mutate(
+    # Calculate the bill length/depth ratio
+    length_depth_ratio = bill_len / bill_dep
+  )
+```
+
+### Bookmarks
+```{r}
+#| eval: false
+#### Cleaning ####
+data |> 
+  mutate(
+    # Calculate the bill length/depth ratio
+    length_depth_ratio = bill_len / bill_dep
+  )
+
+#### Plots ####
+ggplot(
+  ⋮
+```
+:::
+
+
+::: {.callout-tip}
+Formatters like `air` do a lot of the work for you <https://tidyverse.org/blog/2025/02/air/>
+:::
+
+## Common errors
+
+::: {.panel-tabset}
+### Trailing comma
+```{r}
+#| error: true
+penguin_species <- c(
+  "Adelie", 
+  "Gentoo", 
+  "Chinstrap",
+  )
+```
+
+### Missing comma
+```{r}
+#| error: true
+penguin_species <- c(
+  "Adelie"
+  "Gentoo"
+  "Chinstrap"
+  )
+```
+
+### Equals signs
+```{r}
+#| error: true
+data |> 
+  mutate(
+    is_chinstrap = species = "Chinstrap"
+  )
+```
+
+### Unclosed bracket
+```{r}
+#| error: true
+data |> 
+  mutate(
+    is_chinstrap = species == "Chinstrap"
+    
+ggplot(data)
+```
+
+### Too many brackets
+```{r}
+#| error: true
+data |> 
+  mutate(
+    is_chinstrap = species == "Chinstrap"
+  )
+)
+```
+:::
+
+## Error messages
+
+They try to tell you what the problem was, but it's not always easy
+
+1. Read the error message
+1. Look at your code
+2. Read help files
+3. Check for cheatsheets
+4. Web search
+5. Join a community
+6. Ask an LLM
+
+Try to figure out the solution yourself before consulting an LLM, you'll learn more!
+
+::: {.callout-tip}
+You'll get lots of error messages as you learn how to code, this is normal
+:::
+
+## Help files
+
+Documentation explaining how a function works:
+
+- Description
+- Arguments
+- Examples
+
+Run `?filter` from the console, or search the 'Help' pane
+
+## Let's practice!
+
+What might these error messages mean?
+
+::: {.panel-tabset}
+### 1
+
+```{r}
+#| error: true
+tidyverse
+```
+
+### 2
+
+```{r}
+#| error: true
+library(tidyvers)
+```
+
+### 3
+
+```{r}
+#| error: true
+1 + "2"
+```
+
+### 4
+
+```{r}
+#| error: true
+penguin_species <- c(
+  "Adelie", 
+  "Gentoo", 
+  "Chinstrap",
+  )
+```
+
+### 5
+
+```{r}
+#| error: true
+penguin_species <- c(
+  "Adelie", 
+  "Gentoo", 
+  "Chinstrap",
+  King
+  )
+```
+
+:::
+
+# Question time
+
+```{r}
+#| echo: false
+countdown(
+  minutes = 5,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```
+
+# Break time!
+
+```{r}
+#| echo: false
+countdown(
+  minutes = 15,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```

@@ -1,0 +1,333 @@
+## R vs. RStudio
+
+R is the language that the code is written in.
+
+RStudio is the interface (GUI) many people use to write R code in.
+
+## RStudio
+
+![](img/rstudio-source.jpeg)
+
+## RStudio
+
+<!-- The environment refers to the current state of your R session -->
+
+<!-- This can include: -->
+
+<!-- - packages -->
+<!-- - objects (data, plots, etc.) -->
+<!-- - functions -->
+<!-- - values -->
+
+![](img/rstudio-env.jpeg)
+
+## RStudio
+
+<!-- The console is where: -->
+
+<!-- - Output from functions are returned -->
+<!-- - Code can be run directly -->
+
+![](img/rstudio-console.jpeg)
+
+## RStudio
+
+<!-- The output pane is where: -->
+
+<!-- - R displays your file directory -->
+<!-- - Plots will appear if you view them -->
+<!-- - Installed packages and help files are shown -->
+
+![](img/rstudio-output.jpeg)
+
+
+## `.RProj` files
+
+<!-- Handy files that: -->
+
+<!-- - Set the working directory -->
+<!-- - Let you quickly switch between projects -->
+
+![](img/rstudio-rproj.jpeg)
+
+## Working directory
+
+Reproducible workflows start with good file management:
+
+- Folders to organise your files
+- Descriptive names for files and folders
+- `.RProj` files set the working directory
+
+## Working directory
+
+```
+2026-08-28-penguins-analysis.RProj
+code/
+  cleaning.R
+  descriptives.R
+  modelling.R
+  visualisation.R
+data/
+  data_raw.csv
+```
+```
+documentation/
+  data_analysis_plan.docx
+  data_dictionary.csv
+output/                     
+  forest_plot.png
+  model_summary.csv
+  sample_description.csv
+penguins_report.docx
+```
+
+## Absolute vs. relative locations
+
+::::: {.columns}
+:::: {.column}
+::: {.fragment}
+Absolute file path for the `cleaning.R` script:
+
+`//Volumes/shared drive/research/mayi kuwayu/wave 2/projects/2026-08-27-data-quality/code/cleaning.R`
+:::
+::: {.fragment}
+
+Relative file is relative to the current working directory:
+
+`code/cleaning.R`
+:::
+::::
+:::: {.column}
+```
+/2026-08-27-data-quality
+  2026-08-27-data-quality.RProj
+  data_quality_report.docx
+  /code
+    cleaning.R
+    descriptives.R
+    modelling.R
+    visualisation.R
+```
+```
+  /data
+    wave_1.csv
+    wave_2.csv
+  /documentation
+    data_analysis_plan.docx
+    data_dictionary.csv
+  /output
+    model_summary.csv
+    forest_plot.png
+```
+::::
+:::::
+
+## Specifying relative locations
+
+::::: {.columns}
+:::: {.column}
+::: {.fragment}
+Have to provide directions to find the data:
+
+- `..` means up one folder up
+  - `../` is the same as `mayi kuwayu/projects/`
+
+:::
+
+::: {.fragment}
+- `../../` means two folders up
+  - `../../` is the same as `mayi kuwayu/wave 2`
+  - `../../data/w2_v1.csv`
+  
+:::
+::::
+:::: {.column}
+```
+/mayi kuwayu
+  /data
+    w2_v1.csv
+  /projects
+    /2026-08-27-data-quality
+      2026-08-27-data-quality.RProj
+      data_quality_report.docx
+      /code
+        cleaning.R
+        descriptives.R
+```
+```
+        modelling.R
+        visualisation.R
+      /documentation
+        data_analysis_plan.docx
+        data_dictionary.csv
+      /output
+        model_summary.csv
+        forest_plot.png
+```
+::::
+:::::
+
+## Packages
+
+<!-- One of the greatest strengths of R is that it is open-source and there are an enormous number of packages available. -->
+
+A package is a collection of functions usually written around a particular goal or task.
+
+::: {.fragment}
+To install a package, use the `install.packages` function
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+```
+
+:::
+::: {.fragment}
+You then have to load the package using `library()`
+
+```{r}
+library(tidyverse)
+```
+
+:::
+
+::: {.callout-tip}
+Once you install a package it's available for any project, no need to install for every project.
+:::
+
+## The `tidyverse`
+
+A set of user-friendly tools for data manipulation and analysis
+
+:::: {.columns}
+::: {.column width="60%"}
+
+- Reading in data (`readr`, `readxl`, `haven`, `googlesheets4`)
+- Data cleaning and manipulation (`dplyr`, `tidyr`, `tibble`)
+- Data visualisation (`ggplot2`)
+- Working with specific data types:
+  - Strings (`stringr`)
+  - Dates (`lubridate`)
+  - Factors (`forcats`)
+
+:::
+::: {.column width="40%"}
+![](img/tidyverse.png)
+:::
+::::
+
+:::{.callout-tip}
+See <https://tidyverse.org/packages/> for details on what's included in the `tidyverse`
+:::
+
+## Package conflicts
+
+When you load packages that have the same function name, only one will take precedence
+
+```{r}
+#| message: true
+library(MASS)
+```
+
+:::: {.fragment}
+Prevent hours of debugging by being declarative!
+::::
+
+:::: {.fragment}
+::: {.panel-tabset}
+
+### Inline solution
+
+One option is to use two colons `::` to declare the package as well as the function
+
+```{r}
+#| eval: false
+data |> 
+  dplyr::select()
+```
+
+### Package solution
+
+The other option is to use the `conflicted` package and declare preferences upfront
+
+```{r}
+library(conflicted)
+conflicts_prefer(
+  dplyr::select,
+  dplyr::filter
+  )
+```
+
+:::
+::::
+
+# Question time
+
+## Let's practice!
+
+::::: {.columns}
+:::: {.column width="65%"}
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Install the `tidyverse` package"
+install.packages("tidyverse")
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Load the `tidyverse` package"
+library(tidyverse)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Install the `conflicted` and `MASS` packages"
+install.packages(c("conflicted", "MASS"))
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Load the `MASS` library to see the conflict warning"
+library(MASS)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Load the `conflicted` library and set the preferred package for `select`"
+library(conflicted)
+conflicts_prefer(dplyr::select)
+```
+
+::::
+:::: {.column width="35%"}
+```{r}
+#| echo: false
+
+library(countdown)
+countdown_style(
+  box_shadow = "0px 0px 0px 0px #FFFFFF",
+  color_background = "#FFFFFF",
+  color_running_background = "#FFFFFF",
+  color_running_border = "#FFFFFF",
+  color_finished_background = "#FFFFFF",
+  color_finished_border = "#FFFFFF",
+  color_border = "#FFFFFF",
+  font_size = "3em"
+)
+
+countdown(
+  minutes = 5,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```
+
+::::
+:::::

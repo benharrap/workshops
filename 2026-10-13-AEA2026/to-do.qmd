@@ -1,0 +1,19 @@
+---
+title: "to-do"
+format: html
+---
+
+<!-- - Increase size of RStudio images -->
+<!-- - Zoom in on the RProj buttons -->
+- Get participants to do the practice in an R script
+- Add package recommendations
+<!-- - Make note that packages are on your computer, not per-project -->
+- Explain data frames
+- Explain cheatsheets
+- Add keyboard shortcuts
+- Add note on RStudio themes
+- Have a longer break
+- Add note on RTools error
+- Example output from readxl
+- restructure to start with intro and clean data, then show summaries and saving output, then regression modelling and vis, then wrangling
+- set any pre-reading, including using a dataset

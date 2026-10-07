@@ -1,0 +1,798 @@
+## Reading in data
+
+Which package to use?
+
+::: {.incremental}
+- `readr` for reading `.csv` files
+- `readxl` for Excel files (`.xls` and `.xlsx`)
+- `haven` for Stata, SPSS, and SAS files
+- `googlesheets4` for reading directly from Google Sheets
+
+:::
+
+::: {.callout-tip}
+See the reading data cheatsheet: <https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf>
+:::
+
+## Reading in data
+
+If the data are clean, it's not complicated
+
+:::: {.columns}
+::: {.column}
+```{r}
+data <- read_csv("data/penguins.csv")
+```
+:::
+::: {.column}
+```{r}
+#| eval: false
+# Function arguments
+read_csv(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  col_select = NULL,
+  id = NULL,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = deprecated(),
+  quote = "\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  name_repair = "unique",
+  num_threads = readr_threads(),
+  progress = show_progress(),
+  show_col_types = should_show_types(),
+  skip_empty_rows = TRUE,
+  lazy = should_read_lazy()
+)
+```
+:::
+::::
+
+## Reading in messy data
+
+Data aren't always machine-readable, especially from the ABS
+
+::: {.panel-tabset}
+### First sheet
+![](img/abs-data.png)
+
+### Actual data
+![](img/abs-data-t1.png)
+
+:::
+
+## Reading in messy data
+
+:::::: {.columns}
+::::: {.column}
+:::: {.r-stack}
+```{r}
+#| eval: false
+library(readxl)
+
+data <- read_excel(
+  "data/32380DO004_20112031.xlsx",
+  
+  
+)
+```
+::: {.fragment}
+```{r}
+#| eval: false
+library(readxl)
+
+data <- read_excel(
+  "data/32380DO004_20112031.xlsx",
+  sheet = "Table 1",
+  
+)
+```
+:::
+::: {.fragment}
+```{r}
+library(readxl)
+
+data <- read_excel(
+  "data/32380DO004_20112031.xlsx",
+  sheet = "Table 1",
+  skip = 6
+)
+```
+:::
+::::
+:::::
+::::: {.column}
+```
+read_excel(
+  path,
+  sheet = NULL,
+  range = NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = readxl_progress(),
+  .name_repair = "unique"
+)
+```
+:::::
+::::::
+
+## Viewing data
+
+::::: {.columns}
+:::: {.column width="40%"}
+Look at your data!
+
+- `View()` or click on the object
+- type the name in the console (`data`)
+- use `head()` to see a snapshot
+- use `dplyr::glimpse()`
+
+::::
+:::: {.column width="60%"}
+::: {.panel-tabset}
+### View
+![](img/view.png)
+
+### print
+
+```{r}
+data
+```
+
+### `head`
+
+```{r}
+head(data)
+```
+
+### `glimpse`
+
+```{r}
+glimpse(data)
+```
+
+:::
+::::
+:::::
+
+## Renaming
+
+`janitor::clean_names()` is a starting point
+
+`dplyr::rename()` and `dplyr::rename_with()` let you specify names
+
+::::: {.panel-tabset}
+
+### Current names
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+names(data)
+```
+:::
+::: {.column width="40%"}
+
+:::
+::::
+
+### `clean_names`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+library(janitor)
+data |> 
+  clean_names() |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+clean_names(
+  dat, 
+  ...
+  )
+```
+:::
+::::
+
+### `rename`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  rename(
+    age = `Age (single year)`
+  ) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+rename(
+  .data, 
+  ...
+)
+```
+:::
+::::
+
+### `rename_with`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  rename_with(
+    \(x)
+    paste0("y", x),
+    `2011`:`2031`
+  ) |> 
+  names()
+
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+rename_with(
+  .data,
+  .fn,
+  .cols = everything(),
+  ...
+)
+```
+:::
+::::
+
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  clean_names() |> 
+  rename(
+    age = age_single_year
+  )
+names(data)
+```
+:::
+::: {.column width="40%"}
+
+:::
+::::
+:::::
+
+## Selecting
+
+Keep or remove columns using `select()`
+
+::::: {.panel-tabset}
+### Keep
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(age, x2011) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+Separate names using commas `,`
+:::
+::::
+
+### Drop
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(-age) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+Use a minus `-` to drop a variable
+:::
+::::
+
+### Ranges
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(age, x2011:x2016) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+Use a colon `:` connecting two variables to select them and everything in between
+:::
+::::
+
+### Selectors
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  select(
+    contains("202"),
+    starts_with("x"),
+    where(is.numeric)
+  ) |> 
+  names()
+```
+:::
+::: {.column width="40%"}
+- `contains` matches against a pattern
+- `starts_with` only looks at the start
+- `where` keeps columns that meet a criteria
+- See the `tidyselect` package
+:::
+::::
+
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  select(
+    age,
+    contains("202")
+  )
+
+data
+```
+:::
+::: {.column width="40%"}
+- We've kept the `age` variable and counts for the 2020s
+:::
+::::
+:::::
+
+## Filtering
+
+Keep or remove rows using `dplyr::filter()`
+
+::::: {.panel-tabset}
+
+### One
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(age == "18") |> 
+  nrow()
+```
+:::
+::: {.column width="40%"}
+- `age` is a character
+- `==` is how to specify an equality
+
+:::
+::::
+### Two
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(
+    age == "18",
+    x2020 > 1000
+    ) |> 
+  nrow()
+
+data |> 
+  filter(
+    age == "18" &
+      x2020 > 1000
+    ) |> 
+  nrow()
+```
+:::
+::: {.column width="40%"}
+- `x2011` is a number
+- Separating conditions with a comma is the same as using `&`
+
+:::
+::::
+### OR
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(
+    age == "18" |
+      age == "19"
+    ) |> 
+  nrow()
+```
+:::
+::: {.column width="40%"}
+- The vertical bar `|` is how to specify OR
+- If either condition is true, the row is kept
+
+:::
+::::
+### `%in%`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  filter(
+    age %in% c("18","19","20")
+    ) |> 
+  nrow()
+```
+:::
+::: {.column width="40%"}
+
+:::
+::::
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  filter(
+    between(as.numeric(age), 18, 40) | 
+      age %in% c("Males", "Females")
+    ) 
+
+data
+```
+:::
+::: {.column width="40%"}
+- We've kept only ages 18 to 40, or where age is `Males` or `Females`
+:::
+::::
+:::::
+
+## Modifying
+
+Update an existing column or make a new one using `mutate()`
+
+::::: {.panel-tabset}
+
+### One variable
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    var_1 = "1"
+  )
+```
+:::
+::: {.column width="40%"}
+- Single equals `=` to specify what the variable (`var_1`) should be
+
+:::
+::::
+
+### Multiple variables
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    var_1 = "1",
+    var_2 = 2,
+    var_3 = as.numeric(var_1) + var_2
+  )
+```
+:::
+::: {.column width="40%"}
+- Separate variables using commas `,`
+- Creating a variable on an earlier line means you can refer to it within the same `mutate()`
+:::
+::::
+
+### `if_else`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    var_1 = if_else(
+      condition = age %in% c("18", "19", "20"),
+      true = 1,
+      false = 0,
+      missing = 0
+    )
+  )
+```
+:::
+::: {.column width="40%"}
+- `missing` specifies what to do if the value is `NA`
+:::
+::::
+
+### `case_when`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| output: false
+data |> 
+  mutate(
+    age = as.numeric(age),
+    var_1 = case_when(
+      age %in% c(18, 19, 20) ~ "18 to 20",
+      between(age, 21, 30) ~ "21 to 30",
+      between(age, 30, 40) ~ "30 to 40",
+      .default = "Other"
+    )
+  )
+```
+:::
+::: {.column width="40%"}
+- `case_when` is from the `dplyr` package
+- the condition (left-side) must evaluate to TRUE or FALSE
+- the value to assign if this condition is true (right-side)
+- separated by a tilde `~`
+- the `.default` is `NA` if you don't specify anything
+- applies conditions from top to bottom
+:::
+::::
+
+### Example
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  mutate(
+    sex = case_when(
+      age == "Males" ~ age,
+      age == "Females" ~ age,
+      .default = NA
+    ),
+    age = as.numeric(age),
+    age_group = case_when(
+      between(age, 18, 24) ~ "18 to 24",
+      between(age, 25, 40) ~ "25 to 40"
+    )
+  )
+```
+:::
+::: {.column width="40%"}
+- `sex` is extracted from the `age` variable
+- `age` is numeric now
+- `age_group` is based on age ranges
+:::
+::::
+
+:::::
+
+## Filling in missing data
+
+`dplyr::fill()` fills in missing data using the last non-missing values
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  fill(sex, .direction = "down")
+
+data
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+fill(
+  data, 
+  ..., 
+  .by = NULL, 
+  .direction = c("down", "up", "downup", "updown")
+)
+```
+
+:::
+::::
+
+## Reshaping data
+
+`dplyr::fill()` fills in missing data using the last non-missing values
+
+::::: {.panel-tabset}
+### Longer
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  filter(!is.na(age)) |> 
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "year",
+    values_to = "count",
+  )
+
+data
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+pivot_longer(
+  data,
+  cols,
+  ...,
+  cols_vary = "fastest",
+  names_to = "name",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL,
+  names_transform = NULL,
+  names_repair = "check_unique",
+  values_to = "value",
+  values_drop_na = FALSE,
+  values_ptypes = NULL,
+  values_transform = NULL
+)
+```
+
+:::
+::::
+### Wider
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data <- data |> 
+  filter(!is.na(age)) |> 
+  pivot_wider(
+    names_from = sex,
+    values_from = count,
+  )
+
+data
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+# Function arguments
+pivot_wider(
+  data,
+  ...,
+  id_cols = NULL,
+  id_expand = FALSE,
+  names_from = name,
+  names_prefix = "",
+  names_sep = "_",
+  names_glue = NULL,
+  names_sort = FALSE,
+  names_vary = "fastest",
+  names_expand = FALSE,
+  names_repair = "check_unique",
+  values_from = value,
+  values_fill = NULL,
+  values_fn = NULL,
+  unused_fn = NULL
+)
+```
+
+:::
+::::
+:::::
+
+## Summaries
+
+::: {.panel-tabset}
+### `summary`
+
+Part of base R
+
+```{r}
+summary(data)
+```
+
+### `tabyl`
+
+From the `janitor` package
+
+```{r}
+tabyl(data, age_group)
+```
+
+### `summarise`
+
+From `dplyr`
+
+```{r}
+data |> 
+  summarise(
+    n_males = sum(Males),
+    n_females = sum(Females)
+  )
+```
+
+:::
+
+## Grouping
+
+Use `group_by()` or the `.by = ` argument
+
+::::: {.panel-tabset}
+
+### `group_by()`
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  group_by(age_group) |> 
+  summarise(
+    n_total = sum(Males) + sum(Females)
+  )
+```
+:::
+::: {.column width="40%"}
+- When you use `group_by()`, the output remains grouped.
+- Use `ungroup()` to remove the grouping
+:::
+::::
+
+### `.by = `
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+data |> 
+  summarise(
+    n_total = sum(Males) + sum(Females),
+    .by = age_group
+  )
+```
+:::
+::: {.column width="40%"}
+- `.by` applies the grouping just for that operation, so grouping doesn't persist
+- Available for:
+  - `filter()` and `filter_out()`
+  - `mutate()`
+  - `summarise()`
+  - `slice()` functions
+:::
+::::
+:::::
+
+# Question time

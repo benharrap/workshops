@@ -1,0 +1,751 @@
+# Summaries and tables
+
+## `summarise()` example
+
+## `gtsummary` example
+
+Using the `gtsummary` package
+
+```{r}
+library(gtsummary)
+```
+
+## `gtsummary` example
+
+:::: {.columns}
+::: {.column}
+```{r}
+penguin_summary <- tbl_summary(
+  data,
+  by = species,    # <1>
+  include = c(     # <2>
+    sex,           # <2>
+    bill_len,      # <2>
+    flipper_len,   # <2>
+    sex            # <2>
+  )                # <2>
+)
+```
+
+1. Which variable to produce summaries by
+2. Which variables to summarise
+
+:::
+::: {.column}
+```{r}
+#| echo: false
+library(gt)
+penguin_summary |> 
+  as_gt() |> 
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(30),
+    table.margin.left = px(10)
+  )
+```
+
+:::
+::::
+
+## `gtsummary` example
+
+:::: {.columns}
+::: {.column}
+
+```{r}
+penguin_summary <- tbl_summary(
+  data,
+  by = species, # <1>
+  include = c( # <2>
+    sex, # <2>
+    bill_len, # <2>
+    flipper_len, # <2>
+    sex # <2>
+  ), # <2>
+  statistic = list( # <3>
+    all_continuous() ~ "{mean} ({sd})", # <3>
+    all_categorical() ~ "{n} [{p}%]" # <3>
+  ) # <3>
+)
+```
+
+1. Which variable to produce summaries by
+2. Which variables to summarise
+3. What statistics to produce
+
+:::
+::: {.column}
+```{r}
+#| echo: false
+penguin_summary |> 
+  as_gt() |> 
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(30),
+    table.margin.left = px(10)
+  )
+```
+
+:::
+::::
+
+## `gtsummary` example
+
+:::: {.columns}
+::: {.column}
+
+```{r}
+penguin_summary <- tbl_summary(
+  data,
+  by = species, # <1>
+  include = c( # <2>
+    sex, # <2>
+    bill_len, # <2>
+    flipper_len, # <2>
+    sex # <2>
+  ), # <2>
+  statistic = list( # <3>
+    all_continuous() ~ "{mean} ({sd})", # <3>
+    all_categorical() ~ "{n} [{p}%]" # <3>
+  ), # <3>
+  label = list( # <4>
+    sex = "Sex", # <4>
+    bill_len = "Bill length", # <4>
+    flipper_len = "Flipper length", # <4>
+    body_mass = "Body mass (g)" # <4>
+  ) # <4>
+)
+```
+
+1. Which variable to produce summaries by
+2. Which variables to summarise
+3. What statistics to produce
+4. Specify labels for the variables
+
+:::
+::: {.column}
+```{r}
+#| echo: false
+penguin_summary |> 
+  as_gt() |> 
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(30),
+    table.margin.left = px(10)
+  )
+```
+
+:::
+::::
+
+## `gtsummary` example
+
+:::: {.columns}
+::: {.column}
+
+```{r}
+penguin_summary <- tbl_summary(
+  data,
+    by = species, # <1>
+  include = c( # <2>
+    sex, # <2>
+    bill_len, # <2>
+    flipper_len, # <2>
+    sex # <2>
+  ), # <2>
+  statistic = list( # <3>
+    all_continuous() ~ "{mean} ({sd})", # <3>
+    all_categorical() ~ "{n} [{p}%]" # <3>
+  ), # <3>
+  label = list( # <4>
+    sex = "Sex", # <4>
+    bill_len = "Bill length", # <4>
+    flipper_len = "Flipper length", # <4>
+    body_mass = "Body mass (g)" # <4>
+  ), # <4>
+  missing_text = "Missing", # <5>
+  missing_stat = "{p_miss}" # <5>
+)
+```
+
+1. Which variable to produce summaries by
+2. Which variables to summarise
+3. What statistics to produce
+4. Specify labels for the variables
+5. Control how missing data are summarised
+
+:::
+::: {.column}
+```{r}
+#| echo: false
+penguin_summary |> 
+  as_gt() |> 
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(30),
+    table.margin.left = px(10)
+  )
+```
+
+:::
+::::
+
+## `gtsummary` example
+
+:::: {.columns}
+::: {.column}
+
+To save the output from `gtsummary`, we:
+
+- convert it to a `tibble`
+- save this as `csv` file
+
+```{r}
+penguin_summary |> 
+  as_tibble() |> 
+  write_csv(
+    "data/penguin_summary.csv",
+    na = ""
+    )
+```
+
+:::
+::: {.column}
+![](img/penguin_summary.png){fig-align="center" width=100%}
+
+:::
+::::
+
+## Other packages to consider
+
+Summarising data:
+
+- `janitor` has the `tabyl()` function
+- `dplyr` has the `summarise()` function
+
+Creating tables via Quarto or RMarkdown:
+
+- `flextable` has the best MS Word support
+- `kable` is good for PDF output
+- `gt` is highly customisable for HTML output
+
+## Let's practice!
+
+::::: {.columns}
+:::: {.column width="65%"}
+
+- Create a summary table
+- 
+
+::::
+:::: {.column width="35%"}
+```{r}
+#| echo: false
+
+library(countdown)
+countdown_style(
+  box_shadow = "0px 0px 0px 0px #FFFFFF",
+  color_background = "#FFFFFF",
+  color_running_background = "#FFFFFF",
+  color_running_border = "#FFFFFF",
+  color_finished_background = "#FFFFFF",
+  color_finished_border = "#FFFFFF",
+  color_border = "#FFFFFF",
+  font_size = "3em"
+)
+
+countdown(
+  minutes = 5,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```
+
+::::
+:::::
+
+# Data visualisation
+
+## Package options
+
+`plot()` — base R
+
+`ggplot2` — part of the `tidyverse`, highly customisable
+
+`tidyplots` — simpler interface to `ggplot2`
+
+## `ggplot2`
+
+All plots start with the `ggplot()` function
+
+```{r}
+#| output-location: column
+ggplot(
+  data,
+  aes(
+    x = flipper_len,
+    y = bill_len
+  )
+)
+```
+
+## Scatter plot
+
+From this, we add to the plot using the `+` symbol
+
+```{r}
+#| output-location: column
+ggplot(
+  data,
+  aes(
+    x = flipper_len,
+    y = bill_len
+  )
+) +
+  geom_point()
+```
+
+## Bar plot
+
+For some plots, it doesn't make sense to plot the raw data.
+
+```{r}
+#| output-location: column
+ggplot(
+  data,
+  aes(
+    x = species,
+    y = body_mass
+  )
+) +
+  geom_col()
+```
+
+::: {.callout-tip}
+Use `geom_col()` on summarised data, `geom_bar()` to summarise raw data
+:::
+
+## Bar plot
+
+Instead, we need to summarise the data first and plot the summarised values
+
+```{r}
+#| output-location: column
+data |> 
+  summarise(
+    mean_body_mass = mean(body_mass, na.rm = T),
+    .by = species
+  ) |> 
+  ggplot(
+    aes(
+      x = species,
+      y = mean_body_mass
+    )
+  ) +
+  geom_col()
+```
+
+::: {.callout-tip}
+Use `geom_col()` on summarised data, `geom_bar()` to summarise raw data
+:::
+
+## Line graph
+
+```{r}
+#| output-location: column
+ggplot(
+  data,
+  aes(
+    x = year,
+    y = body_mass
+  )
+) +
+geom_line()
+```
+
+## Line graph
+
+```{r}
+#| output-location: column
+data |>
+  summarise(
+    mean_body_mass = mean(body_mass, na.rm = T),
+    .by = c(year, species)
+  ) |>
+  ggplot(
+    aes(
+      x = year,
+      y = mean_body_mass,
+      colour = species
+    )
+  ) +
+  geom_line()
+```
+
+## Customising a plot
+
+```{r}
+#| output-location: column
+penguin_plot <- ggplot(
+  data,
+  aes(
+    x = flipper_len,
+    y = bill_len,
+    colour = species
+  )
+) +
+  geom_point(
+    size = 3,
+    shape = 1
+    )
+
+penguin_plot
+```
+
+## Customising axes
+
+```{r}
+#| output-location: column
+penguin_plot <- penguin_plot +
+  scale_x_continuous(
+    name = "Flipper length (mm)",
+    limits = c(160, 240),
+    breaks = seq(160,240,20),
+    minor_breaks = NULL
+  ) +
+  scale_y_continuous(
+    name = "Bill length (mm)",
+    limits = c(30, 60),
+    breaks = seq(30, 60, 10),
+    minor_breaks = seq(35, 55, 10)
+  ) 
+penguin_plot
+```
+
+## Customising the legend
+
+```{r}
+#| output-location: column
+penguin_plot <- penguin_plot + 
+  scale_colour_manual(
+    name = "Species",
+    values = c("#1b9e77", "#d95f02", "#7570b3")
+  ) +
+  guides(color = guide_legend(override.aes = list(size = 6)))
+penguin_plot
+```
+
+## Customising with a theme
+
+```{r}
+#| output-location: column
+penguin_plot <- penguin_plot + 
+  theme_bw(
+    base_size = 25,
+    base_family = "serif"
+  )
+penguin_plot
+```
+
+::: {.callout-tip}
+There are several themes available! `theme_minimal()` is popular, but has a transparent background.
+:::
+
+## Adding an element
+
+```{r}
+#| output-location: column
+penguin_plot <- penguin_plot +
+  geom_smooth(
+    method = "lm",
+    linetype = "dashed",
+    show.legend = FALSE
+  )
+penguin_plot
+```
+
+## Adding a facet
+
+```{r}
+#| output-location: column
+penguin_plot <- penguin_plot +
+  facet_wrap(~ sex)
+penguin_plot
+```
+
+## Saving the output
+
+:::: {.columns}
+::: {.column}
+
+```{r}
+ggsave(
+  "img/penguin_plot.png",
+  penguin_plot,
+  width = 16,
+  height = 9,
+  units = "in",
+)
+```
+
+:::
+::: {.column}
+![](img/penguin_plot.png)
+:::
+::::
+
+## Let's practice!
+
+::::: {.columns}
+:::: {.column width="65%"}
+
+Use `ggplot2` to make a bar chart showing the count of each penguin species, format the axes, and add a theme.
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Initial specification"
+ggplot(
+  data,
+  aes(
+    x = species
+  )
+)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Adding the bars"
+ggplot(
+  data,
+  aes(
+    x = species
+  )
+) +
+  geom_bar()
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Format the axes"
+ggplot(
+  data,
+  aes(
+    x = species
+  )
+) +
+  geom_bar() +
+  scale_x_discrete(
+    name = NULL
+  ) +
+  scale_y_continuous(
+    name = "Count",
+    limits = c(0, 160)
+  )
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Add a theme"
+ggplot(
+  data,
+  aes(
+    x = species
+  )
+) +
+  geom_bar() +
+  scale_x_discrete(
+    name = NULL
+  ) +
+  scale_y_continuous(
+    name = "Count",
+    limits = c(0, 160)
+  ) +
+  theme_bw()
+```
+
+::::
+:::: {.column width="35%"}
+```{r}
+#| echo: false
+
+library(countdown)
+countdown_style(
+  box_shadow = "0px 0px 0px 0px #FFFFFF",
+  color_background = "#FFFFFF",
+  color_running_background = "#FFFFFF",
+  color_running_border = "#FFFFFF",
+  color_finished_background = "#FFFFFF",
+  color_finished_border = "#FFFFFF",
+  color_border = "#FFFFFF",
+  font_size = "3em"
+)
+
+countdown(
+  minutes = 10,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```
+
+::::
+:::::
+
+# Regression
+
+# Saving output
+
+
+
+
+
+## Model notation
+
+:::: {.columns}
+::: {.column width="60%"}
+To regress `body_mass` on `sex` and `species`, we write:
+
+```{r}
+regression_results <- lm(
+  body_mass ~ sex + species,
+  data = data
+)
+```
+
+- Outcome (`body_mass`) left of the tilde `~`
+- Covariates right of the tilde, separated with a plus `+`
+
+:::
+::: {.column width="40%"}
+
+```{r}
+#| eval: false
+# Function arguments
+lm(
+  formula, 
+  data, 
+  subset, 
+  weights, 
+  na.action,
+  method = "qr",
+  model = TRUE, 
+  x = FALSE, 
+  y = FALSE, 
+  qr = TRUE,
+  singular.ok = TRUE,
+  contrasts = NULL,
+  offset, 
+  ...,
+  digits
+  )
+```
+
+:::
+::::
+
+
+
+<!-- ## Interaction temrs -->
+
+<!-- Interaction terms can be specified  -->
+
+<!-- `mpg ~ hp + cyl*disp` -->
+
+<!-- or -->
+
+<!-- `mpg ~ hp + cyl:disp` -->
+
+## Model fit
+
+```{r}
+plot(regression_results)
+```
+
+## Model summary
+
+::::: {.columns}
+:::: {.column}
+::: {.fragment}
+```{r}
+regression_results
+```
+:::
+::::
+:::: {.column}
+::: {.fragment}
+```{r}
+summary(regression_results)
+```
+:::
+::::
+:::::
+
+## Accessing model results
+
+::::: {.columns}
+:::: {.column width="60%"}
+```{r}
+names(regression_results)
+```
+
+&nbsp;
+
+&nbsp;
+
+::: {.panel-tabset}
+### Coefficients
+
+```{r}
+regression_results$coefficients
+```
+
+### Residuals
+
+```{r}
+regression_results$residuals
+```
+
+### Terms
+
+```{r}
+regression_results$terms
+```
+
+:::
+::::
+:::: {.column width="40%"}
+![](img/model.png)
+::::
+:::::
+
+
+## Available models*
+
+Base R
+
+- Linear `lm()`
+- Generalised linear `glm()`
+  - Binomial
+  - Poisson
+  
+
+Packages for common models:
+
+- `lme4`
+- `gee`
+- `glmm`
+- `brms`
+
+# Questions!
+
+<!-- ## Let's practice -->
+
+<!-- 1. Install the X package -->
+<!-- 2. Fit a X model, regress Y onto X1 + X2 + X3 -->
+<!-- 3. Look at the diagnostic plots -->
+<!-- 4. Look at the results -->
