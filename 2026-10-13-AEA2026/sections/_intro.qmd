@@ -1,0 +1,80 @@
+# Getting to know R and RStudio
+
+> AEA2026
+
+Ben Harrap
+
+## Hello
+
+:::: {.columns}
+::: {.column}
+![[@bharrap.bsky.social](https://bsky.app/profile/bharrap.bsky.social)](img/bsky.png)
+:::
+::: {.column}
+![[benharrap.com](https://benharrap.com/)](img/website.png)
+:::
+::::
+
+## Hello
+
+Your turn!
+
+- Who you are
+- Where you've come from
+- Prior experience with coding
+
+## Outline
+
+::::: {.columns}
+:::: {.column width=45% .fragment}
+
+Important context:
+
+-   RStudio interface
+-   Packages
+-   Projects and folders
+
+Coding in R
+
+-   Key concepts
+-   Good practices
+-   Error messages
+
+::::
+:::: {.column width=45% .fragment}
+An example workflow
+
+- Summaries and tables
+- Data visualisation
+- Regression
+    
+Data wrangling
+
+- Common transformations
+    
+::::
+:::::
+
+## What you'll come away with
+
+-   A better understanding of the R ecosystem
+-   Lots of code examples
+-   Lots more questions
+-   The knowledge to figure out how to answer them
+
+## Housekeeping
+
+-   Toilets
+-   Breaks
+-   Please ask questions
+-   I use they/them pronouns
+
+General format will be
+
+- Concept
+- Explanation
+- Practice
+
+::: {.callout-tip}
+These boxes will have links to more information
+:::

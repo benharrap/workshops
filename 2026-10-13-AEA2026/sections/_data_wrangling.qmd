@@ -1,3 +1,5 @@
+# Data wrangling
+
 ## Reading in data
 
 Which package to use?
@@ -21,7 +23,7 @@ If the data are clean, it's not complicated
 :::: {.columns}
 ::: {.column}
 ```{r}
-data <- read_csv("data/penguins.csv")
+messy_data <- read_csv("data/penguins.csv")
 ```
 :::
 ::: {.column}
@@ -76,7 +78,7 @@ Data aren't always machine-readable, especially from the ABS
 #| eval: false
 library(readxl)
 
-data <- read_excel(
+messy_data <- read_excel(
   "data/32380DO004_20112031.xlsx",
   
   
@@ -87,7 +89,7 @@ data <- read_excel(
 #| eval: false
 library(readxl)
 
-data <- read_excel(
+messy_data <- read_excel(
   "data/32380DO004_20112031.xlsx",
   sheet = "Table 1",
   
@@ -98,7 +100,7 @@ data <- read_excel(
 ```{r}
 library(readxl)
 
-data <- read_excel(
+messy_data <- read_excel(
   "data/32380DO004_20112031.xlsx",
   sheet = "Table 1",
   skip = 6
@@ -108,7 +110,9 @@ data <- read_excel(
 ::::
 :::::
 ::::: {.column}
-```
+```{r}
+#| eval: false
+# Function arguments
 read_excel(
   path,
   sheet = NULL,
@@ -142,24 +146,24 @@ Look at your data!
 :::: {.column width="60%"}
 ::: {.panel-tabset}
 ### View
-![](img/view.png)
+![](img/view.png){width=100%}
 
 ### print
 
 ```{r}
-data
+messy_data
 ```
 
 ### `head`
 
 ```{r}
-head(data)
+head(messy_data)
 ```
 
 ### `glimpse`
 
 ```{r}
-glimpse(data)
+glimpse(messy_data)
 ```
 
 :::
@@ -176,70 +180,32 @@ glimpse(data)
 
 ### Current names
 
-:::: {.columns}
-::: {.column width="60%"}
 ```{r}
-names(data)
+names(messy_data)
 ```
-:::
-::: {.column width="40%"}
-
-:::
-::::
 
 ### `clean_names`
 
-:::: {.columns}
-::: {.column width="60%"}
 ```{r}
-library(janitor)
-data |> 
+messy_data |> 
   clean_names() |> 
   names()
 ```
-:::
-::: {.column width="40%"}
-```{r}
-#| eval: false
-# Function arguments
-clean_names(
-  dat, 
-  ...
-  )
-```
-:::
-::::
 
 ### `rename`
 
-:::: {.columns}
-::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   rename(
     age = `Age (single year)`
   ) |> 
   names()
 ```
-:::
-::: {.column width="40%"}
-```{r}
-#| eval: false
-# Function arguments
-rename(
-  .data, 
-  ...
-)
-```
-:::
-::::
 
 ### `rename_with`
 
-:::: {.columns}
-::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   rename_with(
     \(x)
     paste0("y", x),
@@ -248,32 +214,18 @@ data |>
   names()
 
 ```
-:::
-::: {.column width="40%"}
-```{r}
-#| eval: false
-# Function arguments
-rename_with(
-  .data,
-  .fn,
-  .cols = everything(),
-  ...
-)
-```
-:::
-::::
 
 ### Example
 
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data <- data |> 
+messy_data <- messy_data |> 
   clean_names() |> 
   rename(
     age = age_single_year
   )
-names(data)
+names(messy_data)
 ```
 :::
 ::: {.column width="40%"}
@@ -292,7 +244,7 @@ Keep or remove columns using `select()`
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   select(age, x2011) |> 
   names()
 ```
@@ -307,7 +259,7 @@ Separate names using commas `,`
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   select(-age) |> 
   names()
 ```
@@ -322,7 +274,7 @@ Use a minus `-` to drop a variable
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   select(age, x2011:x2016) |> 
   names()
 ```
@@ -337,7 +289,7 @@ Use a colon `:` connecting two variables to select them and everything in betwee
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   select(
     contains("202"),
     starts_with("x"),
@@ -359,13 +311,13 @@ data |>
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data <- data |> 
+messy_data <- messy_data |> 
   select(
     age,
     contains("202")
   )
 
-data
+messy_data
 ```
 :::
 ::: {.column width="40%"}
@@ -385,7 +337,7 @@ Keep or remove rows using `dplyr::filter()`
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   filter(age == "18") |> 
   nrow()
 ```
@@ -401,14 +353,14 @@ data |>
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   filter(
     age == "18",
     x2020 > 1000
     ) |> 
   nrow()
 
-data |> 
+messy_data |> 
   filter(
     age == "18" &
       x2020 > 1000
@@ -427,7 +379,7 @@ data |>
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   filter(
     age == "18" |
       age == "19"
@@ -446,7 +398,7 @@ data |>
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data |> 
+messy_data |> 
   filter(
     age %in% c("18","19","20")
     ) |> 
@@ -462,13 +414,13 @@ data |>
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data <- data |> 
+messy_data <- messy_data |> 
   filter(
     between(as.numeric(age), 18, 40) | 
       age %in% c("Males", "Females")
     ) 
 
-data
+messy_data
 ```
 :::
 ::: {.column width="40%"}
@@ -486,16 +438,16 @@ Update an existing column or make a new one using `mutate()`
 ### One variable
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column}
 ```{r}
 #| output: false
-data |> 
+messy_data |> 
   mutate(
     var_1 = "1"
   )
 ```
 :::
-::: {.column width="40%"}
+::: {.column}
 - Single equals `=` to specify what the variable (`var_1`) should be
 
 :::
@@ -504,10 +456,10 @@ data |>
 ### Multiple variables
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column}
 ```{r}
 #| output: false
-data |> 
+messy_data |> 
   mutate(
     var_1 = "1",
     var_2 = 2,
@@ -515,8 +467,8 @@ data |>
   )
 ```
 :::
-::: {.column width="40%"}
-- Separate variables using commas `,`
+::: {.column}
+- Separate variables using commas
 - Creating a variable on an earlier line means you can refer to it within the same `mutate()`
 :::
 ::::
@@ -524,10 +476,10 @@ data |>
 ### `if_else`
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column}
 ```{r}
 #| output: false
-data |> 
+messy_data |> 
   mutate(
     var_1 = if_else(
       condition = age %in% c("18", "19", "20"),
@@ -538,7 +490,7 @@ data |>
   )
 ```
 :::
-::: {.column width="40%"}
+::: {.column}
 - `missing` specifies what to do if the value is `NA`
 :::
 ::::
@@ -546,10 +498,10 @@ data |>
 ### `case_when`
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column}
 ```{r}
 #| output: false
-data |> 
+messy_data |> 
   mutate(
     age = as.numeric(age),
     var_1 = case_when(
@@ -561,8 +513,7 @@ data |>
   )
 ```
 :::
-::: {.column width="40%"}
-- `case_when` is from the `dplyr` package
+::: {.column}
 - the condition (left-side) must evaluate to TRUE or FALSE
 - the value to assign if this condition is true (right-side)
 - separated by a tilde `~`
@@ -576,7 +527,7 @@ data |>
 :::: {.columns}
 ::: {.column width="60%"}
 ```{r}
-data <- data |> 
+messy_data <- messy_data |> 
   mutate(
     sex = case_when(
       age == "Males" ~ age,
@@ -604,21 +555,22 @@ data <- data |>
 
 `dplyr::fill()` fills in missing data using the last non-missing values
 
-:::: {.columns}
-::: {.column width="60%"}
-```{r}
-data <- data |> 
-  fill(sex, .direction = "down")
+::::: {.panel-tabset}
 
-data
+### Before
+
+:::: {.columns}
+::: {.column}
+```{r}
+messy_data$sex
 ```
 :::
-::: {.column width="40%"}
+::: {.column}
 ```{r}
 #| eval: false
 # Function arguments
 fill(
-  data, 
+  messy_data, 
   ..., 
   .by = NULL, 
   .direction = c("down", "up", "downup", "updown")
@@ -627,87 +579,26 @@ fill(
 
 :::
 ::::
+### After
 
-## Reshaping data
-
-`dplyr::fill()` fills in missing data using the last non-missing values
-
-::::: {.panel-tabset}
-### Longer
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column}
 ```{r}
-data <- data |> 
-  filter(!is.na(age)) |> 
-  pivot_longer(
-    cols = starts_with("x"),
-    names_to = "year",
-    values_to = "count",
-  )
+messy_data <- messy_data |> 
+  fill(sex, .direction = "down")
 
-data
+messy_data$sex
 ```
 :::
-::: {.column width="40%"}
+::: {.column}
 ```{r}
 #| eval: false
 # Function arguments
-pivot_longer(
-  data,
-  cols,
-  ...,
-  cols_vary = "fastest",
-  names_to = "name",
-  names_prefix = NULL,
-  names_sep = NULL,
-  names_pattern = NULL,
-  names_ptypes = NULL,
-  names_transform = NULL,
-  names_repair = "check_unique",
-  values_to = "value",
-  values_drop_na = FALSE,
-  values_ptypes = NULL,
-  values_transform = NULL
-)
-```
-
-:::
-::::
-### Wider
-:::: {.columns}
-::: {.column width="60%"}
-```{r}
-data <- data |> 
-  filter(!is.na(age)) |> 
-  pivot_wider(
-    names_from = sex,
-    values_from = count,
-  )
-
-data
-```
-:::
-::: {.column width="40%"}
-```{r}
-#| eval: false
-# Function arguments
-pivot_wider(
-  data,
-  ...,
-  id_cols = NULL,
-  id_expand = FALSE,
-  names_from = name,
-  names_prefix = "",
-  names_sep = "_",
-  names_glue = NULL,
-  names_sort = FALSE,
-  names_vary = "fastest",
-  names_expand = FALSE,
-  names_repair = "check_unique",
-  values_from = value,
-  values_fill = NULL,
-  values_fn = NULL,
-  unused_fn = NULL
+fill(
+  messy_data, 
+  ..., 
+  .by = NULL, 
+  .direction = c("down", "up", "downup", "updown")
 )
 ```
 
@@ -715,38 +606,41 @@ pivot_wider(
 ::::
 :::::
 
-## Summaries
+## Reshaping data
 
-::: {.panel-tabset}
-### `summary`
+Use `pivot_longer()` and `pivot_wider()` to reshape datasets
 
-Part of base R
-
-```{r}
-summary(data)
-```
-
-### `tabyl`
-
-From the `janitor` package
+::::: {.panel-tabset}
+### Longer
 
 ```{r}
-tabyl(data, age_group)
-```
-
-### `summarise`
-
-From `dplyr`
-
-```{r}
-data |> 
-  summarise(
-    n_males = sum(Males),
-    n_females = sum(Females)
+#| output-location: column
+messy_data <- messy_data |> 
+  filter(!is.na(age)) |> 
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "year",
+    values_to = "count",
   )
+
+messy_data
 ```
 
-:::
+### Wider
+
+```{r}
+#| output-location: column
+messy_data <- messy_data |> 
+  filter(!is.na(age)) |> 
+  pivot_wider(
+    names_from = sex,
+    values_from = count,
+  )
+
+messy_data
+```
+
+:::::
 
 ## Grouping
 
@@ -757,16 +651,17 @@ Use `group_by()` or the `.by = ` argument
 ### `group_by()`
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column}
 ```{r}
-data |> 
+messy_data |> 
   group_by(age_group) |> 
   summarise(
     n_total = sum(Males) + sum(Females)
-  )
+  ) |> 
+  ungroup()
 ```
 :::
-::: {.column width="40%"}
+::: {.column}
 - When you use `group_by()`, the output remains grouped.
 - Use `ungroup()` to remove the grouping
 :::
@@ -775,16 +670,16 @@ data |>
 ### `.by = `
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column}
 ```{r}
-data |> 
+messy_data |> 
   summarise(
     n_total = sum(Males) + sum(Females),
     .by = age_group
   )
 ```
 :::
-::: {.column width="40%"}
+::: {.column}
 - `.by` applies the grouping just for that operation, so grouping doesn't persist
 - Available for:
   - `filter()` and `filter_out()`
@@ -792,6 +687,82 @@ data |>
   - `summarise()`
   - `slice()` functions
 :::
+::::
+:::::
+
+## Let's practice!
+
+::::: {.columns}
+:::: {.column width="65%"}
+
+Going back to the `penguins` dataset
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Drop the `flip_len` variable"
+data |> 
+  select(-flipper_len)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Rename `bill_len` to `bill_length` and `bill_dep` to `bill_depth`"
+data |> 
+  rename(
+    bill_length = bill_len,
+    bill_depth = bill_dep
+  )
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Create a variable for the ratio of bill length to bill depth"
+data |> 
+  mutate(
+    bill_length_depth_ratio = bill_length / bill_depth
+  )
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Reshape the two `bill` variables into a longer format"
+data |> 
+  pivot_longer(
+    contains("bill"),
+    names_to = "bill_measure",
+    values_to = "bill_value"
+  )
+```
+
+::::
+:::: {.column width="35%"}
+```{r}
+#| echo: false
+
+library(countdown)
+countdown_style(
+  box_shadow = "0px 0px 0px 0px #FFFFFF",
+  color_background = "#FFFFFF",
+  color_running_background = "#FFFFFF",
+  color_running_border = "#FFFFFF",
+  color_finished_background = "#FFFFFF",
+  color_finished_border = "#FFFFFF",
+  color_border = "#FFFFFF",
+  font_size = "3em"
+)
+
+countdown(
+  minutes = 10,
+  seconds = 0,
+  class = c("inline", "no-controls"),
+  start_immediately = TRUE
+  )
+```
+
 ::::
 :::::
 

@@ -1,3 +1,5 @@
+# Important context
+
 ## R vs. RStudio
 
 R is the language that the code is written in.
@@ -40,7 +42,6 @@ RStudio is the interface (GUI) many people use to write R code in.
 
 ![](img/rstudio-output.jpeg)
 
-
 ## `.RProj` files
 
 <!-- Handy files that: -->
@@ -52,14 +53,16 @@ RStudio is the interface (GUI) many people use to write R code in.
 
 ## Working directory
 
+:::: {.columns}
+::: {.column}
 Reproducible workflows start with good file management:
 
 - Folders to organise your files
 - Descriptive names for files and folders
 - `.RProj` files set the working directory
 
-## Working directory
-
+:::
+::: {.column}
 ```
 2026-08-28-penguins-analysis.RProj
 code/
@@ -80,15 +83,18 @@ output/
   sample_description.csv
 penguins_report.docx
 ```
+:::
+::::
 
 ## Absolute vs. relative locations
 
 ::::: {.columns}
+
 :::: {.column}
 ::: {.fragment}
 Absolute file path for the `cleaning.R` script:
 
-`//Volumes/shared drive/research/mayi kuwayu/wave 2/projects/2026-08-27-data-quality/code/cleaning.R`
+`//Volumes/shared drive/research/penguins/2026-08-28-penguins-analysis/code/cleaning.R`
 :::
 ::: {.fragment}
 
@@ -99,70 +105,67 @@ Relative file is relative to the current working directory:
 ::::
 :::: {.column}
 ```
-/2026-08-27-data-quality
-  2026-08-27-data-quality.RProj
-  data_quality_report.docx
-  /code
-    cleaning.R
-    descriptives.R
-    modelling.R
-    visualisation.R
+2026-08-28-penguins-analysis.RProj
+code/
+  cleaning.R
+  descriptives.R
+  modelling.R
+  visualisation.R
+data/
+  data_raw.csv
 ```
 ```
-  /data
-    wave_1.csv
-    wave_2.csv
-  /documentation
-    data_analysis_plan.docx
-    data_dictionary.csv
-  /output
-    model_summary.csv
-    forest_plot.png
+documentation/
+  data_analysis_plan.docx
+  data_dictionary.csv
+output/                     
+  forest_plot.png
+  model_summary.csv
+  sample_description.csv
+penguins_report.docx
 ```
 ::::
 :::::
 
-## Specifying relative locations
+## Absolute vs. relative locations
 
 ::::: {.columns}
 :::: {.column}
 ::: {.fragment}
-Have to provide directions to find the data:
+Use `..` to specify a folder 'up' from the working directory
+:::
+::: {.fragment}
+So if the working directory is:
 
-- `..` means up one folder up
-  - `../` is the same as `mayi kuwayu/projects/`
+`//Volumes/shared drive/research/penguins/2026-08-28-penguins-analysis`
 
 :::
-
 ::: {.fragment}
-- `../../` means two folders up
-  - `../../` is the same as `mayi kuwayu/wave 2`
-  - `../../data/w2_v1.csv`
-  
+Then `../` would be 
+
+`//Volumes/shared drive/research/penguins/`
 :::
 ::::
 :::: {.column}
 ```
-/mayi kuwayu
-  /data
-    w2_v1.csv
-  /projects
-    /2026-08-27-data-quality
-      2026-08-27-data-quality.RProj
-      data_quality_report.docx
-      /code
-        cleaning.R
-        descriptives.R
+2026-08-28-penguins-analysis.RProj
+code/
+  cleaning.R
+  descriptives.R
+  modelling.R
+  visualisation.R
+data/
+  data_raw.csv
 ```
 ```
-        modelling.R
-        visualisation.R
-      /documentation
-        data_analysis_plan.docx
-        data_dictionary.csv
-      /output
-        model_summary.csv
-        forest_plot.png
+documentation/
+  data_analysis_plan.docx
+  data_dictionary.csv
+output/                     
+  forest_plot.png
+  model_summary.csv
+  sample_description.csv
+penguins_report.docx
 ```
 ::::
 :::::
@@ -322,7 +325,7 @@ countdown_style(
 )
 
 countdown(
-  minutes = 5,
+  minutes = 10,
   seconds = 0,
   class = c("inline", "no-controls"),
   start_immediately = TRUE

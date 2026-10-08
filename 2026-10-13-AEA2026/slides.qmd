@@ -16,124 +16,36 @@ execute:
 footer: 'Slides available from [https://benharrap.github.io/workshops/2026-10-13-AEA2026/slides.html](https://benharrap.github.io/workshops/2026-10-13-AEA2026/slides.html)'
 ---
 
-# Getting to know R and RStudio
+{{< include sections/_intro.qmd >}}
 
-> AEA2026
-
-Ben Harrap
-
-## Hello
-
-:::: {.columns}
-::: {.column}
-![[@bharrap.bsky.social](https://bsky.app/profile/bharrap.bsky.social)](img/bsky.png)
-:::
-::: {.column}
-
-![[benharrap.com](https://benharrap.com/)](img/website.png)
-
-:::
-::::
-
-## Outline
-
-::::: {.columns}
-:::: {.column width=45%}
-
-::: {.fragment}
--   Getting setup (30min)
-    -   RStudio interface
-    -   Packages
-    -   Projects and folders
-
-:::
-::: {.fragment}
--   Coding in R (30min)
-    -   Key concepts
-    -   Data types
-    -   Good practices
-    -   Error messages
-
-:::
-::::
-:::: {.column width=45%}
-::: {.fragment}
--   An example workflow (60min)
-    -   Summaries
-    -   Data visualisation
-    -   Regression
-    -   Saving output
-    
-:::
-::: {.fragment}
--   Data wrangling (60min)
-    -   Common transformations
-    -   Summaries
-    
-:::
-::::
-::::
-## What you'll come away with
-
-::: {.incremental}
--   A better understanding of the R ecosystem
--   Lots of code examples
--   Lots more questions
--   The knowledge to figure out how to answer them
-
-:::
-
-## Housekeeping
-
--   Toilets
--   Breaks
--   Please ask questions
--   I use they/them pronouns
-
-General format will be
-
-- Concept
-- Explanation
-- Practice
-
-::: {.callout-tip}
-These boxes will have links to more information
-:::
-
-# Getting started
-
-{{< include sections/_getting_started.qmd >}}
-
-# Coding in R
+{{< include sections/_important_context.qmd >}}
 
 {{< include sections/_coding_in_r.qmd >}}
 
-# Example workflow
-
-## Example workflow
-
-Starting with our clean penguins dataset:
-
-- Summaries and tables
-- Visualisation
-- Regression model
-
 {{< include sections/_example_workflow.qmd >}}
 
-# Data wrangling
+{{< include sections/_data_wrangling.qmd >}}
 
-<!-- {{< include sections/_data_wrangling.qmd >}} -->
+## Where to next?
 
-# That's a wrap!
+R resources:
 
-## Resources
+- R for Data Science <https://r4ds.hadley.nz/>
+- Advanced R <https://adv-r.hadley.nz/index.html>
+- The Epidemiologist R Handbook <https://epirhandbook.com/en/>
+  - A little out of date, but still relevant
 
-- https://r4ds.hadley.nz/
-- https://adv-r.hadley.nz/index.html
-- https://epirhandbook.com/en/
+Consider learning Quarto (<https://quarto.org/>), for reproducible workflows
 
 ## Feedback?
 
 I don't want it!
 
+::: {.fragment}
 (just kidding)
+
+Chat to me now
+
+Email me: [benjamin.harrap@anu.edu.au](mailto:benjamin.harrap@anu.edu.au)
+
+:::

@@ -1,16 +1,130 @@
+# Example workflow
+
+## Example workflow
+
+Continuing with the `penguins` dataset, we'll cover:
+
+- Summaries and tables
+- Data visualisation
+- Regression
+
 # Summaries and tables
 
-## `summarise()` example
+## `dplyr::summarise()` 
 
-## `gtsummary` example
+The `summarise()` function applies the specified summary to the whole dataset
 
-Using the `gtsummary` package
+:::{.fragment}
+```{r}
+#| output-location: column
+data |> 
+  summarise(
+    number_penguins = n(),
+    mean_body_mass = mean(body_mass, na.rm = TRUE),
+    .by = c(species, sex)
+  )
+```
+:::
+
+::: {.incremental}
+- If `.by` is specified, it applies the summaries within each group
+- The summary is returned in the same format as the input (data frame, tibble) 
+
+:::
+
+## `janitor::tabyl()` 
+
+The `tabyl()` function is a convenient way to tabulate data.
+
+:::{.fragment .fade-in-then-semi-out}
+One variable
+
+```{r}
+#| output-location: column
+library(janitor)
+data |> 
+  tabyl(species)
+```
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+Two variables
+
+```{r}
+#| output-location: column
+data |> 
+  tabyl(species, sex)
+```
+:::
+
+::: {.incremental}
+- When tabulating two variables, the first argument is for rows, the second argument is for columns
+- In both cases, the tabulation is returned as a data frame
+
+:::
+
+## `janitor::tabyl()` 
+
+There are several helper functions starting with `adorn_*`, that add to the tabulation
+
+::: {.fragment .fade-in-then-semi-out}
+```{r}
+#| output-location: column
+data |> 
+  tabyl(species) |> 
+  adorn_pct_formatting()
+```
+:::
+::: {.fragment .fade-in-then-semi-out}
+For two variables, `adorn_*` functions sometimes need rows or columns specified
+
+```{r}
+#| output-location: column
+data |> 
+  tabyl(species, sex) |> 
+  adorn_totals("col") |> 
+  adorn_percentages("row") |> 
+  adorn_ns()
+```
+:::
+
+## `gtsummary`
+
+:::: {.columns}
+::: {.column width="50%"}
+The `gtsummary` package has many functions for producing summary tables
 
 ```{r}
 library(gtsummary)
 ```
 
-## `gtsummary` example
+We'll focus on the `tbl_summary()` function
+:::
+::: {.column width="50%"}
+```{r}
+#| eval: false
+# Function arguments
+tbl_summary(
+  data,
+  by = NULL,
+  label = NULL,
+  statistic = list(all_continuous() ~ "{median} ({p25}, {p75})", all_categorical() ~
+    "{n} ({p}%)"),
+  digits = NULL,
+  type = NULL,
+  value = NULL,
+  missing = c("ifany", "no", "always"),
+  missing_text = "Unknown",
+  missing_stat = "{N_miss}",
+  sort = all_categorical(FALSE) ~ "alphanumeric",
+  percent = c("column", "row", "cell"),
+  include = everything()
+)
+```
+:::
+::::
+
+## `tbl_summary()`
 
 :::: {.columns}
 ::: {.column}
@@ -22,7 +136,6 @@ penguin_summary <- tbl_summary(
     sex,           # <2>
     bill_len,      # <2>
     flipper_len,   # <2>
-    sex            # <2>
   )                # <2>
 )
 ```
@@ -47,7 +160,7 @@ penguin_summary |>
 :::
 ::::
 
-## `gtsummary` example
+## `tbl_summary()`
 
 :::: {.columns}
 ::: {.column}
@@ -60,7 +173,6 @@ penguin_summary <- tbl_summary(
     sex, # <2>
     bill_len, # <2>
     flipper_len, # <2>
-    sex # <2>
   ), # <2>
   statistic = list( # <3>
     all_continuous() ~ "{mean} ({sd})", # <3>
@@ -89,7 +201,7 @@ penguin_summary |>
 :::
 ::::
 
-## `gtsummary` example
+## `tbl_summary()`
 
 :::: {.columns}
 ::: {.column}
@@ -102,7 +214,6 @@ penguin_summary <- tbl_summary(
     sex, # <2>
     bill_len, # <2>
     flipper_len, # <2>
-    sex # <2>
   ), # <2>
   statistic = list( # <3>
     all_continuous() ~ "{mean} ({sd})", # <3>
@@ -138,7 +249,7 @@ penguin_summary |>
 :::
 ::::
 
-## `gtsummary` example
+## `tbl_summary()`
 
 :::: {.columns}
 ::: {.column}
@@ -146,12 +257,11 @@ penguin_summary |>
 ```{r}
 penguin_summary <- tbl_summary(
   data,
-    by = species, # <1>
+  by = species, # <1>
   include = c( # <2>
     sex, # <2>
     bill_len, # <2>
     flipper_len, # <2>
-    sex # <2>
   ), # <2>
   statistic = list( # <3>
     all_continuous() ~ "{mean} ({sd})", # <3>
@@ -190,12 +300,12 @@ penguin_summary |>
 :::
 ::::
 
-## `gtsummary` example
+## `tbl_summary()`
 
 :::: {.columns}
 ::: {.column}
 
-To save the output from `gtsummary`, we:
+To save the output from `tbl_summary()`, we:
 
 - convert it to a `tibble`
 - save this as `csv` file
@@ -210,18 +320,13 @@ penguin_summary |>
 ```
 
 :::
-::: {.column}
+::: {.column .fragment}
 ![](img/penguin_summary.png){fig-align="center" width=100%}
 
 :::
 ::::
 
-## Other packages to consider
-
-Summarising data:
-
-- `janitor` has the `tabyl()` function
-- `dplyr` has the `summarise()` function
+## Other packages for tables
 
 Creating tables via Quarto or RMarkdown:
 
@@ -229,13 +334,46 @@ Creating tables via Quarto or RMarkdown:
 - `kable` is good for PDF output
 - `gt` is highly customisable for HTML output
 
+These do not create summaries for you!
+
 ## Let's practice!
 
 ::::: {.columns}
 :::: {.column width="65%"}
 
-- Create a summary table
-- 
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Use `summarise()` to calculate the median body mass within each penguin species"
+data |> 
+  summarise(
+    median_body_mass = median(body_mass, na.rm = TRUE),
+    .by = species
+  )
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Use `tabyl()` to tabulate the number of species and total penguins counted in each year"
+data |> 
+  tabyl(species, year) |> 
+  adorn_totals("row")
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Use `tbl_summary()` to summarise body mass and sex by island"
+tbl_summary(
+  data,
+    by = island,
+  include = c(
+    sex,
+    body_mass, 
+  )
+)
+```
 
 ::::
 :::: {.column width="35%"}
@@ -255,7 +393,7 @@ countdown_style(
 )
 
 countdown(
-  minutes = 5,
+  minutes = 10,
   seconds = 0,
   class = c("inline", "no-controls"),
   start_immediately = TRUE
@@ -274,6 +412,40 @@ countdown(
 `ggplot2` — part of the `tidyverse`, highly customisable
 
 `tidyplots` — simpler interface to `ggplot2`
+
+## `ggplot2`
+
+There are many plot types available, including:
+
+:::: {.columns}
+::: {.column}
+
+Raw data
+
+- Scatter plots (`geom_point()`)
+- Dot plots (`geom_dotplot()`)
+- Line graph (`geom_line()`)
+
+Summaries
+
+- Bar plots (`geom_bar()`, `geom_col()`)
+- Bars with errors (`geom_errorbar()`)
+- Box and whisker plots (`geom_boxplot()`)
+
+:::
+::: {.column}
+
+Distributions
+
+- Histogram (`geom_hist()`)
+- Density (`geom_density()`)
+- Violin (`geom_violin()`)
+
+:::
+::::
+::: {.callout-tip}
+See the documentation for all available plots <https://ggplot2.tidyverse.org/reference/index.html>
+:::
 
 ## `ggplot2`
 
@@ -382,6 +554,8 @@ data |>
   ) +
   geom_line()
 ```
+
+# Questions?
 
 ## Customising a plot
 
@@ -506,7 +680,7 @@ Use `ggplot2` to make a bar chart showing the count of each penguin species, for
 #| eval: false
 #| code-fold: true
 #| code-summary: "Initial specification"
-ggplot(
+practice_plot <- ggplot(
   data,
   aes(
     x = species
@@ -518,12 +692,7 @@ ggplot(
 #| eval: false
 #| code-fold: true
 #| code-summary: "Adding the bars"
-ggplot(
-  data,
-  aes(
-    x = species
-  )
-) +
+practice_plot <- practice_plot +
   geom_bar()
 ```
 
@@ -531,13 +700,7 @@ ggplot(
 #| eval: false
 #| code-fold: true
 #| code-summary: "Format the axes"
-ggplot(
-  data,
-  aes(
-    x = species
-  )
-) +
-  geom_bar() +
+practice_plot <- practice_plot +
   scale_x_discrete(
     name = NULL
   ) +
@@ -551,20 +714,7 @@ ggplot(
 #| eval: false
 #| code-fold: true
 #| code-summary: "Add a theme"
-ggplot(
-  data,
-  aes(
-    x = species
-  )
-) +
-  geom_bar() +
-  scale_x_discrete(
-    name = NULL
-  ) +
-  scale_y_continuous(
-    name = "Count",
-    limits = c(0, 160)
-  ) +
+practice_plot <- practice_plot +
   theme_bw()
 ```
 
@@ -596,13 +746,9 @@ countdown(
 ::::
 :::::
 
+# Questions?
+
 # Regression
-
-# Saving output
-
-
-
-
 
 ## Model notation
 
@@ -617,11 +763,12 @@ regression_results <- lm(
 )
 ```
 
-- Outcome (`body_mass`) left of the tilde `~`
-- Covariates right of the tilde, separated with a plus `+`
+Outcome (`body_mass`) left of the tilde `~`
+
+Covariates right of the tilde, separated with a plus `+`
 
 :::
-::: {.column width="40%"}
+::: {.column width="40%" .fragment}
 
 ```{r}
 #| eval: false
@@ -662,7 +809,10 @@ lm(
 
 ## Model fit
 
+You can plot the output of `lm()`
+
 ```{r}
+#| output-location: column
 plot(regression_results)
 ```
 
@@ -670,11 +820,9 @@ plot(regression_results)
 
 ::::: {.columns}
 :::: {.column}
-::: {.fragment}
 ```{r}
 regression_results
 ```
-:::
 ::::
 :::: {.column}
 ::: {.fragment}
@@ -688,16 +836,12 @@ summary(regression_results)
 ## Accessing model results
 
 ::::: {.columns}
-:::: {.column width="60%"}
+:::: {.column width="60%" .fragment fragment-index=1}
 ```{r}
 names(regression_results)
 ```
 
-&nbsp;
-
-&nbsp;
-
-::: {.panel-tabset}
+::: {.panel-tabset .fragment fragment-index=3}
 ### Coefficients
 
 ```{r}
@@ -718,34 +862,58 @@ regression_results$terms
 
 :::
 ::::
-:::: {.column width="40%"}
+:::: {.column width="40%" .fragment fragment-index=2}
 ![](img/model.png)
 ::::
 :::::
 
+## Accessing model results
+
+`gtsummary` has a function for this ^[I only found this out while making this workshop]
+
+:::: {.columns}
+::: {.column}
+```{r}
+#| eval: false
+tbl_regression(
+  regression_results,
+  intercept = TRUE,
+  pvalue_fun = label_style_pvalue(digits = 3)
+  )
+```
+:::
+::: {.column}
+```{r}
+#| echo: false
+tbl_regression(
+  regression_results,
+  intercept = TRUE,
+  pvalue_fun = label_style_pvalue(digits = 3)
+  ) |> 
+  as_gt() |> 
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(30),
+    table.margin.left = px(10)
+  )
+```
+:::
+::::
 
 ## Available models*
 
-Base R
+Base R:
 
 - Linear `lm()`
 - Generalised linear `glm()`
-  - Binomial
-  - Poisson
-  
+- Time series `ar()`, `arima()`, `arima0()`
 
 Packages for common models:
 
-- `lme4`
-- `gee`
-- `glmm`
-- `brms`
+- `survival` for survival analysis
+- `gee` for generalised estimating equations
+- `lme4` and `glmmTMB` for mixed-effects models
+- `brms` Bayesian stuff
+- `gam` and `gamlss` for generalised additive models
 
 # Questions!
-
-<!-- ## Let's practice -->
-
-<!-- 1. Install the X package -->
-<!-- 2. Fit a X model, regress Y onto X1 + X2 + X3 -->
-<!-- 3. Look at the diagnostic plots -->
-<!-- 4. Look at the results -->

@@ -1,19 +1,26 @@
+# Coding in R
+
 ## `penguins`
 
-A quick look at the `penguins` dataset
+Our dataset for today — the built in dataset `penguins`
 
-:::: {.columns}
-::: {.column width="70%"}
+::::: {.columns}
+:::: {.column width="70%"}
+::: {.fragment}
 ```{r}
 summary(penguins)
-
-head(penguins)
 ```
 :::
-::: {.column width="30%"}
-![Artwork by @allison_horst](img/penguins.png)
+::: {.fragment}
+```{r}
+head(penguins, n = 4)
+```
 :::
 ::::
+:::: {.column width="30%"}
+![Artwork by @allison_horst](img/penguins.png)
+::::
+:::::
 
 ## Comments
 
@@ -98,6 +105,24 @@ data <- read_csv("data/penguins.csv")
 The shortcut for the assignment operator is `Alt + -` or `Option + -`
 :::
 
+## Accessing elements of an object
+
+Sometimes we need to access one element of an object, such as a single column in our data
+
+::: {.fragment}
+We can do this using `$` or `[""]`
+
+```{r}
+#| eval: false
+data$species
+
+data["species"]
+```
+:::
+::: {.fragment}
+This is not always required, such as in the context of pipes
+:::
+
 ## Pipes (`|>`)
 
 Chain sequences of functions together using pipes
@@ -162,12 +187,15 @@ My most commonly used are:
 
 Missing has its own special identity in R — `NA`
 
+```{r}
+penguin_species <- c("Adelie", "Gentoo", "Chinstrap", NA)
+penguin_species
+```
+
 ::: {.fragment}
 It also has its own special function to check if something is missing:
 
 ```{r}
-penguin_species <- c("Adelie", "Gentoo", "Chinstrap", NA)
-penguin_species
 is.na(penguin_species)
 ```
 :::
@@ -317,6 +345,8 @@ You'll get lots of error messages as you learn how to code, this is normal
 
 ## Help files
 
+::::: {.columns}
+:::: {.column}
 Documentation explaining how a function works:
 
 - Description
@@ -324,6 +354,15 @@ Documentation explaining how a function works:
 - Examples
 
 Run `?filter` from the console, or search the 'Help' pane
+::::
+:::: {.column}
+::: {.r-stack}
+![](img/help-1.png){.fragment width="800"}
+
+![](img/help-2.png){.fragment width="800"}
+:::
+::::
+:::::
 
 ## Let's practice!
 
