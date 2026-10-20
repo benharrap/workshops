@@ -1,0 +1,66 @@
+---
+format: revealjs
+---
+
+# Introduction to Quarto
+
+## What is Quarto
+
+<!-- Mention RMarkdown -->
+
+## Types of outputs
+
+- Written content (HTML, PDF, docx)
+- Presentations
+- Websites
+- Books
+- More!
+
+## What is Markdown
+
+
+
+## What is YAML
+
+# Writing
+
+## Markdown
+
+<!-- Explain markdown syntax -->
+
+## Code chunks
+
+<!-- Illustrate code chunk -->
+
+## Figures
+
+<!-- Markdown approach -->
+
+## Figures
+
+<!-- Code chunk approach -->
+
+## Figure options
+
+<!-- Customise elements of a figure -->
+
+## Cross-references
+
+## Citations
+
+## Layout
+
+## divs
+
+
+
+# YAML
+
+## 
+
+<!-- Title, author, date, etc -->
+
+## Global defaults
+
+## Execution options
+

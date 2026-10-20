@@ -1,0 +1,57 @@
+---
+title: "Building a personal website using Quarto"
+format: revealjs
+---
+
+# 
+
+## Requirements
+
+- Quarto
+- Version control
+- Deployment
+- (Domain name)
+
+## Hosting options
+
+## Netlify
+
+## GitHub Pages
+
+# Setup
+
+## Quarto
+
+New project
+
+## YAML
+
+<!-- What is YAML? -->
+
+## YAML
+
+<!-- Important YAML parameters -->
+
+## File names
+
+
+# Adding content
+
+## Profile picture
+
+## Biography
+
+## CV
+
+## Blog posts
+
+# Customising the look
+
+## 
+
+- HTML partials and templates
+- CSS or SCSS
+- Quarto extensions
+
+## Changing the look of social icons
+
